@@ -1,0 +1,2 @@
+Software Time (milliseconds since midnight Jan 1st 1970 UTC): 1769603294355
+Start Time for XDAQ (100) - Rhythm Data @ 30000 Hz: 24919158

@@ -1,0 +1,401 @@
+{
+    "GUI version": "1.0.2",
+    "continuous": [
+      {
+        "folder_name": "XDAQ-100.Rhythm Data/",
+        "sample_rate": 30000.0,
+        "source_processor_name": "XDAQ",
+        "source_processor_id": 100,
+        "stream_name": "Rhythm Data",
+        "recorded_processor": "Record Node",
+        "recorded_processor_id": 102,
+        "num_channels": 40,
+        "channels": [
+          {
+            "channel_name": "C0",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C1",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C2",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C3",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C4",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C5",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C6",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C7",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C8",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C9",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C10",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C11",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C12",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C13",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C14",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C15",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C16",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C17",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C18",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C19",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C20",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C21",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C22",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C23",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C24",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C25",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C26",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C27",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C28",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C29",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C30",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "C31",
+            "description": "Headstage channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.headstage",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.1949999928,
+            "units": "uV",
+            "type": 0
+          },
+          {
+            "channel_name": "ADC1",
+            "description": "ADC input channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.adc",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.000050354,
+            "units": "V",
+            "type": 2
+          },
+          {
+            "channel_name": "ADC2",
+            "description": "ADC input channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.adc",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.000050354,
+            "units": "V",
+            "type": 2
+          },
+          {
+            "channel_name": "ADC3",
+            "description": "ADC input channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.adc",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.000050354,
+            "units": "V",
+            "type": 2
+          },
+          {
+            "channel_name": "ADC4",
+            "description": "ADC input channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.adc",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.000050354,
+            "units": "V",
+            "type": 2
+          },
+          {
+            "channel_name": "ADC5",
+            "description": "ADC input channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.adc",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.000050354,
+            "units": "V",
+            "type": 2
+          },
+          {
+            "channel_name": "ADC6",
+            "description": "ADC input channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.adc",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.000050354,
+            "units": "V",
+            "type": 2
+          },
+          {
+            "channel_name": "ADC7",
+            "description": "ADC input channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.adc",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.000050354,
+            "units": "V",
+            "type": 2
+          },
+          {
+            "channel_name": "ADC8",
+            "description": "ADC input channel from a Rhythm FPGA device",
+            "identifier": "rhythm-fpga-device.continuous.adc",
+            "history": "XDAQ -> TTL Display Panel -> LFP Viewer -> Record Node",
+            "bit_volts": 0.000050354,
+            "units": "V",
+            "type": 2
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "folder_name": "XDAQ-100.Rhythm Data/TTL/",
+        "channel_name": "Rhythm FPGA TTL Input",
+        "description": "Events on digital input lines of a Rhythm FPGA device",
+        "identifier": "rhythm-fpga-device.events",
+        "sample_rate": 30000.0,
+        "type": "int16",
+        "source_processor": "XDAQ",
+        "stream_name": "Rhythm Data",
+        "initial_state": 0
+      },
+      {
+        "folder_name": "MessageCenter/",
+        "channel_name": "Messages",
+        "description": "Broadcasts messages from the MessageCenter",
+        "identifier": "messagecenter.events",
+        "sample_rate": 30000.0,
+        "type": "string",
+        "source_processor": "Message Center",
+        "stream_name": "Rhythm Data"
+      }
+    ],
+    "spikes": []
+  }
