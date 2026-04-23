@@ -1,0 +1,130 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_MonkeyLogicGraphicsLibrary.html">Appx., MonkeyLogic Graphics Library</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_BlackrockLEDdriver.html">Appx., Blackrock LED driver</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>Coordinate Conversion</h1>
+
+			<p>There are several coordinate systems used in NIMH ML for calibration and graphics.</p>
+			
+			<p>
+				<b>sig</b> is analog voltage or digital input (X & Y) fed from eye trackers or joysticks.<br>
+				<b>deg</b> is visual degrees measured from the center of the screen. NIMH ML mostly works on this coordinate system in timing scripts.<br>
+				<b>pix</b> is native pixel coordinates of Windows. The top-left corner is (0,0) and x & y increase as moving toward the bottom-right corner. This is the coordinate system that MGL uses.<br>
+				<b>norm</b> is normalized coordinates in which both x & y have a value between 0 and 1. It is useful when you design layouts independent of the screen size.
+			</p>
+			
+			<p><img src="images\docs_coordinate_systems.png"></p>
+
+			<p class="line-spacing2">The mlcalibrate class provides methods to manipulate the coordinate systems and convert xy coordinates from one system to another. There are 4 mlcalibrate objects that users can access in the timing script: <b>EyeCal</b>, <b>Eye2Cal</b>, <b>JoyCal</b> and <b>Joy2Cal</b>.</p>
+			
+<code>xy_deg = EyeCal.sig2deg(xy_sig, offset);  <gr>% The offset should be [0 0].</gr>
+EyeCal.translate(xy_offset);              <gr>% Translate the system so that xy_offset becomes a new (0,0).</gr>
+EyeCal.rotate(theta);                     <gr>% Rotate the coordinates system by theta (in degrees).</gr>
+EyeCal.custom_calfunc(@function_handle);  <gr>% For user manipulation of calibration.</gr>
+</code>
+			
+			<p>The <b>sig2deg</b> method is device-dependent. It works only when the <a href="docs_CalibratingEyeJoy.html">calibration process</a> is complete. There are three methods that can affect how sig2deg works. The <b>translate</b> method updates the calibration matrix so that the given coordinates become a new origin of the system. The <b>rotate</b> method turns the axes on the origin by the given angle. With the <b>custom_calfunc</b> method, you can plug in a custom function to manipulate the calibration. For example, if you want to move the origin to [3 3], you can write a timing script as below.</p>
+			
+<code>new_origin = [3 3];  <gr>% in degrees</gr>
+JoyCal.custom_calfunc(@custom_joy);
+...
+...
+...
+<bl>function</bl> xy_deg = custom_joy(xy_deg)  <gr>% note that input and output are both in degrees</gr>
+    n = size(xy_deg,1);
+    xy_deg = xy_deg + repmat(new_origin, n, 1);
+<bl>end</bl>
+</code>
+			
+			<p>The difference between JoyCal.translate([3 3]) and the above code is that the former brings [3 3] to [0 0] and the latter moves [0 0] to [3 3].</p>
+			
+			<p class="line-spacing2">Additionally the following methods are available. Except sig2pix, all methods are device-independent. In other words, the results will be the same, no matter which object you use among EyeCal, Eye2Cal, JoyCal and Joy2Cal to call them.</p>
+
+<code>xy_pix = EyeCal.sig2pix(xy_sig, offset);  <gr>% this is a conjugation of sig2deg and deg2pix</gr>
+xy_deg = EyeCal.pix2deg(xy_pix);
+xy_pix = EyeCal.deg2pix(xy_deg);
+xy_deg = EyeCal.subject2deg(xy);  <gr>% get the degree coordinates of a point on the subject screen</gr>
+xy_pix = EyeCal.subject2pix(xy);
+xy_deg = EyeCal.control2deg(xy);  <gr>% get the degree coordinates of a point on the control screen</gr>
+xy_pix = EyeCal.control2pix(xy);
+xy_deg = EyeCal.norm2deg(xy);
+xy_pix = EyeCal.norm2pix(xy);
+wh_deg = EyeCal.norm2size(wh);    <gr>% convert the normalized size (width & height) to visual degrees</gr>
+</code>
+			
+			<p class="line-spacing2">In the scene framework, you can access Tracker's mlcalibrate object inside the adapter like the following.</p>
+			
+<code><bl>classdef</bl> YourAdapter < mladapter
+    <bl>properties</bl>
+        Position
+    <bl>end</bl>
+    <bl>properties</bl> (SetAccess = protected)
+        ScreenPosition
+    <bl>end</bl>
+    <bl>methods</bl>
+        <bl>function</bl> obj = YourAdapter(varargin)<br>
+            obj = obj@mladapter(varargin{:});
+        <bl>end</bl>
+        <bl>function</bl> set.Position(obj,xy_deg)
+            obj.Position = xy_deg;
+            <gr>% If the tracker of the adapter chain is EyeTracker, obj.Tracker.CalFun indicates EyeCal.</gr>
+            obj.ScreenPosition = obj.Tracker.CalFun.deg2pix(xy_deg);
+        <bl>end</bl>
+    <bl>end</bl>
+<bl>end</bl>
+</code>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_AlertFunction.html">Main Menu, Alert function</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_CreatingTask.html">Creating a Task</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>Task flow control</h1>
+
+			<h2>On Error</h2>
+			<p>This menu determines how to handle error trials.</p>
+			<ul>
+				<li><strong>ignore</strong> disregards errors when the next condition is selected.</li>
+				<li><strong>repeat immediately</strong> makes the same condition played repeatedly until the trial succeeds (i.e., trialerror(0) is set in the timing file).</li>
+				<li><strong>repeat delayed</strong> throws error trials back into the queue, but at a later point in the block.</li>
+				<ul>
+					<li>This option is effective only when the condition selection option is <strong>random without replacement</strong>.</li>
+					<li>If possible, the next condition is selected first among the remaining trials and then the error trial is added back to the queue so that the same condition may not be repeated immediately.</li>
+				</ul>
+			</ul>
+
+			<h2 class="line-spacing1" id="Conditions">Conditions</h2>
+			<p>This menu determines the method to select the next condition.</p>
+			<ul>
+				<li><strong>random with replacement</strong> makes the next condition selected randomly, without regard to which conditions have already been chosen.</li>
+				<li><strong>random without replacement</strong> randomly chooses the next condition but excludes those trials already used.</li>
+				<li><strong>increasing</strong> and <strong>decreasing</strong> simply choose the next condition in numerical order, rising or falling as appropriate.  The condition numbers will "wrap" when the end or beginning of the condition list is reached.</li>
+				<li><strong>user-defined</strong> allows a MATLAB function ("condition selection function") to determine how conditions are selected.  This is useful, for example, to enact particular rules about how certain conditions should follow others or how the selection of certain conditions precludes others.</li>
+				<ul>
+					<li>The condition selection function should expect <a href="docs_TrialRecordStructure.html">TrialRecord</a> and optionally MLConfig as input and return a single scalar, the condition to-be-run.</li>
+<code>
+<bl>function</bl> cond_no = cond_selection(TrialRecord)            <gr>% one-argument version</gr>
+<bl>function</bl> cond_no = cond_selection(TrialRecord, MLConfig)  <gr>% two-argument version</gr>
+
+</code>
+					<li>The condition selection function is executed before each trial begins.</li>
+					<li>TrialRecord.CurrentTrialNumber will be 1, when the function is called for the 1st trial; 2 for the 2nd trial and so on.</li>
+					<li>If the function returns a value of "-1", the current block ends and a new block will begin; then, the function will be called again immediately for the new block.</li>
+				</ul>
+			</ul>
+
+			<h2 class="line-spacing1" id="Blocks">Blocks</h2>
+			<p>This menu is identical in logic to the <strong>Conditions</strong> menu above, except that it is used to choose the next block.</p>
+			<ul>
+				<li>See <strong>Conditions</strong> above, for <strong>random with replacement</strong>, <strong>random without replacement</strong>, <strong>increasing</strong> and <strong>decreasing</strong>.</li>
+				<li><strong>user-defined</strong> requires a MATLAB function ("block selection function") that takes <a href="docs_TrialRecordStructure.html">TrialRecord</a> and optionally MLConfig as input and returns a new block number.</li>
+				<ul>
+<code>
+<bl>function</bl> block_no = block_selection(TrialRecord)            <gr>% one-argument version</gr>
+<bl>function</bl> block_no = block_selection(TrialRecord, MLConfig)  <gr>% two-argument version</gr>
+
+</code>
+					<li>The block selection function is evaluated only when the new-block flag is set (e.g., before the very 1st trial, after a block is completed, etc.) and before a trial begins.</li>
+					<li>However, if the block selection function is also the block change function (see below), the function is executed every trial and at the end of a trial (also at the beginning of the very 1st trial).</li>
+					<li>If the block selection function returns a value of "-1", the task will be terminated.</li>
+				</ul>
+				<li><strong>Block change function</strong>, if specified, is called after every trial to determine whether a new block should be initiated.</li>
+				<ul>
+					<li>The block change function has the same definition as the condition selection function or block selection function above and should return a value of "0" to continue the current block or "1" to change it.</li>
+					<li>If the Blocks option is <strong>user-defined</strong> and the block change function is the same file as the block selection function, the function not simply returns a block switch flag but actually determines the next block to be run (e.g., return "3" to switch to the third block).  This feature allows one m-file to control both when a block switches and which block is selected next.</li>
+					<li>If this function returns -1, the task will end.</li>
+				</ul>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

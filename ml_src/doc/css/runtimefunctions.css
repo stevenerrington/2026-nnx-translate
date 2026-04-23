@@ -1,0 +1,124 @@
+table.functionlist, table.functionlist th, table.functionlist td {
+	border: 0;
+}
+
+h1 {
+	color: black;
+	margin: 0.5em 0;
+	font-size: 2.33em;
+	font-weight: bold;
+}
+
+h2 {
+	margin: 0.5em 0;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+h3 {
+	margin-top: 4em;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+table ul {
+	padding-left: 1em;
+}
+
+p.syntax, p.argument, p.returnval, p.example, p.remark, p.success, p.stop, p.property, p.method {
+	font-style: italic;
+}
+
+
+ul.argument, ul.returnval, ul.remark, ul.success, ul.stop, ul.property, ul.method {
+	list-style-type: square;
+}
+
+ul.argument ul, ul.returnval ul, ul.property ul{
+	list-style-type: none;
+}
+
+ul.syntax {
+	display: block;
+	font-family: Consolas, Courier New, monospace;
+	font-weight: bold;
+	font-size: 1.1em;
+	white-space: pre;
+	line-height: 1.4em;
+	list-style-type: none;
+}
+
+ul.syntax gr
+{
+	color: #228b22;
+	font-weight: normal;
+}
+
+ul.example {
+	display: block;
+	font-family: Consolas, Courier New, monospace;
+	white-space: pre;
+	line-height: 1.4em;
+	list-style-type: none;
+}
+
+ul.example gr
+{
+	color: #228b22;
+}
+
+ul.example mg
+{
+	color: #a020f0;
+}
+
+ul.example cn
+{
+	color: #00a3a3;
+}
+
+ul.example bl
+{
+	color: #0000ff;
+}
+
+ul.remark code
+{
+	margin: 1em 2em;
+}
+
+nav {
+	position: absolute;
+}
+
+nav2 {
+	font-family: Arial, Helvetica, sans-serif;
+	position: absolute;
+	top: 2.8125em;
+	left: 0;
+	width: 100%;
+	height: 1.5em;
+	z-index: 998;
+	background: transparent;
+	line-height: 1.5em;
+	color: black;
+	overflow: hidden;
+}
+
+@media print {
+
+.one-column div, .two-columns div {
+	padding: 0;
+}
+
+h3 {
+	margin: 2em 0 1em 0;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
+#bhv_code {
+	margin-top: 0;
+}
+
+}

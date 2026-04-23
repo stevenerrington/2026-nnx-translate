@@ -1,0 +1,119 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_MonitorSetup.html">Hardware, Monitor</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_CalibratingEyeJoy.html">Hardware, Eye/Joystick</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>NI Multifunction I/O Device</h1>
+			<ol>
+				<h2 id="SelectingBoard"><li>Selecting a DAQ Board</li></h2>
+				<p>NIMH MonkeyLogic works with any NI board that is supported by the NI-DAQmx driver. It may be advantageous to see if you already have a usable NI board. If you purchase a new board, it is best to obtain one that can handle all the I/O needs in one board. NIMH ML can use multiple boards, but <u>it does not require two NI boards unlike the original MonkeyLogic</u>. Be aware that older (PCI bus) cards cannot be used if your new computer does not have any PCI slot. The following table lists some current NI board models that are suitable for general I/O requirements.</p>
+				<table style="text-align:center"> 
+					<tr> 
+						<td>Model</td> 
+						<td>Analog Input (SE / DIff)</td> 
+						<td>Analog Output</td> 
+						<td>Digital I/O</td> 
+					</tr> 
+					<tr> 
+						<td>PCIe-6320</td> 
+						<td>16 / 8</td> 
+						<td>0</td> 
+						<td>24 (P0: 8, P1: 8, P2: 8)</td> 
+					</tr> 
+					<tr> 
+						<td>PCIe-6321</td> 
+						<td>16 / 8</td> 
+						<td>2</td> 
+						<td>24 (P0: 8, P1: 8, P2: 8)</td> 
+					</tr> 
+					<tr> 
+						<td>PCIe-6323</td> 
+						<td>32 / 16</td> 
+						<td>4</td> 
+						<td>48 (P0: 32, P1: 8, P2: 8)</td> 
+					</tr> 
+				</table>
+				
+				
+				<h2 id="DevicePinouts" class="line-spacing2"><li>Device Pinouts</li></h2>
+				<p>Connecting external devices to the NI board requires knowing which pin is mapped to which signal. Locate the necessary information in the product's datasheet or by right-clicking on installed devices in the NI Measurement & Automation Explorer (NI MAX) software.</p>
+				
+				<p><img src="images\docs_NI_device_pinouts.png"></p>
+				
+				<p>Inputs from external devices can be connected to NI boards via NI terminal blocks. Unshielded screw terminal blocks, such as CB-68LP and CB-68LPR, are low-cost and good for <a href="https://www.nimh.nih.gov/research/research-conducted-at-nimh/research-areas/clinics-and-labs/ln/shn/interface-for-monkeylogic.shtml">designing a custom interface box</a>. There are also BNC terminal blocks, like BNC-2090A, for a ready-made solution. For the details, please refer to the <a href="http://www.ni.com/product-documentation/53440/en/" onClick="return external_link();">NI DAQ Multifunction I/O Accessory Guide<span class="ext"></span></a>.</p>
+				
+				
+				<h2 id="AIGroundConfiguration" class="line-spacing2"><li>Analog Input Ground Configuration</li></h2>
+				
+				<p>The grouding scheme of analog input of an NI data acquisition board must be wired and configured correctly in NIMH ML. There are typically three ground configurations available for NI devices; differential (DIFF), referenced single-ended (RSE) and nonreferenced single-ended (NRSE).<p>
+
+				<p>For a signal source referenced to the earth or building ground, try the RSE mode. In a typical lab environment, many devices run on custom power supplies or batteries and their voltage output may not be referred to an absolute reference. For those signals, try DIFF or NRSE. For more information, see <a href="http://www.ni.com/white-paper/3344/en/" onClick="return external_link();">Field Wiring and Noise Considerations for Analog Signals<span class="ext"></span></a>.</p>
+
+				<p>The [AI configuration] option on the MonkeyLogic main menu must be set to match the configuration.</p>
+				
+				<p><img src="images\docs_NI_ai_configuration.png"></p>
+				<ol type="i">
+					<h3 id="DIFF" class="line-spacing1"><li>Differential mode (DIFF)</li></h3>
+					<p>In the differential mode, the potential difference is measured between two terminals seperated by 8 channels, for example, AI 0 (+) and AI 8 (-). This mode can deliver more accurate measurements with less noise but takes twice as many channels of the NI board as the other modes.</p>
+					
+					<h3 id="RSE" class="line-spacing1"><li>(Referenced) Single-Ended mode (RSE)</li></h3>
+					<p>In this mode, the measurement is made with respect to a single common ground node, <strong>AI GND</strong>. Connect the (+) input to an AI channel pin (AI 0, AI 1, ...) and the (-) input to <strong>AI GND</strong>.</p>
+					
+					<h3 id="NRSE" class="line-spacing1"><li>Nonreferenced Single-Ended mode (NRSE)</li></h3>
+					<p>The NRSE mode also makes all measurements with respect to a single node (<strong>AI SENSE</strong>), but the potential at this node is not an absolute reference and can vary. If you have many custom devices and it is uncertain whether they are properly grounded or not, use NRSE. Connect the (+) input to an AI channel pin (AI 0, AI 1, ...) and the (-) input to <strong>AI SENSE</strong>.
+				</ol>
+			</ol>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

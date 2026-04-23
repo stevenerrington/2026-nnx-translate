@@ -1,0 +1,325 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_TaskflowControl.html">Main Menu, Task flow control</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_ScriptingScenes.html">Task Build, Scripting scenes</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>Creating a Task</h1>
+			<p>The best way to learn how to write a task is to modify one of the many examples found in the "task" folder of the NIMH ML installation directory.</p>
+			<p>NIMH ML requires two files to run a task: <b>conditions file</b> & <b>timing script</b>. However, the conditions file can be replaced with a userloop function and there are two ways to write timing scripts (version 1 and version 2). So there are a total of four ways to create a task</p>
+			<ul>
+				<li>a conditions file + timing script(s) v1</li>
+				<li>a userloop function + timing script(s) v1</li>
+				<li>a conditions file + timing script(s) v2</li>
+				<li>a userloop function + timing script(s) v2</li>
+			</ul>
+
+			<ol type="A">
+				<h2 id="ConditionsFile" class="line-spacing2"><li>Conditions File</li></h2>
+				<p><b>The conditions file</b> is a text file that specifies possible combinations of stimuli ("TaskObjects") within a trial. Each combination defines a "condition". During experiment execution, different conditions are selected to run as determined by the options in the <a href="docs_MainMenu.html#Task">Task submenu</a>. Conditions can be grouped into blocks and selected collectively. The rule of selecting/switching blocks can also be determined on the menu as well (see <a href="docs_MainMenu.html#BlocksPane">[Blocks] pane</a>).</p>
+				
+				<p>Below is an example of a conditions file for a delayed match-to-sample (DMS) task using a total of 4 picture stimuli (A, B, C and D). A DMS task requires a subject to remember the sample stimulus and identify it from a set of stimuli presented subsequently. In this version, a trial begins with an eye fixation. When the subject successfully fixates on the white circle shown at the center of the screen, an image ("sample") is displayed briefly, turned off and followed by a delay period. At the end of the delay period, two images ("sample" and "distractor") are presented on either side of the screen and the subject is required to indicate a choice by making a saccade eye movement to the chosen target. If the choice matches the sample image, a reward is delivered. Then, an inter-trial interval begins. The conditions file for this task includes TaskObjects that represent the fixation dot, the sample image and the distractor image.</p>
+				<p><img src="images/docs_create_task_dms.png" class="center"></p>
+
+				<p class="line-spacing2">The conditions file consists of a header followed by <b>consecutively numbered conditions</b>. All columns are <b>tab-delimited</b>, which means that the columns are distinguished by tabs. <u>It is a very common mistake to use spaces between columns, instead of tabs. Be certain to use tabs.</u></p>
+<style>
+.conditions { border:0; border-spacing:0; font-size:15; }
+.conditions td { border:0; padding:0 4; }
+</style>
+<table class="code conditions">
+<tr><td>Condition</td><td>Info</td><td>Frequency</td><td>Block</td><td>Timing File</td><td>TaskObject#1</td><td>TaskObject#2</td><td>TaskObject#3</td><td>TaskObject#4</td></tr>
+<tr><td>1</td><td>'samp','A','match',-1</td><td>1</td><td>1 3</td><td>dms</td><td>fix(0,0)</td><td>pic(A,0,0)</td><td>pic(A,-4,0)</td><td>pic(B,4,0)</td></tr>
+<tr><td>2</td><td>'samp','A','match',1</td><td>1</td><td>1 3</td><td>dms</td><td>fix(0,0)</td><td>pic(A,0,0)</td><td>pic(A,4,0)</td><td>pic(B,-4,0)</td></tr>
+<tr><td>3</td><td>'samp','B','match',-1</td><td>1</td><td>1 3</td><td>dms</td><td>fix(0,0)</td><td>pic(B,0,0)</td><td>pic(B,-4,0)</td><td>pic(A,4,0)</td></tr>
+<tr><td>4</td><td>'samp','B','match',1</td><td>1</td><td>1 3</td><td>dms</td><td>fix(0,0)</td><td>pic(B,0,0)</td><td>pic(B,4,0)</td><td>pic(A,-4,0)</td></tr>
+<tr><td>5</td><td>'samp','C','match',-1</td><td>1</td><td>2 3</td><td>dms</td><td>fix(0,0)</td><td>pic(C,0,0)</td><td>pic(C,-4,0)</td><td>pic(D,4,0)</td></tr>
+<tr><td>6</td><td>'samp','C','match',1</td><td>1</td><td>2 3</td><td>dms</td><td>fix(0,0)</td><td>pic(C,0,0)</td><td>pic(C,4,0)</td><td>pic(D,-4,0)</td></tr>
+<tr><td>7</td><td>'samp','D','match',-1</td><td>1</td><td>2 3</td><td>dms</td><td>fix(0,0)</td><td>pic(D,0,0)</td><td>pic(D,-4,0)</td><td>pic(C,4,0)</td></tr>
+<tr><td>8</td><td>'samp','D','match',1</td><td>1</td><td>2 3</td><td>dms</td><td>fix(0,0)</td><td>pic(D,0,0)</td><td>pic(D,4,0)</td><td>pic(C,-4,0)</td></tr>
+</table>
+				<p>The <b>Info</b> column is used here to pass labels to the timing file about which image is the sample and where on the screen the matching image will be displayed; this column is intended to make deciphering the conditions easier for the user, and does not affect actual task execution. Users can access this information in the timing script, like <span class="code">Info.samp</span> and <span class="code">Info.match</span>. This column is optional and may be deleted from the header.</p>
+				
+				<p>The <b>Frequency</b> column is the weight or likelihood of that particular condition will be selected relative to other conditions. For example, if a condition has a frequency of 3, it has 3 times more chance of being selected than a condition with a frequency of 1.</p>
+				
+				<p>In the <b>Block</b> column, the numbers correspond to those blocks in which each condition can appear. Here, for instance, Block 1 is composed of Conditions 1-4 in which Images A and B are used and Block 2 has Conditions 5-8 in which Images C and D are used.  Block 3 uses all of them. Therefore, if the user chooses to run only Block 1 from the main menu (or if that block is selected on-line during task execution by pre-specified criteria), only Conditions 1-4 will constitute the pool of possible conditions. Running block 3, on the other hand, will allow all conditions (1 through 8) to be placed into the selection pool. <u>Note that 1 and 3 (or 2 and 3) are separated by a space in the Block column, not a tab.</u></p>
+				
+				<p>The <b>Timing File</b> refers to the timing script (MATLAB m-file) which calls up each stimulus and checks for fixation, target acquisition, etc. Each condition can be associated with a different timing file, if desired. See below for how to write timing files.</p>
+				
+				<p><b>TaskObjects</b> are identified by their columnar locations (i.e., TaskObject numbers). They consist of three-letter symbols (fix, pic, mov, crc, sqr, snd, stm, ttl and gen) and parameters for their generation or display (see <a href="docs_TaskObjects.html">TaskObjects</a> for details). <u>To add more TaskObjects in a trial, add more TaskObject columns to the header.</u></p>
+
+
+				<h2 id="Userloop" class="line-spacing2"><li>Userloop Function</li></h2>
+				<p>The conditions file requires defining all trial conditions explicitly. This may not be convenient sometimes, for example, when there are so many conditions and stimuli or when the task needs a flexible way of randomizing trial sequences and handling error trials.</p>
+				
+				<p><b>The userloop function</b> is a MATLAB function that feeds the information necessary to run the next trial, in lieu of the conditions file. It is called before each trial starts and allows users to determine which TaskObject and which timing script should be used for the upcoming trial on the fly.</p>
+				
+<code style="margin-left:-2em;"><bl>function</bl> [C,timingfile,userdefined_trialholder] = dms_userloop(MLConfig,TrialRecord)
+    C = [];
+    timingfile = <mg>'dms.m'</mg>;  <gr>% { 'dms1.m', 'dms2.m', 'dms3.m', ... } for multiple scripts</gr>
+    userdefined_trialholder = '';
+
+    <gr>% NIMH ML calls the userloop function once, before the task starts, to get all timing file names.
+    % You should not count this very first call, when you set the condition of next trial. Otherwise,
+    % the stimuli that you think you assigned for the first trial may be wasted, depending on the way
+    % you program the userloop. One way to avoid this issue is just to return without assigning stimuli,
+    % if this is the very first call.</gr>
+    <bl>persistent</bl> <cn>timing_filenames_retrieved</cn>
+    <bl>if</bl> isempty(<cn>timing_filenames_retrieved</cn>)
+        <cn>timing_filenames_retrieved</cn> = true;
+        <bl>return</bl>
+    <bl>end</bl>
+
+    <gr>% The userloop function is called before the trial number counters count up. For example,
+    % TrialRecord.CurrentTrialNumber is 0 in the userloop, when Trial 1 is about to start.</gr>
+    condition = mod(TrialRecord.CurrentTrialNumber,8) + 1;
+    <bl>switch</bl> condition
+        <bl>case</bl> 1, C = {<mg>'fix(0,0)'</mg>,<mg>'pic(A,0,0)'</mg>,<mg>'pic(A,-4,0)'</mg>,<mg>'pic(B, 4,0)'</mg>}; Info.samp = <mg>'A'</mg>; Info.match = -1;
+        <bl>case</bl> 2, C = {<mg>'fix(0,0)'</mg>,<mg>'pic(A,0,0)'</mg>,<mg>'pic(A, 4,0)'</mg>,<mg>'pic(B,-4,0)'</mg>}; Info.samp = <mg>'A'</mg>; Info.match = 1;
+        <bl>case</bl> 3, C = {<mg>'fix(0,0)'</mg>,<mg>'pic(B,0,0)'</mg>,<mg>'pic(B,-4,0)'</mg>,<mg>'pic(A, 4,0)'</mg>}; Info.samp = <mg>'B'</mg>; Info.match = -1;
+        <bl>case</bl> 4, C = {<mg>'fix(0,0)'</mg>,<mg>'pic(B,0,0)'</mg>,<mg>'pic(B, 4,0)'</mg>,<mg>'pic(A,-4,0)'</mg>}; Info.samp = <mg>'B'</mg>; Info.match = 1;
+        <bl>case</bl> 5, C = {<mg>'fix(0,0)'</mg>,<mg>'pic(C,0,0)'</mg>,<mg>'pic(C,-4,0)'</mg>,<mg>'pic(D, 4,0)'</mg>}; Info.samp = <mg>'C'</mg>; Info.match = -1;
+        <bl>case</bl> 6, C = {<mg>'fix(0,0)'</mg>,<mg>'pic(C,0,0)'</mg>,<mg>'pic(C, 4,0)'</mg>,<mg>'pic(D,-4,0)'</mg>}; Info.samp = <mg>'C'</mg>; Info.match = 1;
+        <bl>case</bl> 7, C = {<mg>'fix(0,0)'</mg>,<mg>'pic(D,0,0)'</mg>,<mg>'pic(D,-4,0)'</mg>,<mg>'pic(C, 4,0)'</mg>}; Info.samp = <mg>'D'</mg>; Info.match = -1;
+        <bl>case</bl> 8, C = {<mg>'fix(0,0)'</mg>,<mg>'pic(D,0,0)'</mg>,<mg>'pic(D, 4,0)'</mg>,<mg>'pic(C,-4,0)'</mg>}; Info.samp = <mg>'D'</mg>; Info.match = 1;
+    <bl>end</bl>
+
+    <gr>% You can provide the Info field as below, for compatibility with previous scripts written for conditions
+    % files, or use the TrialRecord.User field to pass trial-specific information to the timing script.</gr>
+    TrialRecord.setCurrentConditionInfo(Info);
+
+    <gr>% You can assign a different timing script for each trial, if you registered multiple scripts
+    % at the first call. You are supposed to return only one script name, except for the first call.</gr>
+    timingfile = <mg>'dms.m'</mg>;
+
+    <gr>% When the userloop is used, ML does not need the block number and the condition number to determine
+    % the conditions of next trials. However, you can still assign some numbers to them for your reference
+    % and record keeping. They are 1, if you don't assign any number.
+    % If you need to stop the task immediately after the userloop without running the next trial, assign -1
+    % to TrialRecord.NextBlock.</gr>
+    TrialRecord.NextBlock = 1;
+    TrialRecord.NextCondition = condition;
+<bl>end</bl><br>
+</code>
+				
+				<p>The first return value, "C", is a cell array that contains TaskObjects.</p>
+				
+				<p>The second return value ("timingfile") is the name(s) of the timing file(s). <u>Note that the very first call to this function is made before the <a href="docs_RunningTask.html#PauseMenu">pause menu</a> shows up and it is for retrieving all the timing file names that will be used.</u> So there is no need to fill the TaskObject list ("C"), if it is the first call. The above code provides a tip for how to exit the function early without the TaskObject list. To use multiple timing scripts, put their names in a cell char array and assign it to "timingfile". <u>Except the very first call, return only one timing script name for that particular condition.</u></p>
+				
+				<p>The third argument ("userdefined_trialholder") is reserved for custom runtime functions and should be empty.</p>
+				
+				<p>To pass any custom value to the timing script, assign it under the <span class="code">TrialRecord.User</span> structure. Retrive the value in the timing file as shown below.</p>
+<code style="margin-left:2em">TrialRecord.User.var1 = var1;  <gr>% in the userloop</gr>
+var1 = TrialRecord.User.var1;  <gr>% in the timing script</gr>
+</code>
+				<p>With the userloop function, it is possible to preload large stimuli and reuse them. Reuse can avoid unwanted increases in the inter-trial interval for stimulus creation. <u>The details of the userloop function are well-documented in the example tasks that are under the "task\userloop" directory of the ML installation folder.</u></p>
+
+
+				<h2 id="RuntimeVersion1" class="line-spacing2"><li>Timing Script v1</li></h2>
+				<p>Task sequences can be programmed with plain MATLAB scripts ("timing scripts") using a rich set of functions for stimulus presentation and behavior monitoring. Some functions (called "timing script functions") are available only while the timing scripts are executed. Native MATLAB commands and functions can be used as well. For the complete list of all timing script functions, see "<a href="docs_RuntimeFunctions.html">Timing script functions & Command window functions</a>".</p>
+				
+				<p>The timing script functions of the timing script v1 are written to be compatible with those of the original MonkeyLogic. One major difference between NIMH ML and the original ML is in how movies are played. The original ML shows one movie frame per each refresh cycle, irrespective of the frame rate of the movie. As a result, the duration of a movie changes depending on the refresh rate of the monitor. NIMH ML determines the next frame based on the frame rate and the elapsed time so that the speed of the playback can be independent of the monitor refresh rate. To play movies as the original ML does, see the description of MOV in the <a href="docs_TaskObjects.html">TaskObject</a> manual.</p>
+				
+				<p>In the conditions file example above, each condition defines 4 TaskObjects (fixation cue, sample, match and distractor) and they are controlled by the "dms" timing script. The following code snippet is a piece from the "dms" script and shows how to present TaskObject#1 and track eye movements. <u>The complete script is in the "task\runtime v1" directory of NIMH ML.</u></p>
+<code style="margin-left:2em"><gr>% initial fixation:</gr>
+toggleobject(<span style="color:red">1</span>);      <gr>% turn on TaskObject#1</gr>
+ontarget = eyejoytrack(<mg>'acquirefix'</mg>, <span style="color:red">1</span>, fix_radius, wait_time);  <gr>% check fixation acquisition</gr>
+<bl>if</bl> ~ontarget          <gr>% if fixation was not acquired within wait_time,</gr>
+    toggleobject(<span style="color:red">1</span>);  <gr>% turn off TaskObject#1 and exit early</gr>
+    <bl>return</bl>
+<bl>end</bl>
+ontarget = eyejoytrack(<mg>'holdfix'</mg>, <span style="color:red">1</span>, fix_radius, hold_time);     <gr>% check fixation hold</gr>
+<bl>if</bl> ~ontarget          <gr>% if fixation was not maintained for hold_time,</gr>
+    toggleobject(<span style="color:red">1</span>);  <gr>% turn off TaskObject#1 and exit early</gr>
+    <bl>return</bl>
+<bl>end</bl>
+</code>
+				<p>Two timing script functions, <b>toggleobject</b> and <b>eyejoytrack</b> are used. <b><a href="docs_RuntimeFunctions.html#toggleobject">toggleobject</a></b> turns on and off TaskObject(s) ("1" that indicates TaskObject#1 is colored in red) and <b><a href="docs_RuntimeFunctions.html#eyejoytrack">eyejoytrack</a></b> tests if eye fixation is acquired and maintained.</p>
+
+
+				<h2 id="RuntimeVersion2" class="line-spacing2"><li>Timing Script v2 (Scene Framework)</li></h2>
+				<p>The same experiment can be scripted differently by using the timing script v2 (a.k.a. scene framework). The entire code of this example is in the "task\runtime v2\1 dms with new runtime" directory.</p>
+<code style="margin-left:2em"><gr>% scene 1: fixation</gr>
+fix1 = SingleTarget(eye_);
+fix1.Target = <span style="color:red">1</span>;                 <gr>% TaskObject#1</gr>
+fix1.Threshold = fix_radius;
+wth1 = WaitThenHold(fix1);
+wth1.WaitTime = wait_time;
+wth1.HoldTime = hold_time;
+scene1 = create_scene(wth1, <span style="color:red">1</span>);  <gr>% TaskObject#1</gr>
+run_scene(scene1);               <gr>% nothing will be displayed until run_scene() starts</gr>
+<bl>if</bl> ~wth1.Success                 <gr>% check the result</gr>
+    <bl>return</bl>
+<bl>end</bl>
+</code>
+				<p>In the timing script v2, <i>toggleobject</i> and <i>eyejoytrack</i> are replaced with two new functions, <b>create_scene</b> and <b>run_scene</b>. <b><a href="docs_RuntimeFunctions.html#create_scene">create_scene</a></b> receives an "adapter" as an input argument and returns a "scene" struct. This scene struct, in turn,  becomes the input argument of <b><a href="docs_RuntimeFunctions.html#run_scene">run_scene</a></b>.</p>
+<code style="margin-left:2em">scene = create_scene(adapter [,taskobject]);
+flip_time = run_scene(scene [,eventcode]);
+</code>
+
+				<p>The "adapter" is a MATLAB class object and a building block of a scene. The rest of this document explains what is the idea behind the scene framework and how to use the adapters.</p>
+				<p>TaskObjects can still be presented with <b><a href="docs_RuntimeFunctions.html#create_scene">create_scene</a></b>. <u>Alternatively, stimuli can be created with adapters in the scene framework.</u> While TaskObjects have a fixed set of properties and are limited in the way that they can be manipulated, adapter stimuli can be flexibly extended and implement very complex shapes/patterns such as random dot motion and Gabor patches.</p>
+
+				<ol>
+					<h3 id="RuntimeVersion2_Background" class="line-spacing2"><li>Background</li></h3>
+					<p>In the timing script v1, stimulus presentation and behavior tracking are handled by <i>toggleobject</i> and <i>eyejoytrack</i>, respectively. This approach is not ideal for designing dynamic, interactive stimuli, for the following reasons.</p>
+					<ol>
+						<li>Stimuli and behavior are processed separately and there is no convenient or efficient way to change stimuli during behavior tracking.</li>
+						<li>While tracking behavior, <i>eyejoytrack</i> tries to read a new sample at 1-ms intervals or faster, which leaves too little time to perform demanding computations or draw complex stimuli.</li>
+					</ol>
+					<p><img src="images/docs_scene_runtime_v1.png" class="center"></p>
+					
+					<p>The timing script v2 takes a different approach. In this new framework, behavior tracking and stimulus presentation are both handled by one function, <b><a href="docs_RuntimeFunctions.html#run_scene">run_scene</a></b>. In addition, samples collected during one refresh interval are all analyzed together at the beginning of the next refresh interval and the screen is redrawn based on the sample analysis.</p>
+					<p><img src="images/docs_scene_runtime_v2.png" class="center"></p>
+					
+					<p>Therefore, the cycle of [analyzing samples]-[drawing screen]-[presenting] is repeated each frame and, by tapping into this cycle, we evaluate the behavior and then decide what to display on the upcoming frame.</p>
+					
+					<p>A disadvantage of this new approach is not knowing when the behavior occurred until the next frame begins. (See the time of the behavior occurrence, the green arrow, and the time of behavior detection in the above figure.) However, this is often not a serious issue for the following reasons.</p>
+					<ol>
+						<li>We cannot update the screen contents until the next vertical blank time anyway, so it is not always necessary to detect a behavior change immediately. (audio stimuli may be a different story and thus <i>toggleobject</i> and <i>eyejoytrack</i> can be used instead.)</li>
+						<li>Although the program may detect behavior a little later (by one refresh cycle), no timing information is lost. We can still get the exact time when the behavior occurred both online and offline.</li>
+						<li>What is not possible is to call <b><a href="docs_RuntimeFunctions.html#eventmarker">eventmarker</a></b> and stamp the reaction time in the middle of a frame when the behavior occurs. However, the window-crossing time cannot be an accurate measure of the reaction time, considering the size of the fixation window is arbitrary. Precise reaction times should use a velocity criterion, which requires offline analysis.</li>
+					</ol>
+					<p>In spite of some limitations, the new approach has advantages in dynamic, precise frame-by-frame control of visual stimuli. In fact, it is the way most of game software handles graphics.</p>
+
+					
+					<h3 id="WhatIsTheAdapter" class="line-spacing2"><li>What is the adapter?</li></h3>
+					<p>In the scene framework, a task is built by combining small blocks, called adapters, into scenes and executing them according to the task scenario and the subject's response.</p>
+					<p>An adapter is a MATLAB class object designed to perform a simple action, like detecting a behavior pattern or drawing an object.</p>
+					<p>Each adapter has two member functions, <b>analyze()</b> and <b>draw()</b>. These functions are called by run_scene() during each frame. The return value of <b>analyze()</b> is a logical scalar (named continue_) and determines whether to contine to the next frame or stop the scene.</p>
+					<p><u>Multiple adapters can be concatenated as a chain</u> to do more complex jobs. There are >50 built-in adapters available and users can craft custom adapters from the provided template (see the "ext\ADAPTER_TEMPLATE.m" file).</p>
+					<p>Each adapter has the <b>Success</b> property, by default, which typically indicates whether the target behavior is detected or not. Adapters can also have other custom properties to show the results of analysis performed during scenes.</p>
+					<p id="HowToCreateAdapterChains" class="line-spacing3"><img src="images/docs_scene_adapter_chain.png" class="center"></p>
+
+
+					<h3 class="line-spacing2"><li>How to create adapter chains</li></h3>
+					<p>All adapter chains must start with a special adapter called <b><a href="docs_RuntimeFunctions.html#Trackers">Tracker</a></b>. There are currently 8 trackers in NIMH ML and they are pre-defined with reserved names: <b>eye_</b>, <b>eye2_</b>, <b>joy_</b>, <b>joy2_</b>, <b>touch_</b>, <b>button_</b>, <b>mouse_</b> and <b>null_</b>.  Each tracker reads new data samples from the device that its name designates.  <b>null_</b> does not read any data.</p>
+
+					<p>To be linked as a chain, one adapter should be an input argument of another adapter's constructor.  The one that becomes the input argument
+					is the <b>child adapter</b> and the one that takes the child adapter is the <b>parent adapter</b>.  The one that is at the end of a chain (the opposite end to the tracker) is the <b>topmost adapter</b> and the topmost adapter becomes the argument of the <b><a href="docs_RuntimeFunctions.html#create_scene">create_scene</a></b> function.</p>
+<code style="margin-left:2em"><span style="color:blue">child</span> = Adapter1(<a>tracker</a>);      <gr>% child is an Adapter1 object.</gr>
+<span style="color:green">parent</span> = Adapter2(<span style="color:blue">child</span>);       <gr>% parent is an Adapter2 object.</gr>
+<span style="color:red">topmost</span> = Adapter3(<span style="color:green">parent</span>);     <gr>% topmost is an Adapter3 object.</gr>
+<b>scene</b> = create_scene(<span style="color:red">topmost</span>);  <gr>% So this scene is a chain of topmost - parent - child - tracker.</gr>
+run_scene(<b>scene</b>);
+</code>
+					
+					<p>All input properties of adapters should be assigned/adjusted before the <b>create_scene</b> function is called, because <b>create_scene</b> stores their initial values to reconstruct the scene for later replay. In addition, it is best to create all scenes before any <b><a href="docs_RuntimeFunctions.html#run_scene">run_scene</a></b> is called so that there is no initialization delay once the task begins.
+					Therefore, the prefered order of writing a scene script is:</a>
+
+					<ol type="1">
+						<li>Declare adapters and link them.</li>
+						<li>Adjust input properties of the adapters.</li>
+						<li>Create scenes.</li>
+						<li>Run the scenes.</li>
+					</ol>
+
+					<p>Adapter chains begin to work when they are called by the <b>run_scene</b> function in the timing script. Nothing is presented until <b>run_scene</b> is called.</p>
+					
+					<p><u>A scene is finished when the <b>topmost</b> adapter stops.</u> The stop condition is different from adapter to adapter, but, when connected as a chain, only the stop condition of the <b>topmost</b> adapter matters.</p>
+
+
+					<h3 id="SceneAnalysis" class="line-spacing2"><li>Scene analysis</li></h3>
+					<p>What happened during a scene can be read out from each adapter's properties. In this code snippet, for example, the scene can be stopped either by eye fixation, button press, or time out and we want to know which one is it. Then, after run_scene(), we can check the Success property of each adapter, like the following.</p>
+
+<code style="margin-left:2em"><span style="color:#888888">fix = SingleTarget(eye_);
+fix.Target = [-5 5];
+fix.Threshold = 3;
+wth = WaitThenHold(fix);
+wth.WaitTime = 3000;
+wth.HoldTime = 0;
+btn = SingleButton(button_);
+btn.Button = 1;
+ac = AllContinue(wth);
+ac.add(btn);
+scene = create_scene(ac);
+run_scene(scene);</span>
+
+<bl>if</bl> wth.Success &nbsp<gr>% or fix.Success will do the same in this case</gr>
+    <gr>% eye fixation</gr>
+<bl>elseif</bl> btn.Success
+    <gr>% button press</gr>
+<bl>else</bl>
+    <gr>% time out</gr>
+<bl>end</bl>
+</code>
+					
+					<p>If wth.Success is true, it means that eye fixation was acquired within 3 s. If not, it must be button press or time out that terminated the scene, which we can determine by testing btn.Success.</p>
+
+
+					<h3 id="RunSceneParam" class="line-spacing2"><li>Making your own adapter</li></h3>
+					<p>This section is for those who want to write their own adapters. All adapters have four common member functions: <b>init</b>, <b>analyze</b>, <b>draw</b> and <b>fini</b> (for the role of each function, see the ext/ADAPTER_TEMPLATE.m file). They all receive the same input argument, p, which is an instantiation of the RunSceneParam class. It has many useful methods, including access to some timing script functions within the adapter.</p>
+<code>elapsed_time = p.scene_time();   <gr>% time passed from the scene start</gr>
+frame_no = p.scene_frame();      <gr>% current frame number; 0-based.</gr>
+p.eventmarker(eventcodes);       <gr>% eventcodes to stamp when the next frame is presented</gr>
+</code>
+
+					<p>The following functions are the same functions used in the timing file.</p>
+<code>p.<a href="docs_RuntimeFunctions.html#trialtime">trialtime</a>();
+p.<a href="docs_RuntimeFunctions.html#goodmonkey">goodmonkey</a>(duration,<mg>'nonblocking'</mg>,2);   <gr>% use with the 'nonblocking' option</gr>
+p.<a href="docs_RuntimeFunctions.html#dashboard">dashboard</a>(line_no,text,color);
+p.DAQ.<a href="docs_RuntimeFunctions.html#eventmarker">eventmarker</a>(eventcodes);            <gr>% eventcodes to stamp immediately</gr>
+</code>
+					<p>To call <b>goodmonkey()</b> inside the adapter, you will have to use the 'nonblocking' option together. Otherwise, the scene will be paused until the reward delivery is finished.</p>
+					<p>The difference between <b>p.eventmarker()</b> and <b>p.DAQ.eventmarker()</b> is that the former stamps eventcodes when the next frame starts but the latter does immediately.</p>
+
+					<p>When programing an adapter of your own, the child adapter can be accessed via the <b>Adapter</b> property of the current adapter.</p>
+<code style="margin-left:2em">obj.Success          <gr>% Success property of the current (parent) adapter</gr>
+obj.Adapter.Success  <gr>% Success property of the child</gr>
+</code>
+					
+					<p>Also, do not change the prototype of the member functions. In other words, do not add more arguments to the functions other than they already have. Especially, the constructor of an adapter should have only one argument, which is another adapter. Otherwise, mlplayer will not work correctly with your custom adapter, because NIMH ML cannot save the initial conditions of the scene.</p>
+				</ol>
+			</ol>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

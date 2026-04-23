@@ -1,0 +1,99 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_BlackrockLEDdriver.html">Appx., Blackrock LED driver</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_ParallelPortPinout.html">Appx. Parallel Port Pinout</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>Networked Eye Tracker & Joystick</h1>
+			<p><i>This page is for custom-made devices. For commercial TCP/IP eye tracker products, see <a href="docs_TCPIPEyeTracker.html">this</a>.</i></p>
+			<p>Custom eye trackers and joysticks can be interfaced with NIMH ML via Ethernet. Choose "UDP/TCP Joysticks" or "My EyeTracker" in the [Other device settings] menu.</p>
+			<p>Those who want to connect their networked eye tracker or joystick to NIMH ML should provide either a UDP client or a TCP server, which means that NIMH ML will serve as a UDP server or a TCP client. The frequency of data update is dependent on how often packets are sent to NIMH ML.</p>
+			<p>If UDP is used, the firewall of the NIMH ML computer should allow inbound traffic for the speficied port (or to the MATLAB).</p>
+			<p>For TCP communication, NIMH ML will send "ok" first when it is ready to receive a new packet. See the attached example code below.</p>
+
+			<h2 class="line-spacing1">UDP/TCP Joystick</h2>
+			<ul>
+				<p>Make a string of comma-separated values (CSV) with joystick X & Y coordinates and button states. Then send it to NIMH ML. The total length of a packet must be 512 bytes or less.<p>
+				<p><b>Format: "joyX, joyY, button1, button2, button3, ... , button32" (do not include quotation marks)</b></p>
+				<ul type="disc">
+					<li>joy X & Y: integers between -10000 and 10000</li>
+					<li>buttons: 1 - pushed, 0 - released</li>
+				</ul>
+				<br>
+				<ul>
+					<li>The maximum number of buttons is 32.</li>
+				</ul>
+				<p>Example: "-500, 300" (XY only), "1000, -250, 0, 1" (XY & 2 buttons)</p>
+				<p>Code: <a href="extra\UDPjoy.cpp">UDP_example</a> <a href="extra\TCPjoy.cpp">TCP_example</a></p>
+			</ul>
+			
+			<h2 class="line-spacing1" id="MyEyeTracker">My EyeTracker</h2>
+			<ul>
+				<p>Send eye X & Y coordinates and extra eye measures in the CSV format. The total length of a packet must be 512 bytes or less.<p>
+				<p><b>Format: "eye1X, eye1Y, eye2X, eye2Y, extra1, extra2, extra3, ... , extra10" (do not include quotation marks)</b></p>
+				<ul type="disc">
+					<li>eye X & Y: single-precision floating-point values (floats) between -10 and 10</li>
+					<li>extras: floats</li>
+				</ul>
+				<br>
+				<ul>
+					<li>It is okay that XY values go below -10 or above 10, but their traces may not be shown on the screen until the calibration is completed.</li>
+					<li>eye2X & eye2Y must be filled. Put just 0, if they are not needed. They will be discarded if the binocular option is not checked.</li>
+					<li>There is no limit in the number of extra parameters sent in the packet, but NIMH ML will pick up only up to 10, for a practical reason.</li>
+				</ul>
+				<p>Example: "-1.534, 2.378, 0, 0, 3.231" (eye1 XY & pupil size)</p>
+				<p>Code: <a href="extra\UDPeye.cpp">UDP_example</a> <a href="extra\TCPeye.cpp">TCP_example</a></p>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

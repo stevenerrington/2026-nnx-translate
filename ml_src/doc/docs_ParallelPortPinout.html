@@ -1,0 +1,94 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_NetworkedEyeJoy.html">Appx., Networked Eye & Joy</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs.html">Table of Contents</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>Parallel Port Pinout</h1>
+			<p>See <a href="docs_GettingStarted.html#AdditionalLibraries">this</a> for installing the parallel port driver. Port0 is only for output (12 lines) and Port1, input (5 lines).</p>
+		</div>
+	</div>
+
+	<div class="two-columns">
+		<div>
+<code> Pin  Port0 Port1
+----- ----- -----
+  1   p0.8
+  2   p0.0
+  3   p0.1
+  4   p0.2
+  5   p0.3
+  6   p0.4
+  7   p0.5
+  8   p0.6
+  9   p0.7
+ 10         p1.3
+ 11         p1.4
+ 12         p1.2
+ 13         p1.1
+ 14   p0.9
+ 15         p1.0
+ 16   p0.10
+ 17   p0.11
+18-25 GND
+----- ----- -----
+Port0: OUT only
+Port1: IN only
+</code>
+		</div>
+	</div>
+	<div class="two-columns">
+		<div>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

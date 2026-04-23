@@ -1,0 +1,301 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_GettingStarted.html">Getting Started</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_AudioEngine.html">Main Menu, Audio Engine</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1 id="MainMenu">Main Menu</h1>
+			<ol type="A">
+				<h2 id="Logo"><li>Logo & Load/Save Settings</li></h2>
+				<ul style="list-style-type:disc;margin-left:-2em;">
+					<p><img src="images\docs_menu_logo_load_save.png" class="screenshot"></p>
+					<li><strong>Three monkeys logo:</strong> Opens the NIMH ML online homepage.</li>
+					<li><strong>Question mark on the top-left corner of the logo:</strong> Opens the NIMH ML offline manual.</li>
+					<li><strong>Collapse/Expand menu button (on the top-right corner of the logo):</strong> Hides/shows submenus (Video, Input/Output and Task). The collapsed menu is useful when running NIMH ML on a small screen.</li>
+					<p><img src="images\docs_menu_collapsemenu.png"></p>
+					<li><strong>[Locate] config button:</strong> Opens the config file folder. It is usually the current task directory.</li>
+					<li id="SetPath"><strong>Set path:</strong> Creates a list of folder paths that NIMH ML will search for stimulus files. The search order is:</li>
+					<ol>
+						<li>Given path to the file, if the filename is a full-path string</li>
+						<li>Current task directory, where the conditions file or userloop file exists</li>
+						<li>NIMH ML installation path</li>
+						<li>From the top of the search path list</li>
+					</ol>
+					<p><img src="images\docs_menu_set_path.png"></p>
+					<li><strong>Load settings:</strong> Once a config file is chosen, a window will pop-up with a list of subject names to select settings to load. <u>Note that "# of trials to run in this block", "Count correct trials only", "Blocks to run", "First block to run" and "Subject name" are not overwritten, if the settings are loaded in this way.</u></li>
+					<p><img src="images\docs_menu_load_settings.png"></p>
+					<li><strong>Save settings:</strong> Stores the current settings to the config file (*_cfg2.mat). The button is activated only when an option has changed. If any change is about to be overwritten without being saved, a file save dialog will pop up. The current config is saved without asking, when the 'RUN' button is clicked.</li>
+				</ul>
+				
+				<h2 id="ConditionsFile" class="line-spacing2 page-break"><li>Conditions File & Run Button</li></h2>
+				<ul style="list-style-type:disc;margin-left:-2em;">
+					<p><img src="images\docs_menu_conditions_file_run_button.png" class="screenshot"></p>
+					<li><strong>[Load conditions file] button ("<span style="background-color:#d1c2cc">To start, load ...</span>"):</strong> Opens a conditions/userloop file (i.e., load an experiment).</li>
+					<ul>
+						<li><strong>[Help] button:</strong> Opens the conditions file manual.</li>
+						<li><strong>[Edit] button:</strong> Opens the current conditions file in the text editor. The conditions file should be reloaded after edits have been completed.</li>
+					</ul>
+					<li><strong>[Stimulus list] pane:</strong> Shows the list of the stimuli found in the conditions file. If the opened file is a userloop function, it will display 'user-defined'.</li>
+					<ul>
+						<li><strong>Earth icon:</strong> Displays the stimulus selected in the [stimulus list] pane.</li>
+						<li><strong>[Test] button:</strong> Displays/plays the selected stimulus, as if it is displayed/played during a trial. Pressing any key will stop the test.</li>
+					</ul>
+					
+					<li class="line-spacing1"><strong>Total # of cond. in this file:</strong> Displays the total number of conditions found in the selected conditions file.</li>
+					<li id="BlocksPane"><strong>[Blocks] pane:</strong> Displays the available blocks.</li>
+					<ul>
+						<li><strong>Total # of cond. in this block:</strong> Displays the total number of conditions associated with the selected block.</li>
+						<li><strong># of trials to run in this block:</strong> Edit this value to determine the number of trials to be run in the selected block.</li>
+						<li><strong>Count correct trials only:</strong> As it states.</li>
+						<li><strong>[Chart blocks] button:</strong> Opens a figure that shows which conditions appear in which blocks, such as the following one.</li>
+						<p><img src="images\docs_menu_chart_blocks.png"></p>
+						<li><strong>[Apply to all] button:</strong> Applies the changes to all blocks.</li>
+					</ul>
+
+					<li class="line-spacing1"><strong>Blocks to run:</strong> Only the blocks selected here will be used during task execution. Initially all blocks are selected.</li>
+					<li><strong>First block to run:</strong> Select the first block to run, when the task starts. 'TBD (to be determined)' will let ML determine it, according to the block selection logic in the Task submenu.</li> 
+					<li><strong>Timing files:</strong> Lists the timing scripts used by the current conditions file. In case that a userloop function is selected, 'user-defined' will be displayed instead. Double-clicking the timing script name will open its runtime file (or the runtime folder if the runtime file is not created yet). The runtime file is a custom MATLAB function that is created by combining the user timing script and a runtime function provider (trialholder_v1.m or trialholder_v2.m) when the RUN button is hit. What ML runs to start the task is this runtime file, not the timing script itself.</li>
+					<ul>
+						<li><strong>[Help] button:</strong> Opens the timing script manual.</li>
+						<li><strong>[Edit] button:</strong> Opens the selected timing file in the MATLAB editor.</li>
+					</ul>
+					<li><strong>Total # of trials to run:</strong> Determines when the task will stop if not manually terminated. This number includes both correct and incorrect trials.</li>
+					<li><strong>Total # of blocks to run:</strong> Determines the total number of blocks (not block numbers) to be run; the task will end when this number of blocks has executed (or the "<strong>Total # of trials to run</strong>" value has been reached, whichever comes first).</li>
+
+					<li id="SubjectName" class="line-spacing1"><strong>Subject name:</strong> <u>NIMH ML keeps a separate configuration per each subject.</u> If the entered subject name is new, then the current settings will be copied under the new subject name. If the entered name already exists in the configuration file, the settings previously saved under the name will be loaded automatically.</li>
+					<ul>
+						<li>Unlike the original ML, <u>NIMH ML keeps the last changes of editable variables in the configuration file (per each subject) and does not read the variable values from the timing script ever again.</u> When a new subject's profile is created, the values of editable variables are also copied from the last saved subject’s configuration. Therefore, in NIMH ML, editable variables are never reset to the initial values written in the timing script (unless reset by the user in the "Edit timing file variables" dialog in the Pause menu). So, <u>to modify their values, do not edit timing scripts.</u> <u>Use the "Edit timing file variables" menu.</u></li>
+						<li>When the task is loaded next time, the last subject's configuration will be loaded automatically.</li>
+					</ul>
+					<li class="line-spacing1"><strong>Filename format:</strong> Set the format of the default data file name.</li>
+					<ul> 
+						<li><strong>'expname' or 'ename':</strong> Experiment Name</li> 
+						<li><strong>'yourname' or 'yname':</strong> Investigator</li> 
+						<li><strong>'condname' or 'cname':</strong> Conditions file name</li> 
+						<li><strong>'subjname' or 'sname':</strong> Subject name</li> 
+						<li><strong>yyyy:</strong> Year in full (1990, 2002)</li> 
+						<li><strong>yy:</strong> Year in two digits (90, 02)</li> 
+						<li><strong>mmm:</strong> Month using first three letters (Mar, Dec)</li> 
+						<li><strong>mm:</strong> Month in two digits (03, 12)</li> 
+						<li><strong>ddd:</strong> Day using first three letters (Mon, Tue)</li> 
+						<li><strong>dd:</strong> Day in two digits (05, 20)</li> 
+						<li><strong>HH:</strong> Hour in two digits (05, 24)</li> 
+						<li><strong>MM:</strong> Minute in two digits (12, 02)</li> 
+						<li><strong>SS:</strong> Second in two digits (07, 59)</li> 
+					</ul>
+					<li><strong>Data file:</strong> Leave this field blank, to have it filled with the default formatted name.</li> 
+					<li><strong>FileType:</strong> See "<a href="docs_GettingStarted.html#FormatsSupported">File Formats Supported by NIMH MonkeyLogic</a>."</li> 
+					<li id="SaveStimuli"><strong>Save stimuli:</strong> If checked, stimulus files used to create TaskObjects or adapters are kept in the data file. They can be extracted with the <strong><a href="docs_RuntimeFunctions.html#mlexportstim">mlexportstim</a></strong> function later.</li> 
+					<li><strong>[RUN] button:</strong> Activated when a task is loaded. Upon its being clicked, the current configuration is automatically saved and the task begins.</li>
+				</ul>
+				
+				<h2 id="Video" class="line-spacing2 page-break"><li>Video</li></h2>
+				<ul style="list-style-type:disc;margin-left:-2em;">
+					<p><img src="images\docs_menu_video.png" class="screenshot"></p>
+					<li><strong>[Latency test] button:</strong> Runs a benchmarking trial.</li>
+					<li><strong>Refresh screen devices (<img src="images\docs_menu_refresh_icon.png">):</strong> Click and refresh screen devices after connecting new monitors.</li>
+					<li><strong>Subject screen device:</strong> Lists the screens on the system.</li>
+					<li><strong>[Test] button:</strong> Displays an animation on the selected screen.</li>
+					<li><strong>Resolution:</strong> Pixel width &amp; height of the selected screen. Use [Windows Display Settings] to change the resolution.</li>
+					<li><strong>Diagonal size (cm):</strong> Enter the diagonal screen size (in cm) of the subject's screen.</li>
+					<li><strong>Viewing distance (cm):</strong> Enter the distance (in cm) from the subject's eyes to the screen.</li>
+					<li><strong>Pixels per degree:</strong> This number is used by NIMH ML to compute the degrees of visual angle. It allows users to specify stimulus coordinates in degrees instead of pixels.</li>
+					<ul> 
+						<li id="AdjustedPPD"><strong>Adjust:</strong> If the angular size of the subject screen is larger than 20&deg;, a discrepancy occurs between the stimulus size estimated with the <b>Pixels per degree</b> (PPD) and the actual size measured on the screen. It is because the PPD is the average number of pixels in one degree across the entire screen but the tangent function is not linear beyond the 20&deg; range. If this option is checked, NIMH ML fixes the PPD to the number of pixels in the central one degree, instead of taking an average. By doing so, the error of size estimation is reduced around the center area but it may become even larger outside the range.</li>
+					</ul>
+					
+					<li class="line-spacing1"><strong>Fallback screen rect.:</strong> This fallback screen is a windowed subject screen and is used for testing when there is only one monitor. Set the screen location [LEFT TOP RIGHT BOTTOM] in Windows’ pixel coordinates.</li>
+					<li><strong>Forced use of fallback screen:</strong> Forces the subject screen to be displayed in a window.</li>
+					<li class="line-spacing1"><strong>Subject screen background:</strong> Background color of the subject screen.</li>
+					<li><strong>Fixation point, Eye tracer, Joystick cursor, Touch cursor, Mouse cursor:</strong> Allows the selection of either an image/movie or a circle/square of given color and size for these objects. Mouse cursor is for Timing Script version 2 only, since v1 does not support mouse as a tracker.</li>
+					<li id="PhotodiodeTrigger"><strong>Photodiode trigger:</strong> Displays alternating black and white squares at the selected location to drive the photodiode.</li>
+					<ul> 
+						<li><strong>[Tune] button:</strong> To enable this button, "Photodiode" needs to be assigned on the I/O menu and the location of the photodiode trigger (white square) should be selected. See "<a href="docs_PhotodiodeTuner.html">Photodiode Tuner</a>" for more information.</li>
+					</ul>
+				</ul>
+				
+				<h2 id="InputOutput" class="line-spacing2"><li>Input / Output</li></h2>
+				<ul style="list-style-type:disc;margin-left:-2em;">
+					<p><img src="images\docs_menu_input_output.png" class="screenshot"></p>
+					<li>[<strong>Edit behave. codes] button:</strong> Opens the "codes.txt" file that lists Behavioral Code numbers of the current task with their associated descriptions. If codes.txt exists both in the ML directory and the current task directory, the one in the task directory is opened and used for the task. This code-description association can be defined in the timing script with the <strong><a href="docs_RuntimeFunctions.html#bhv_code">bhv_code</a></strong> command as well.</li>
+					<li><strong>Reload I/O boards (<img src="images\docs_menu_refresh_icon.png">):</strong> Click and refresh the NI board list after plugging in USB devices.</li>
+					
+					<ol type="1" style="margin-left:-2em;">
+						<h3 id="DAQSettings" class="line-spacing1"><li>DAQ board settings</li></h3>
+						<ul style="list-style-type:circle;margin-left:-1em;">
+							<li>Click the panels in the order shown below (left figure), to associate behavioral signals to DAQ channels/ports. If you do not have this connection information, ask someone who knows it or visually check the wire connection with the device pinout diagram (see <a href="docs_NIMultifunctionIODevice.html#DevicePinouts">Device Pinouts</a>).</li>
+							<li>To assign digital lines, a selection dialog will appear after clicking on the <b>[Assign]</b> button.</li>
+							<li><b>Eye X &amp; Y</b> (and <b>Joystick X &amp; Y</b>) must be assigned on the same board. Otherwise, an error message will be displayed at the start of a task.</li>
+							<li>Multiple digital lines can be assigned to <b>Reward</b> and <b>Behavioral Codes</b>. To select multiple ports/lines, drag on the panel or use SHIFT + CLICK and CTRL + CLICK combinations.</li>
+							<li>To send the eventcodes that NIMH ML generates to other devices, assign <b>Behavioral Codes</b> (multiple lines) and <b>Strobe Bit</b> (one line). NIMH ML always records eventcodes, regardless of the assignment of <b>Behavioral Codes</b> and <b>Strobe Bit</b>.</li>
+							<li>When <b>TTL</b> is assigned initially, the output is HIGH. To invert its polarity, double-click the assigned <b>TTL</b> on the <b>[Signal Type]</b> panel. A tilde prefix (e.g., <b>{~TTL1}</b>) indicates that the output will be LOW.</li>
+						</ul>
+						
+						<p id="OtherDeviceSettings"><img src="images\docs_menu_daq.png"></p>
+
+						<h3 class="line-spacing1"><li>Other device settings (USB, etc.)</li></h3>
+						<ul style="list-style-type:circle;margin-left:-1em;">
+							<li>Some devices, such as mouse, touchscreen, USB joystick and TCP/IP eye tracker, do not have an analog-to-digital converter, but NIMH ML monitors and records input from them every milliseconds based on a software timer.</li>
+							<li><u>The devices listed here have priority over voltage-generating devices connected to the DAQ board.</u> If a USB joystick or TCP/IP eye tracker is selected here, it will overwrite the one connected to the DAQ voltage channels.</li>
+							<li>To read out High Frequency, Webcam and Voice from the data files, use the <b><a href="docs_RuntimeFunctions.html#mlreadsignal">mlreadsignal</a></b> function.</li>
+							<li><strong>Reload device lists (<img src="images\docs_menu_refresh_icon.png">):</strong> Click and reload device lists after plugging in USB devices (NI board, joystick, webcam, etc.)</li>
+						</ul><br>
+						<ol type="i" style="margin-left:-1em;">
+							<li id="AudioEngine"><strong>Audio Engine:</strong> See "<a href="docs_AudioEngine.html">Audio Engine</a>" for details.</li>
+							<li id="HighFrequency"><strong>High-freq Sampling</strong></li>
+							<ul>
+								<li>Choose an NI board to run with a sample rate faster than 1 kHz here. The selected NI board should be used only for "High Frequency" channels in the I/O menu. To read out "High Frequency" channels from data files, use the <b><a href="docs_RuntimeFunctions.html#mlreadsignal">mlreadsignal</a></b> function.</li>
+							</ul>
+							<li id="MouseKey"><strong>Mouse / Key</strong></li>
+							<ul>
+								<li>To sample mouse and key input in millisecond resolution and store to the data file, check on the box here and type the key codes to track. To see the <a href="docs_KeycodeTable.html">Keycode Table</a>, click <b>[...]</b>.</li>
+							</ul>
+							<li id="Touchscreen"><strong>Touchscreen</strong></li>
+							<ul>
+								<li>This option should be selected to store touch tracking data to the data file.</li>
+								<li>Set the number of touches to track simultaneously. Additional touches will add more columns to the data, like [x1 y1 x2 y2 x3 y3 ...].</li>
+							</ul>
+							<li id="USBJoystick"><strong>USB / Network Joystick</strong></li>
+							<ul>
+								<li>Choose the number of joystick buttons to record. Joystick buttons will be stored under the AnalogData.Button field in the data file and numbered from 11 (e.g., Btn11).</li>
+								<li>For UDP/TCP joystick programming, see "<a href="docs_NetworkedEyeJoy.html">Networked Eye Tracker & Joystick</a>"</li>
+							</ul>
+							<li id="Webcam"><strong>Webcam</strong></li>
+							<ul>
+								<li><b>Export:</b> This menu determines how to save recorded videos. There are three options: 1) export to data file with no compression, 2) export to data file (mp4) and 3) export as separate files (mp4).</li>
+								<ol type="a">
+									<li>The size of the video data can be huge, when saved without compression. Do not choose a large video resolution unnecessarily.</li>
+									<li>Compressing to MP4 occurs at the end of each trial. If the size of the video is large, it may take longer than the intertrial interval and delay the next trial.</li>
+									<li>If the webcam supports MJPEG, frame images are delivered already compressed. Therefore, by selecting "export with no compression", the extra processing time for MP4 compression can be avoided while keeping the data size small. However, the compression rate of MJPEG is not as good as MP4.</li>
+									<img src="images\docs_menu_webcam_mjpeg.png">
+									<li>When exporting as separate files (MP4), the frame rate of the saved MP4 is set to the median of the capture intervals. The original timestamps are still kept in the data file and can be read with <b>mlreadsignal</b>.</li>									
+									<li>Use the <b><a href="docs_RuntimeFunctions.html#mlreadsignal">mlreadsignal</a></b> function, to read recorded videos from data files. The videos can be extracted from data files and attached back to them with <b><a href="docs_RuntimeFunctions.html#mlexportwebcam">mlexportwebcam</a></b> and <b><a href="docs_RuntimeFunctions.html#mlimportwebcam">mlimportwebcam</a></b>, respectively.</li>
+								</ol>
+							</ul>
+							<li id="TCPIPEyeTracker"><strong>TCP/IP Eye Tracker:</strong> See "<a href="docs_TCPIPEyeTracker.html">TCP/IP Eye Tracker</a>" for details.</li>
+							<li><strong>Reward via Bluetooth:</strong> This menu is to set a serial port assigned to the Bluetooth radio. See "<a href="docs_BluetoothRewardTrigger.html">Triggering a remote reward device via Bluetooth</a>" for details.</li>
+							<li id="VoiceRecording"><strong>Voice Recording</strong></li>
+							<ul>
+								<li>A sound board can be used to record ambient sounds via a microphone. Use the <b><a href="docs_RuntimeFunctions.html#mlreadsignal">mlreadsignal</a></b> function, to read out recorded audio from data files.</li>
+							</ul>
+							<li id="LSL"><strong>Lab Streaming Layer</strong></li>
+							<ul>
+								<li>The <a href="https://github.com/sccn/labstreaminglayer" onClick="return external_link();">lab streaming layer (LSL)<span class="ext"></span></a> is a system for the unified collection of time series data streamed over the network. NIMH ML can receive data from LSL and save in its data file.</li>
+								<li>The buffer length (in seconds) must be sufficiently longer than the length of one trial.</li>
+								<li>The name of the stream is used as a unique identifier. Choose one of the searched streams on the menu or type a name manually.</li>
+								<li>The sample rate of the LSL streams may not be 1 kHz, so the timestamp of each sample is stored together. <u>The first column of the data saved under the AnalogData.LSL field is the timestamp.</u></li>
+								<p><img src="images\docs_labstreaminglayer.png"></p>
+							</ul>
+						</ol>
+					</ol>
+
+					<li class="line-spacing2"><strong>[I/O Test] button:</strong> Opens a test panel for the assigned I/O. See "<a href="docs_IOTest.html">I/O Test</a>" for details.</li>
+					<li id="AISampleRate"><strong>AI sample rate:</strong> <u>NIMH ML always acquires samples at 1 kHz, regardless of this setting</u>, so that the time resolution of online monitoring may not be affected. Recorded signals are down-sampled just before saved to the data file in order to reduce the file size, if this number is set below 1000. When ITI recording is on, this is fixed to 1000.</li>
+					<li><strong>AI configuration:</strong> Sets the AI grounding configuration of the DAQ board. See "<a href="docs_NIMultifunctionIODevice.html#AIGroundConfiguration">Analog Input Ground Configuration</a>" in the "NI Multifunction I/O Device" menu.</li>
+					
+					<li id="Strobe" class="line-spacing1"><strong>Strobe:</strong> Set whether the Behavioral Codes (event markers) will be sent on the rising-edge or falling-edge of the Strobe Bit. There is also a third option that does not require the Strobe Bit ("Send and Clear") for systems that capture the codes based on change detection.</li>
+					<ul>
+						<li><strong>[Spec] button:</strong> Use this button to change the duration of Strobe Bit pulses. See the figure below.</li>
+						<li><strong>[Test] button:</strong> Sends a test Strobe Bit.</li>
+					</ul>
+					<p><img src="images\docs_menu_strobe_timing.png"></p>
+					<li class="line-spacing1"><strong>Reward</strong></li>
+					<ul>
+						<li><strong>[Args] button:</strong> Edit the reward function arguments (i.e., goodmonkey) for testing.</li>
+						<li><strong>[Edit] button:</strong> Opens the current reward function. By default, it opens reward_function.m in the ML directory. If there is a file in the current task directory with the same name, the one in the task directory has a priority.</li>
+					</ul>
+					<p><img src="images\docs_menu_reward_variables.png"></p>
+					<li><strong>Reward polarity:</strong> Sets whether the reward device will be triggered on a TTL HIGH or LOW signal.</li>
+					<ul>
+						<li><strong>[Test] button:</strong> Sends out a test reward pulse.</li>
+					</ul>
+					<li class="line-spacing1"><strong>Eye calibration &amp; Joy calibration:</strong> See "<a href="docs_CalibratingEyeJoy.html">Calibrating Eye/Joystick Signals</a>".</li>
+					<ul>
+						<li><strong>[Reset] button:</strong> Clears the calibration matrix of the currently selected method.</li>
+						<li><strong>[Calibrate / Re-calibrate] button:</strong> Opens the selected calibration tool.</li>
+						<li><strong>[Import] calibration button:</strong> Copies the calibration matrix of the currently selected eye & method from another configuration file.</li>
+					</ul>
+					<li id="DriftCorrection" class="line-spacing1"><strong>Eye [Auto drift correction]:</strong> If this number is larger than 0, the positions of the fixation target and the gaze are compared at the end of each trial. If there is a difference, the calibration matrix is updated to translate the eye position toward the fixation target according to the proportion that is set here.</li>
+					<p><img src="images\docs_menu_auto_drift_correction.png"></p>
+				</ul>
+				
+				<h2 id="Task" class="line-spacing2 page-break"><li>Task</li></h2>
+				<ul style="list-style-type:disc;margin-left:-2em;">
+					<p><img src="images\docs_menu_task.png" class="screenshot"></p>
+					<li><strong>[Alert] button:</strong> See "<a href="docs_AlertFunction.html">Alert function</a>".</li>
+					
+					<li class="line-spacing1"><strong>On error:</strong> This menu determines how to handle error trials. See "<a href="docs_TaskflowControl.html">Task flow control</a>" for details.</li>
+					
+					<li class="line-spacing1"><strong>Conditions:</strong> This menu determines the method to select the next condition.  See "<a href="docs_TaskflowControl.html#Conditions">Task flow control</a>" for details.</li>
+					
+					<li class="line-spacing1"><strong>Blocks:</strong> This menu is identical in logic to the <strong>Conditions</strong> menu above, except that it is used to choose the next block. See "<a href="docs_TaskflowControl.html#Blocks">Task flow control</a>" for details.</li>
+
+					<li class="line-spacing1"><strong>Inter-trial interval (ITI):</strong> Enter the desired inter-trial interval (in milliseconds).</li>
+					<li><strong>During ITI,</strong></li>
+					<ul>
+						<li><strong>Show traces:</strong> Determines whether to display a summary (stimuli used in the trial and traces of input signals) on the control screen during the ITI.</li>
+						<li><strong>Record signals:</strong> Determines whether to record input signals during the ITI. If this option is selected, the ITI start time is regarded as the beginning of the next trial.</li>
+					</ul>
+					
+					<li class="line-spacing1"><strong>User plot function:</strong> Name of a MATLAB function that will draw to the space normally occupied by the reaction time histogram on the control screen. Users can use this function to display results of online trial-by-trial analysis. The function takes the <a href="docs_TrialRecordStructure.html">TrialRecord structure</a> and optionally MLConfig as input and return nothing.</li>
+					<ul>
+<code>
+<bl>function</bl> userplot(TrialRecord)            <gr>% one-argument version</gr>
+<bl>function</bl> userplot(TrialRecord, MLConfig)  <gr>% two-argument version</gr>
+</code>
+					</ul>
+				</ul>
+			</ol>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

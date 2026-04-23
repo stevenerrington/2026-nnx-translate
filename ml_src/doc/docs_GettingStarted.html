@@ -1,0 +1,199 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs.html">Table of Contents</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_MainMenu.html">Main Menu</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1 id="GettingStarted">Getting Started</h1>
+			<ol type="A">
+				<h2 id="ObtainingNIMHMonkeyLogic" class="line-spacing1"><li>Obtaining NIMH MonkeyLogic</li></h2>
+				<p>NIMH ML is downloadable from <a href="https://monkeylogic.nimh.nih.gov/download.html">https://monkeylogic.nimh.nih.gov/download.html</a>.</p>
+				
+				<h2 id="SoftwareInstallation" class="line-spacing2"><li>Software Installation</li></h2>
+				<p>Either a MATLAB app installer or a ZIP file can be used for installation.</p>
+				<ol>
+					<h3 id="AppInstaller" class="line-spacing1"><li>Using a MATLAB app installer</li></h3>
+					<p>Double-click the downloaded *.mlappinstall file. It will open MATLAB and pop up a question dialog as below (left figure). Click the [Install] button and NIMH ML will be added to the MATLAB menu (arrow on the right figure). If this process fails for any reason, manually open MATLAB and install the package by clicking the [Install App] menu (circle on the right figure).</p>
+					<p><img src="images\docs_get_started_app_installer.png"></p>
+					<p>The <b>app installation path</b> is different from MATLAB version to version and can be checked with the following commands.</p>
+<code>>> files = matlab.apputil.getInstalledAppInfo;
+>> files.location
+
+ans =
+
+    'C:\Users\USERNAME\AppData\Roaming\MathWorks\MATLAB Add-Ons\Apps\NIMHMonkeyLogic2'
+</code>
+					
+					<h3 id="ZipInstall" class="line-spacing1"><li>Using a ZIP file</li></h3>
+					<p>Decompress the zip file to a directory and add that directory to the MATLAB path. The subdirectories can be added, but that step is not necessary.</p>
+					
+					<h3 id="AdditionalLibraries" class="line-spacing1"><li>Installing additional libraries</li></h3>
+					<p>Windows N needs the <a href="https://support.microsoft.com/en-us/topic/media-feature-pack-list-for-windows-n-editions-c1c6fffa-d052-8338-7a79-a4bb980a700a" onClick="return external_link();">Media Feature Pack<span class="ext"></span></a> to run NIMH ML. It is an optional feature of Windows N that is freely available.</p>
+					
+					<p>NIMH ML requires <b>Microsoft Visual C++ Redistributable for Visual Studio 2022</b> (<a href="https://aka.ms/vs/17/release/vc_redist.x64.exe" onClick="return external_link();">vc_redist.x64.exe<span class="ext"></span></a>). NIMH ML will detect it on startup and ask to install if it is not found. Your computer may have it already via Windows Update.</p>
+					
+					<p>If you have a parallel port, NIMH ML will ask to install InpOutx64, an open source parallel port driver. To install it, run <b>inpoutx64_installer.exe</b> in the daqtoolbox directory of the NIMH ML installation path. The admin privilege is required. The installation occurs instantly and there is no wizard window showing up.</p>
+					
+					<p><b>Note:</b> The previous release of NIMH ML (v2.0) requires two different libraries: 1) Visual C++ 2013 Redistributable Packages (install <a href="https://aka.ms/highdpimfc2013x64enu" onClick="return external_link();">vcredist_x64.exe<span class="ext"></span></a>, if you have 64-bit MATLAB, or <a href="https://aka.ms/highdpimfc2013x86enu" onClick="return external_link();">vcredist_x86.exe<span class="ext"></span></a>, if your MATLAB is 32-bit) and 2) <a href="https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe" onClick="return external_link();">DirectX End-User Runtime<span class="ext"></span></a> (for offline installation, download <a href="https://download.microsoft.com/download/8/4/A/84A35BF1-DAFE-4AE8-82AF-AD2AE20B6B14/directx_Jun2010_redist.exe" onClick="return external_link();">this<span class="ext"></span></a> instead).</p>
+
+					<h3 id="TipForUpgrade" class="line-spacing1"><li>A tip for future upgrades</li></h3>
+					<p>Keep your task files separately outside the NIMH ML installation directory. NIMH ML does not store anything in its main directory, so deleting the main directory is safe if your files are stored elsewhere.</p>
+				</ol>
+
+				<h2 id="StartingNIMHMonkeyLogic" class="line-spacing2"><li>Starting NIMH MonkeyLogic</li></h2>
+				<p>Click the [NIMH MonkeyLogic] icon on the MATLAB APPS menu (if NIMH ML was installed with the MATLAB app installer) or type "monkeylogic" on the MATLAB command window (if it was installed with the ZIP file).</p>
+				<p>NIMH ML comes with many example tasks (see the "task" directory in the NIMH ML installation path). To start a task, choose a conditions file by clicking the [Load a conditions file] button on the ML GUI (left figure below) and then hit the [Run] button.</p>
+				<p><img src="images\docs_get_started_load_conditions.png"></p>
+				<p>It is possible to run a task without a DAQ board or any input device, by activating the <b>simulation mode</b> in the pause menu. In the simulation mode, most input signals are replaced with mouse and key inputs shown here.</p>
+				<ul>
+					<li><strong>Eye #1:</strong> Mouse cursor</li>
+					<li><strong>Eye #2:</strong> 'I', 'K', 'J', 'L'</li>
+					<li><strong>Joystick #1:</strong> Arrow keys (&uarr;, &darr;, &larr;, &rarr;)</li>
+					<li><strong>Joystick #2:</strong> 'W', 'S', 'A', 'D'</li>
+					<li><strong>Touch:</strong> Mouse left click & right click</li>
+					<li><strong>Buttons:</strong> '1', '2', '3', '4', '5', '6', '7', '8', '9', '0'</li>
+				</ul>
+				<p><img src="images\docs_get_started_simulation_mode.png"></p>
+				<p>For more information about how to run tasks, see "<a href="docs_RunningTask.html">Running a Task</a>".</p>
+				
+				<h2 id="FormatsSupported" class="line-spacing2"><li>File Formats Supported by NIMH MonkeyLogic</li></h2>
+				<p>NIMH ML supports its own data file format, called BHV2 (*.bhv2), as well as HDF5 (*.h5) and MAT (*.mat). <b>BHV2</b> is a private format that is based on a simple recursive algorithm (see "<a href="docs_BHV2BinaryStructure.html">BHV2 Binary Structure</a>" in the appendix). It provides decent read and write performance and is recommended for most users. <b>HDF5</b> is supported by many commercial and non-commercial software platforms, including Java, MATLAB, Scilab, Octave, Mathematica, IDL, Python, R and Julia, but its read performance in MATLAB is a bit disappointing. <b>MAT</b> is MATLAB’s native data format. NIMH ML uses the default MAT-file format that is set in the MATLAB Preferences. The MAT file format has a weakness in that it gets slower as more and more variables are stored, even though file compression is disabled.</p>
+				<p><b>BHVZ</b> is BHV2 with zip compression. It is slower than BHV2 but saves considerable disk space.</p>
+				<p>The <b>mlread</b> function provides a unified read interface for all the formats. It returns trial-by-trial data in a 1-by-n struct array.</p>
+<code>data = mlread;
+data = mlread(filename);
+[data, MLConfig, TrialRecord, filename] = mlread(__);
+</code>
+				<p>The <b>mlconcatenate</b> function combines trial-by-trial analog data into one large seamless matrix and adjusts all timestamps accordingly, as if the data were recorded in one single trial. This function is especially useful for reading data files in which signals were continuously recorded through inter-trial intervals.</p>
+<code>data = mlconcatenate;
+data = mlconcatenate(filename);
+[data, MLConfig, TrialRecord, filename] = mlconcatenate(__);
+</code>
+				<p>Some recorded signals, such as High Frequency, Voice or Webcam, have a large size and loading them all at once may cause an out-of-memory error. Those signals are stored as separate variables and not processed by <b>mlread</b> nor <b>mlconcatenate</b>. To read those data, use the <b>mlreadsignal</b> function.</p>
+<code>signal = mlreadsignal(signal_type);               <gr>% 'high1', 'voice', 'cam2', etc.</gr>
+signal = mlreadsignal(signal_type, trial_num);
+signal = mlreadsignal(signal_type, trial_num, filename);
+[video, timestamp] = mlreadsignal(<mg>'webcam1'</mg>,__);  <gr>% 'webcam' + cam#</gr>
+</code>
+				<p>Saved file-source stimuli in the data file can be retrieved with the <b>mlexportstim</b> function.</p>
+<code>mlexportstim;
+mlexportstim(destination_path);
+mlexportstim(destination_path, datafile);
+</code>
+				
+				<h2 id="AlignTimestampsAndAnalogData" class="line-spacing2"><li>Aligning Timestamps and Analog Data</li></h2>
+				<p>In NIMH ML, a trial starts at Time 0 and so does data acquisition. Therefore, matrix indices to address analog data for a particular period can be calculated from the time of the period. For example, to get eye traces for an epoch marked by Eventcodes 10 and 20, write a script as below.</p>
+<code>data = mlread;  <gr>% read a data file</gr>
+trial_no = 1;
+code = data(trial_no).BehavioralCodes.CodeNumbers;
+time = data(trial_no).BehavioralCodes.CodeTimes;
+eye = data(trial_no).AnalogData.Eye;
+
+start_time = time(find(10==code,1));  <gr>% time is in milliseconds.</gr>
+end_time = time(find(20==code,1));
+
+start_index = round(start_time) + 1;  <gr>% data is sampled at 1 kHz.</gr>
+end_index = round(end_time) + 1;
+
+segment = eye(start_index:end_index,:);
+</code>
+				<p>NIMH ML uses Eventcodes 9 (Start trial) and 18 (End trial) to mark the boundaries of a trial in the neural data stream. Note that the timestamps of those codes are just the times that the codes were sent to the neural recording system and not the actual start time and end time of a trial, despite the code labels. To get precise trial intervals, use the AbsoluteTrialStartTime field, which indicates the time elapsed from the beginning of Trial 1 (in milliseconds).</p>
+
+				<h2 id="MigratingFromOriginalML" class="line-spacing2"><li>Migrating from the Original MonkeyLogic</li></h2>
+				<p>NIMH ML is designed to run the scripts written for the original ML seamlessly. However, there are a couple of things that you should keep in mind when migrating from the original ML to NIMH ML.</p>
+				<ol>
+					<h3 class="line-spacing1"><li>Configuration file</li></h3>
+					<p>The configuration file of the original ML (*_cfg.mat) is not compatible with that of NIMH ML (*_cfg2.mat), so creating a new configuration file is necessary after installing NIMH ML.</p>
+					
+					<h3 class="line-spacing1" id="TrialRecord"><li>TrialRecord</li></h3>
+					<p>In the original ML, custom fields could be added to TrialRecord to pass user variables around. In NIMH ML, such a trick is not allowed, because TrialRecord is a class object, not a struct. If you need custom fields, use <b>TrialRecord.User</b> instead.</p>
+<code>TrialRecord.var1 = 200;       <gr>% fine in the original ML, but not in NIMH ML</gr>
+TrialRecord.User.var1 = 200;  <gr>% good with NIMH ML</gr>
+</code>
+					<p>Note that the fields you create under TrialRecord.User are not automatically saved to the data file. You should use the <b><a href=	"docs_RuntimeFunctions.html#bhv_variable">bhv_variable</a></b> function to keep the records of them.</p>
+					
+					<h3 class="line-spacing1"><li>Movie frame rate</li></h3>
+					<p>The original ML presents movies frame by frame, so their duration varies depending on the refresh rate of the screen. NIMH ML plays movies at a constant speed, regardless of the refresh rate. See <a href="docs_TaskObjects.html#PlayMovieFrameByFrame">this</a> to play movies in the same way as the original ML does in NIMH ML.</p>
+					
+					<h3 class="line-spacing1" id="ReactionTime"><li>Reaction time</li></h3>
+					<p>At the end of each trial, the value assigned to a variable, 'rt', is used to update the default reaction time graph in the <a href="docs_RunningTask.html#ControlScreen">control screen</a>. It is also stored in TrialRecord.ReactionTimes and the data file for online and offline reference, respectively.</p>
+					<p>In the original ML, the reaction time that eyejoytrack() returns is calculated from the beginning of eyejoytrack(). Since stimuli are presented by toggleobject() before eyejoytrack() starts, this produces a number slightly shorter than the time measured from the stimulus onset, although the difference is small.</p>
+					<ul>
+<code>toggleobject(1);
+[ontarget, rt] = eyejoytrack(<mg>'acquirefix'</mg>,1,3,1000);  <gr>% rt measured from the start of eyejoytrack()</gr>
+</code>
+					</ul>
+					<p>NIMH ML still supports the above method and also provides a way to calculate the reaction time from the stimulus onset.</p>
+					<ul>
+<code>t_flip = toggleobject(1);
+[ontarget, ~, t_resp] = eyejoytrack(<mg>'acquirefix'</mg>,1,3,1000);  <gr>% Only NIMH ML returns the 3rd output</gr>
+rt = t_resp - t_flip;
+</code>
+					</ul>
+					<p>In case you program in the style of <a href="docs_CreatingTask.html#RuntimeVersion2">Timing Script v2</a> (a.k.a. Scene Framework), you can calculate the reaction time like this:</p>
+					<ul>
+<code>t_flip = run_scene(scene);      <gr>% Assume that the scene includes a WaitThenHold (wth) adapter</gr>
+rt = wth.AcquiredTime - t_flip; <gr>% t_flip is the time that the 1st frame of the scene was presented</gr>
+</code>
+					</ul>
+					<p>or simply
+					<ul>
+<code>rt = wth.RT;
+</code>
+					</ul>
+					<p>Currently these adapters have the AcquiredTime and RT properties: <a href="docs_RuntimeFunctions.html#WaitThenHold">WaitThenHold</a>, <a href="docs_RuntimeFunctions.html#FreeThenHold">FreeThenHold</a>, <a href="docs_RuntimeFunctions.html#MultiTarget">MultiTarget</a>, <a href="docs_RuntimeFunctions.html#OnsetDetector">OnsetDetector</a></p>
+				</ol>
+			</ol>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

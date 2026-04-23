@@ -1,0 +1,2 @@
+Condition	Frequency	Block	Timing File	TaskObject#1	TaskObject#2	TaskObject#3	TaskObject#4	
+1		1		1	touch_outside	fix(0,0)	crc(0.3,[1 0 0],1,-5,0)		sqr(0.6,[0 0 1],1,5,0)

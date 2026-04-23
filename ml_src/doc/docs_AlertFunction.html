@@ -1,0 +1,119 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_IOTest.html">Main Menu, I/O Test</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_TaskflowControl.html">Main Menu, Task flow control</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>Alert function</h1>
+
+			<p>When turned on, the alert function is called at the occurrence of certain task flow events such as task start/end, block changes and script errors. It can be used to insert your own initializaztion/clean-up code, start an external device before/after a task or get updates about the task progress.</p>
+
+			<h2 class="line-spacing1">Turning on and off the alert function</h2>
+			<p>The alert function can be turned on/off with the [Alert] button on the main menu. The [Edit] button opens the current alert_function.m.</p>
+			<p><img src="images\docs_menu_alert_on.png"></p>
+
+			<h2 class="line-spacing1">Structure of alert_function.m</h2>
+			<p>The alert function must be named "alert_function.m" and have the following structure. The "hook" indicates the event at which the function is called, so place your code under appropriate case statements.</p>
+<code><bl>function</bl> alert_function(hook,MLConfig,TrialRecord)
+
+    <gr>% 'task_end' and 'task_aborted' are mutually exclusive. If one occurs, the other does not.
+    % If you want to run some clean-up code for both events, use 'fini'.</gr>
+    <bl>switch</bl> hook
+        <bl>case</bl> <mg>'init'</mg>          <gr>% when the [RUN] button is clicked</gr>
+		
+        <bl>case</bl> <mg>'task_start'</mg>    <gr>% when the task is started by '[Space] Start'</gr>
+		
+        <bl>case</bl> <mg>'block_start'</mg>   <gr>% when a new block starts</gr>
+		
+        <bl>case</bl> <mg>'trial_start'</mg>
+		
+        <bl>case</bl> <mg>'trial_end'</mg>
+		
+        <bl>case</bl> <mg>'block_end'</mg>
+		
+        <bl>case</bl> <mg>'task_paused'</mg>   <gr>% when the task is paused with ESC</gr>
+		
+        <bl>case</bl> <mg>'task_resumed'</mg>  <gr>% when the task is resumed by '[Space] Resume'</gr>
+		
+        <bl>case</bl> <mg>'task_end'</mg>      <gr>% when the task is finished successfully</gr>
+		
+        <bl>case</bl> <mg>'task_aborted'</mg>  <gr>% when the task is terminated with an error</gr>
+		
+        <bl>case</bl> <mg>'fini'</mg>          <gr>% when the task window is closed</gr>
+		
+    <bl>end</bl>
+	
+<bl>end</bl>
+</code>
+
+			<p>If it is necessary to exchange information with the rest of the task code, use the <b>TrialRecord.User</b> field. For example, if you want to stop the task after a certain number of success trials, you can do it as below (although there are many other ways to do so).</p>
+<code>        <bl>case</bl> <mg>'trial_end'</mg>
+
+            <gr>% It is assumed you recorded the success status of each trial with the trialerror()
+            % function in your timing script.</gr>
+            success_count = sum(0==TrialRecord.TrialErrors);
+
+            <gr>% Also you assigned the maximum number of success trials that you want to run</gr>
+            <gr>% to TrialRecord.User.max_success_trials in the timing script.</gr>
+            <bl>if</bl> success_count == TrialRecord.User.max_success_trials
+                TrialRecord.Pause = true;  % The task will be paused.
+            <bl>end</bl>
+</code>
+
+			<h2 class="line-spacing1">Writing your own alert fuction</h2>
+			<p>If you edit the alert function in the NIMH ML directory, the changes affect all the tasks that you run. If you want to customize the function only for a particular task, make a copy of it to the task directory and edit the copy. When "alert_function.m" is found both in the NIMH ML directory and your task directory, the one in the task directory has priority.</p>
+
+			<p>The "alert_function.Slack.m" file in the NIMH ML directory is an example that sends notifications to your smartphone via the <b>Slack</b> app. To try it, copy it to your task directory, rename the file to "alert_function.m" and follow the instructions in the file.</p>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

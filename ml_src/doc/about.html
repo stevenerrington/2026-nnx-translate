@@ -1,0 +1,74 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: About</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>About NIMH MonkeyLogic</h1>
+			
+			<p class="indent"><strong>NIMH MonkeyLogic (NIMH ML)</strong> began with the development of <strong><a href="docs_NIMHDAQToolbox.html">NIMH DAQ Toolbox</a></strong> and <strong><a href="docs_MonkeyLogicGraphicsLibrary.html">MonkeyLogic Graphics Library (MGL)</a></strong>. NIMH DAQ Toolbox extended the legacy DAQ interface of MATLAB to the 64-bit environment and supported real-time behavior monitoring with only one data acquisition device. MGL was written to provide an information-rich replica of the subject screen, as well as support for transparent images, movie streaming and low-latency audio output. NIMH DAQ Toolbox and MGL were first released with a modified version of <a href="https://www.brown.edu/Research/monkeylogic/contacts.html" onClick="return external_link();">the original MonkeyLogic<span class="ext"></span></a> (sometimes called NIMH ML1).</p>
+
+			<p class="indent">The second version of NIMH ML is completely rewritten using an object-oriented programming style and employs <strong><a href="docs_BHV2BinaryStructure.html">its own data file format (BHV2)</a></strong>. It is also equipped with upgraded NIMH DAQ Toolbox and MGL, which support more input devices and more features, and provides a new way to compose tasks that improves close-loop performance. NIMH ML has evolved to become a high performance real-time behavioral control and data acquisition system with a rich feature set and efficient data management.</p>
+
+			<h2 class="line-spacing1">Current Development</h2>
+			<p class="indent">NIMH ML, including NIMH DAQ Toolbox and MGL, is developed and maintained by <strong><a href="mailto:jaewon.hwang@nih.gov">Jaewon Hwang</a></strong>, who is Staff Scientist at <a href="https://www.nimh.nih.gov/research/research-conducted-at-nimh/research-areas/clinics-and-labs/ln/snlm/index.shtml">Section on Neurobiology of Learning and Memory</a>, <a href="https://www.nimh.nih.gov/research/research-conducted-at-nimh/research-areas/clinics-and-labs/ln/index.shtml">LN/NIMH</a> in the <a href="https://irp.nih.gov/">Intramural Research Program</a>.</p>
+
+			<h2 class="line-spacing1">Development History</h2>
+			<p class="indent">See <a href="changes.txt">changes.txt</a> in the distribution packages.</p>
+
+			<h2 class="line-spacing1 hide-in-print">Examples</h2>
+			<p class="indent hide-in-print">The task files of all these examples are in the download packages. Click the images below to watch an animation of each task.</p>
+			<p class="hide-in-print">
+				<a href="images\about_shape.mp4"><img src="images\about_shape.png"></a>
+				<a href="images\about_timer.mp4"><img src="images\about_timer.png"></a>
+				<a href="images\about_curve_trace.mp4"><img src="images\about_curve_trace.png"></a>
+				<a href="images\about_rf_mapper.mp4"><img src="images\about_rf_mapper.png"></a>
+				<a href="images\about_gabor.mp4"><img src="images\about_gabor.png"></a>
+				<a href="images\about_drag_and_drop.mp4"><img src="images\about_drag_and_drop.png"></a>
+				<a href="images\about_brick_breaker.mp4"><img src="images\about_brick_breaker.png"></a>
+				<a href="images\about_pacman.mp4"><img src="images\about_pacman.png"></a>
+				<a href="images\about_optical_flow.mp4"><img src="images\about_optical_flow.png"></a>
+			</p>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

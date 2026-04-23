@@ -1,0 +1,70 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_BHV2BinaryStructure.html">Appx., BHV2 Format</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_NIMHDAQToolbox.html">Appx., NIMH DAQ Toolbox</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>HDF5 Implementation</h1>
+			
+			<p>Creating and reading .h5 files are implemented with MATLAB’s low-level HDF5 access functions. In BHV2, the name, type and size of each variable are stored in the 6 fields that come at the beginning of each variable block. In H5, those fields are stored as attributes of datasets or groups.</p>
+
+			<p>The HDF5 implementation in MATLAB R2014b or earlier does not allow one to create a 0-sized dataspace. So H5 files created in those versions contains a single 0, even when the variable is empty. If the size attribute of a variable is 0, you should discard its value, 0, when you read the variable in your application.</p>
+
+			<p>The MATLAB primitive data types are stored in datasets. The struct and cell arrays are created as groups of the fields or cells.</p>
+
+			<p>H5 can be read with any common HDF5 tool, like HDFView (<a href="https://support.hdfgroup.org/products/java/hdfview/" onClick="return external_link();">https://support.hdfgroup.org/products/java/hdfview/<span class="ext"></span></a>).</p>
+
+			<p>Refer to mlhdf5.m for implementation details.</p>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

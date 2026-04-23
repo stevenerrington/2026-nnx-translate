@@ -1,0 +1,120 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_RunningTask.html">Running a Task</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_NIMultifunctionIODevice.html">Hardware, NI Board</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>Monitor</h1>
+			<ol>
+				<h2 id="TwoMonitors"><li>Configuration with two monitors</li></h2>
+				
+				<p>A typical NIMH ML setup requires two monitors: one for the subject screen and the other for the control screen. To use two monitors, go to "Display settings" of Windows, select the secondary monitor and set the "Multiple displays" option to "Extend these displays", as shown below.</p>
+				<p><img src="images/docs_monitor_main_display.png"></p>
+
+				<p>It has been reported that some monitors (especially the ones designed for vision science, such as ViewPixx, Display++, etc.) should be the main display of the system, to pass the latency test and use refresh rates recommended by manufacturers. To change the main display, check on the "Make this my main display" option in the "Display settings".</p>
+
+				<p>You can run NIMH ML from either monitor, no matter which monitor is your main display. Just drag the NIMH ML window to the monitor that you want to be the control screen and change "Subject screen device" to the other monitor on the main menu.</p>
+
+				<p>MATLAB does not support per-monitor DPI awareness yet, so the scales of both monitors should be the same.</p>
+				<p><img src="images/docs_monitor_scale.png"></p>
+
+				<p>Restart NIMH ML if any display setting is changed.</p>
+
+
+				
+				<h2 id="SingleMonitor" class="line-spacing2"><li>Running on a single monitor system (laptop, tablet, etc.)</li></h2>
+				<p>Check on "Forced use of fallback screen" and type the screen size in the "Fallback screen rect." like [0, 0, width, height]. </p>
+				<p><img src="images/docs_monitor_fallback_screen.png"></p>
+
+
+				<h2 id="MoreThanTwoMonitors" class="line-spacing2"><li>Using more than two monitors</li></h2>
+				<p>The trick to use multiple (>2) monitors in NIMH ML is to create one big screen that covers all the monitors. The method is the same as when using a single monitor. Select the "Forced use of fallback screen" option and change the fallback screen size.</p>
+				<p>To make this work, it is necessary to arrange the monitors in a retangular shape, like the blue screens below (the white one is the control screen). Then get the Windows coordinates of the left-top and right-bottom corners of the retangle and put them in the "Fallback screen rect." like [left top right bottom].</p>
+				<p><img src="images/docs_monitor_three_monitors.png"></p>
+
+				
+				<h2 id="LatencyTest" class="line-spacing2"><li>Latency test</li></h2>
+				<p class="line-spacing2">To check whether the monitors are configured properly, run the latency test from the Video menu. The <span style="color:red">red lines</span> in the Movie Display Results indicate the start times of new frames. See if they show up regularly as in the example below. The intervals between the lines should be the same as a frame length (e.g., 16.67 ms for a 60-Hz display).</p>
+				<p><img src="images/docs_monitor_latency_test_button.png"></p>
+				<p><img src="images/docs_monitor_latency_test.png"></p>
+
+
+				<h2 id="Troubleshooting" class="line-spacing2"><li>Troubleshooting</li></h2>
+				<ul type="disc" style="margin-left:-1em;">
+					<li>If the latency test does not look like the above figure and skipped frames occur, try these things.
+						<ul>
+							<li>Switch the main display between the subject screen and the control screen</li>
+							<li>Install the latest graphics driver</li>
+						</ul>
+					</li><br>
+
+					<li>The GPU control software provided by the manufacturer often has options to control the vertical sync behavior or limit the maximum frame rate. NIMH ML does these controls on its own, so those options in the GPU software should be disabled or turned off.
+						<img src="images/docs_monitor_AMDsoftware.png">
+					</li><br>
+
+					<li>Note that skipped frames may occur just due to the limitations of your hardware, especially if the display resolutions are high. For example, only a few high-end graphic cards currently in the market can do 4K (3840 x 2160) 60-Hz graphics without skipped frames. If this is the case, just lower the display resolution in Windows display settings.</li><br>
+					
+					<li>If none of them works, remove the following keys from the Windows registry, restart the computer and try them again.
+						<ul>
+							<li>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Configuration</li>
+							<li>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Connectivity</li>
+							<li>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\ScaleFactors</li>
+						</ul>
+					</li><br>
+					
+					<li>If you were able to fix the problem, please post how you fixed it in <a href="https://monkeylogic.nimh.nih.gov/board/list.php?3">the forum</a>.</li>
+				</ul>
+			</ol>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

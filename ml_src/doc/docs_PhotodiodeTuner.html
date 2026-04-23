@@ -1,0 +1,106 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_BluetoothRewardTrigger.html">Hardware, Arduino</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_TaskObjects.html">Appx., TaskObjects</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>Photodiode Tuner</h1>
+			<p>This tool tests the response characteristics of a monitor connected to NIMH ML and adjusts the timing of screen flips so that stimuli can be presented immediately during the next frame. Try this tool, if you have a large monitor, like 4K, or the result of <a href="docs_MonitorSetup.html">the latency test</a> does not look normal.</p>
+
+			<h2 class="line-spacing2">1. Background</h2>
+			<p>A frame is drawn by rasters scanning the screen (or scanlines; blue arrows in the figure below) from top left to bottom right. Some scanlines are not shown on the screen but used to fill in the <a href="https://en.wikipedia.org/wiki/Vertical_blanking_interval" onClick="return external_link();">vertical blank time<span class="ext"></span></a> (VBLANK; red arrows) between frames. It is a very common technique to replace screen contents during VBLANK, so that graphics may not be split into two frames. (Failure to avoid splits causes "<a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/display/tearing" onClick="return external_link();">tearing<span class="ext"></span></a>".) To use this technique, a memory buffer for new screen contents should be submitted sufficiently early before VBLANK occurs (green arrow). If the submission time is late and too close to VBLANK, the contents may be delayed and displayed one frame later.</p>
+			<p><img src="images/docs_photodiodetuner_scanlines.png"></p>
+			<p>However, it does not necessarily mean that earlier buffer submission is always better. After the buffer submission, NIMH ML has to wait until the first scanline (scanline 8 in the above figure) begins, to record the exact time of the new frame. This waiting takes away time for graphics and data processing. Therefore, we measure the optimal timing for buffer sumission to maximize the performance of NIMH ML.</p>
+
+			<h2 class="line-spacing2">2. Photodiode (PD) setup</h2>
+			<p>To use the PD tuner, connect the PD input to a DAQ analog input channel and assign the channel to "PhotoDiode" on the I/O menu.</p>
+			<p><img src="images/docs_photodiodetuner_IOsetup.png"></p>
+			<p class="line-spacing2">Then choose a screen location for the PD trigger (a white square) in the Video menu as shown below.</p>
+			<p><img src="images/docs_photodiodetuner_menu.png"></p>
+			<p><b>Note:</b> <b>1.</b> The scanlines are always drawn from the upper left corner of the monitor and the eventcode for a new frame is recorded when the first scanline begins. If the location of the PD is not upper left, there will be a time difference between the eventmarker and the PD response. <b>2.</b> A flipped screen can also introduce such a time difference between the eventmarker and the PD response, because flippinig the screen in the Windows display settings changes the location of the PD trigger but the directon of scanlines stays the same.</p>
+			
+			<p class="line-spacing2">Click the activated [Tune] button and the tuner window will pop up.</p>
+			<p><img src="images/docs_photodiodetuner_oneshot.png"></p>
+			<ul>
+				<li><strong>Photodiode response:</strong> Voltage changes in the PD input around the time when the PD trigger was presented.</li>
+				<ul>
+					<li><b>Vertical dotted line:</b> Start time of a new frame after buffer submission (i.e., the time of the eventmarker, if ever stamped)</li>
+					<li><b>Blue line:</b> Trace of the PD signal</li>
+					<li><b>Horizontal dotted line:</b> Voltage threshold to detect the rise or fall of the PD signal</li>
+					<li><b>Black bar:</b> Length of one frame measured</li>
+				</ul>
+				<li class="line-spacing1"><strong>[Help] button:</strong> Open this document.</li>
+				<li class="line-spacing1"><strong>Scanline:</strong> The first and last scanline numbers of the subject screen.</li>
+				<li><strong>Default threshold:</strong> By default, NIMH ML submits the screen buffer, if less than 10% of the total scanlines remain before VBLANK. This value is a good starting point for the [New thresold].</li>
+				<li><strong>Old threshold:</strong> Scanline threshold when this tool was opened</li>
+				<li><strong>New threshold:</strong> If this value is increased too much, the buffer submission time gets closer to VBLANK and new contents may not be presented in the immediate next frame. If this value is set too low, new graphics are likely to be presented in the immediate next frame but NIMH ML may not receive enough time to complete other tasks.</li>
+				<li class="line-spacing1"><strong>Voltage range:</strong> The voltage range of the PD signal. Determined automatically.</li>
+				<li><strong>Voltage threshold:</strong> Move the voltage threshold (horizontal dotted line) up (max: 100) and down (min: 0)</li>
+				<li><strong>One-shot test:</strong> Present the PD trigger and record the response once.</li>
+				<li class="line-spacing1"><strong># of triggers</strong> and <strong>Multi-shot test:</strong> Repeat the one-shot test multiple times</li>
+			</ul>
+
+			<h2 class="line-spacing2">3. Tuning</h2>
+			<p>The results shown here are examples tested with a 3840x2160 monitor at 60 Hz. Each system is likely to have a different scanline range and a different threshold number.</p>
+			<p>In the figure below, the new threshold was set to 2160, which was closer to the last scanline (=2218), compared to the previous threshold (=2002). This number was too close to VBLANK so the PD trigger was pushed back by another frame, as shown by the estimated latencies (17.0 ms) and voltage traces in the figure below. <u>Note that the peaks occurred outside the black bar.</u> Therefore, the value of 2160 would be a poor choice.</p>
+			<p><img src="images/docs_photodiodetuner_multishot1.png"></p>
+			<p class="line-spacing2">When the threshold was set to 2130, the PD trigger was presented in the frame drawn immediately after buffer submission, but sometimes it was delayed by another frame. This value would still not be a safe threshold.</p>
+			<p><img src="images/docs_photodiodetuner_multishot2.png"></p>
+			<p class="line-spacing2">With a threshold value of 2100, the PD trigger was presented in the immediate next frame every single time. This new threshold can be safely used. Click the [Save] button to keep the new threshold value.</p>
+			<p><img src="images/docs_photodiodetuner_multishot3.png"></p>
+			
+			<h2 class="line-spacing2">4. If you fail to find a good threshold</h2>
+			<p>Although the reason is not clear, it has been reported that the timing of the PD response cannot be changed in this way in some systems. If none of the tested values gives you the stable PD response (i.e., a unimodal distribution of PD response peaks), try 0 as the new threshold. It may not make the frame presented immediately but may help with the stable presentation at least.</p>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

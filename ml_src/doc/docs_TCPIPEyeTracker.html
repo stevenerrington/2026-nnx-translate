@@ -1,0 +1,125 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_AudioEngine.html">Main Menu, Audio Engine</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_IOTest.html">Main Menu, I/O Test</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>TCP/IP Eye Tracker</h1>
+			<p>Following products are currently supported for UDP or TCP data transfer.</p>
+			<ul>
+				<li>Arrington Research's ViewPoint EyeTrackers</li>
+				<li>SR Research's EyeLink trackers</li>
+				<li><a href="#ISCANSetup">ISCAN eye trackers</a></li>
+				<li><s>Thomas RECORDING TOM-rs</s> (support discontinued due to unnotified protocal changes)</li>
+				<li><a href="#TobiiPro">Tobii Pro</a> (only in NIMH ML v2.2)</li>
+				<li><a href="docs_NetworkedEyeJoy.html#MyEyeTracker">My EyeTracker</a> (interface for custom UDP/TCP eye trackers)</li>
+			</ul>
+			
+			<ol type="a">
+				<h2 class="line-spacing1"><li>General setup</li></h2>
+				<ol>
+					<li>Connect the eye tracker system and the NIMH ML computer with a LAN cable.</li>
+					<li>Type the IP address and port number of the eye tracker system in the NIMH ML TCP/IP eye tracker menu. Also put the IP address and port number of the NIMH ML computer in the eye tracker system.</li>
+					<li>Test the connection by clicking [Connection Test]. You may need to turn on the network discovery option of Windows or add new rules in Windows Firewall advanced settings to open the designated port.<br>
+						<img src="images\docs_tcpip_eye_tracker_setup.png">
+					</li>
+					<li>The first two signal sources must be X & Y gaze points as shown in the figure above. Some GUI components are disabled, to enforce it.</li>
+					<li>NIMH ML needs X & Y values from the eye tracker to be in a range of -10 to 10. Adjust the offset and gain on the right side of each channel, if necessary.</li>
+					<li>Disable Nagle's algorithm. See the instructions below.</li>
+				</ol>
+				
+				<h2 class="line-spacing2"><li>Disabling Nagle's algorithm</li></h2>
+				<p><u>Users need to disable <strong>Nagle's algorithm</strong> as described below, to get the maximum TCP/IP performance.</u> Nagle's algorithm is turned on, by default, in Windows.</p>
+				<ol>
+					<li>Open the registry editor: click <b>Start</b> > <b>Run</b> (or Window + R) and type <b>regedit</b>.</li>
+					<li>Browse to: <b>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters\Interfaces</b></li>
+					<li>Select the network interface to modify by finding the IP address assigned to the network adapter.</li>
+					<li>Create two new entries for the interface.  Do this by right-clicking the interface in the left pane and going to New > DWORD (32-bit) Value. Name them "<b>TcpAckFrequency</b>" and "<b>TCPNoDelay</b>" (case sensitive), respectively.</li>
+					<li>Double-click each new entry and set its ‘Value Data’ to "1". Leave "Hexadecimal" checked under ‘Base’.</li>
+					<li>Exit the registry editor and reboot.</li>
+				</ol>
+				
+				<h2 class="line-spacing2" id="ISCANSetup"><li>ISCAN UDP setup (for ISCAN users only)</li></h2>
+				<p>DQW software versions starting with 1.21E allow the user to specify and output a set of available parameters via a standard network port using the TCP/IP protocol in real-time. The interface is connectionless UDP (User Datagram Protocol), meaning data will be sent to the specified IP address and port without handshaking or knowledge of the receiving party's status. Since packet loss occurs very often in UDP connection, <u>it is recommended to use a direct cable connection</u> rather than route via an institutional network or a hub.</p>
+
+				<h3>1) To enable the TCP/IP capability in DQW</h3>
+				<ol>
+					<li>In the DQW <b>"System Configuration"</b> dialog, select the <b>"TCP/IP I/O"</b> tab.</li>
+					<li>Check the <b>"Output Active"</b> box to enable the TCP/IP output.</li>
+					<li>Specify the receiving party's <b>IP address</b> and <b>port</b> using the edit boxes and rollers. Click on <b>"OK"</b>.</li>
+					<li>Click on the <b>"Options"</b> button until the <b>"Auxiliary Output Controls"</b> panel appears as the lower left DQW screen. Then click on the <b>"TCP/IP"</b> tab if this is not already in the foreground.</li>
+					<li>Be sure the IP address and port are correct for <u>the destination computer</u>. If not, go back to Step 1 and make changes.</li>
+					<li>Two parameter banks with six parameters each, for a total of up to 12 parameters may be output with each data sample. To begin, select <b>"Param Bank" 1</b> and fill the <b>channels (01 to 06)</b> with the desired parameters by selecting from the pop up list activated by clicking on the "..." button to the right of each channel. Fill the channels in order and be sure that unused channels have parameter "................" selected to minimize data transmission time. If more than 6 parameters are desired, select <b>"Param Bank" 2</b> and proceed as above to fill in <b>channels 07 to 12</b>.</li>
+					<li>With the above steps completed, whenever <b>"Track Active"</b> is enabled a data packet will be output via the specified port for each system data sample. The data packet will consist of each of the non-blank channel data values for the parameters specified in channel order (01 to 12).</li>
+				</ol>
+
+				<h3>2) The ISCAN eye tracker menu in NIMH ML</h3>
+				<ol>
+					<li>Enter the port number. The number should be the same as the one you put in the DQW software. Let DQW send out packets and test the reception by clicking the "Connection Test" button.</li>
+					<li><u>If the connection test fails, see if the inbound UDP traffic for the specified port is allowed.</u> Go to the [Advanced settings] of [Windows Defender Firewall] and add a new inbound rule for the UDP port.</li>
+					<li>Make sure that the first two parameters selected in DQW are horizontal and vertical eye positions, respectively. It is up to the DQW software which parameters are sent. NIMH ML has no choice over this and what it shows on its menu is just for the display purpose. If the "Binocular" option is selected, the 3rd and 4th parameters of DQW should be horizontal and vertical positions of the second eye as well.</li>
+					<li>To record additional paramters, add them in DQW and change the corresponding channel in NIMH ML to "As defined in DQW".</li>
+				</ol>
+				
+				<h2 class="line-spacing2" id="TobiiPro"><li>Tobii Pro setup (for Tobii Pro users only)</li></h2>
+				<p><img src="images\docs_menu_tobii_pro.png"></p>
+				<ol>
+					<li>Before starting NIMH ML, Tobii Pro eye trackers must be connected to the computer and turned on. If they do not show up on the menu, try refreshing device lists (click <img src="images\docs_menu_refresh_icon.png"> on the [Other device settings] menu).</li>
+					<li>[Gaze Output Frequency] and [Eye Tracking Mode] show only options that are supported by the chosen eye tracker.</li>
+					<li><b>Tobii Calibration Data:</b> User calibration performed with Tobii's software can be exported to a file. To apply the calibration data every time when running tasks, choose the file by clicking the [File to import] button. The Eye Tracking Mode of the importing data must be the same as the current Eye Tracking Mode.</li>
+					<li>"Eye openness" signals are available only when the [Eye Tracking Mode] is "human".</li>
+				</ol>
+			</ol>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

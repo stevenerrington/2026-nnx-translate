@@ -1,0 +1,54 @@
+@media (min-resolution: 200dpi) and  (max-width: 1080px) and (orientation: portrait) {
+
+#nav-bar {
+	display: none;
+}
+
+.one-column {
+	float: none;
+	width: 100%;
+	word-wrap: break-word;
+}
+
+.two-columns {
+	float: none;
+	width: 100%;
+	word-wrap: break-word;
+}
+
+body {
+	padding-top: 6.25em;
+}
+
+nav {
+	font-size: 2em;
+}
+
+nav .title-area {
+	float: none;
+}
+
+nav .site-title {
+	float: left;
+}
+
+nav .menu-icon {
+	display: initial;
+	float: right;
+}
+
+nav .menu-area {
+	clear: both;
+	float: right;
+}
+
+nav .menu-area li {
+	display: block;
+	float: none;
+}
+
+nav .menu-area li a {
+	padding-right: 5em;
+}
+
+}

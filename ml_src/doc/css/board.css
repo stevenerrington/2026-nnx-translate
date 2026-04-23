@@ -1,0 +1,231 @@
+.message-body {
+	line-height: 1.5em;
+}
+
+#footerNIMH {
+	font-family: "Segoe UI","Segoe",Tahoma,Helvetica,Arial,sans-serif;
+	font-size: 13px;
+	background: #222;
+	color: #fff;
+	margin-top: 4em;
+	padding-bottom: 0.4em;
+	clear: both;
+	width: 100%;
+	display: inline-block;
+}
+
+#footerNIMH p {
+	color: gray;
+	margin: 0.5em 0;
+	text-align: center;
+}
+
+#footerNIMH .logoLinks {
+	margin: 0.5em 0;
+	padding: 0;
+	text-align: center;
+}
+
+#footerNIMH .logoLinks li {
+	display: inline-block;
+	padding: 0;
+	list-style: none;
+	vertical-align: middle;
+}
+
+#footerNIMH .logoLinks li a {
+	text-decoration: none;
+	color: white;
+	background-color: transparent;
+	border-right: 1px solid #c1c1c1;
+	display: inline-block;
+	min-height: 1em;
+	padding-left: 0.4em;
+	padding-right: 0.8em;
+}
+
+#footerNIMH .logoLinks li .lastTab {
+	border-right: none;
+	padding-right: 0.4em;
+}
+
+#footerNIMH .logoLinks li a:focus {
+	outline: none;
+}
+
+#footerNIMH .logoLinks li img {
+	border: none;
+}
+
+#logo { display: none; }
+
+span.ext {
+  background: url(../images/extlink_s.png) 2px center no-repeat;
+  width: 10px;
+  height: 10px;
+  padding-right: 12px;
+  text-decoration: none;
+}
+
+.page-margin  {
+	margin: 0 auto;
+	max-width: 62.5em;
+	min-width: 20em;
+}
+
+body {
+	margin: 0;
+	padding-top: 3.4375em;
+}
+
+nav {
+	font-family: Arial, Helvetica, sans-serif;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 2.8125em;
+	z-index: 999;
+	background: #222;
+	line-height: 2.8125em;
+	color: white;
+	overflow: hidden;
+}
+
+nav a {
+	text-decoration: none;
+	color: white;
+	background-color: transparent;
+}
+
+nav a:focus {
+	outline: none;
+}
+
+nav .title-area {
+	float: left;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+nav .site-title {
+	margin-left: 0.75em;
+	font-size: 1.5em;
+	font-weight: bold;
+	color: white;
+}
+
+nav .menu-icon {
+	display: none;
+	margin-top: 0.375em;
+	margin-right: 0.9375em;
+}
+
+nav .menu-icon-bar {
+	width: 1.75em;
+	height: 0.25em;
+	background-color: white;
+	margin: 0.3125em 0;
+	transition: 0.4s;
+}
+
+nav .menu-area {
+	float: right;
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+nav .menu-area li {
+	display: inline;
+	float: left;
+}
+
+nav .menu-area li a {
+	padding: 0 0.9375em;
+	font-size: 1.2em;
+}
+
+@media (max-width: 650px) {
+
+nav .title-area {
+	float: none;
+}
+
+nav .site-title {
+	float: left;
+}
+
+nav .menu-icon {
+	display: initial;
+	float: right;
+}
+
+nav .menu-area {
+	clear: both;
+	float: right;
+}
+
+nav .menu-area li {
+	display: block;
+	float: none;
+}
+
+nav .menu-area li a {
+	padding-right: 5em;
+}
+
+}
+
+@media (min-resolution: 200dpi) and  (max-width: 1080px) and (orientation: portrait) {
+
+body {
+	padding-top: 6.25em;
+}
+
+nav {
+	font-size: 2em;
+}
+
+nav .title-area {
+	float: none;
+}
+
+nav .site-title {
+	float: left;
+}
+
+nav .menu-icon {
+	display: initial;
+	float: right;
+}
+
+nav .menu-area {
+	clear: both;
+	float: right;
+}
+
+nav .menu-area li {
+	display: block;
+	float: none;
+}
+
+nav .menu-area li a {
+	padding-right: 5em;
+}
+
+}
+
+@media print {
+
+#top-menu, #footerNIMH, .hide-in-print { display: none; }
+
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	margin: 0;
+	padding: 0;
+}
+
+}

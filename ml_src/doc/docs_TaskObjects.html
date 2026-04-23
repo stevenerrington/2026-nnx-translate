@@ -1,0 +1,222 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_PhotodiodeTuner.html">Hardware, Photodiode Tuner</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_TrialRecordStructure.html">Appx., TrialRecord</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>TaskObjects</h1>
+
+<table border="1">
+
+<tr align="center">
+<td width="120"><strong>Type</strong></td>
+<td width="320"><strong>Syntax</strong></td>
+<td width="480"><strong>Remarks</strong></td>
+</tr>
+
+<tr>
+<td>Fixation point<sup>1</sup></td>
+<td>fix(Xdeg, Ydeg)</td>
+<td>&bull; <strong>Xdeg</strong> and <strong>Ydeg:</strong> XY positions in degrees<sup>2</sup></td>
+</tr>
+
+<tr>
+<td>Static image<sup>1</sup></td>
+<td>
+pic(filename, Xdeg, Ydeg)<br>
+pic(filename, Xdeg, Ydeg, colorkey)<br>
+pic(filename, Xdeg, Ydeg, Wpx, Hpx)<br>
+pic(filename, Xdeg, Ydeg, Wpx, Hpx, colorkey)<br>
+</td>
+<td>
+&bull; <strong>filename:</strong> BMP, GIF, JPG, TIF or PNG<br>
+&bull; <strong>Xdeg</strong> and <strong>Ydeg:</strong> in degrees<sup>2</sup><br>
+&bull; <strong>colorkey:</strong> a color [R G B] which will be treated as transparent<br>
+&bull; <strong>Wpx</strong> and <strong>Hpx:</strong> optional resizing parameters (width and height in <u>pixels</u>)<br>
+</td>
+</tr>
+
+<tr>
+<td>Movie<sup>1</sup></td>
+<td>
+mov(filename, Xdeg, Ydeg)<br>
+mov(filename, Xdeg, Ydeg, looping)
+</td>
+<td>
+&bull; <strong>filename:</strong> MP4, AVI, MPG or animated GIF<br>
+&bull; <strong>Xdeg</strong> and <strong>Ydeg:</strong> in degrees<sup>2</sup><br>
+&bull; <strong>looping:</strong> 0 (not repeat) or 1 (repeat)<br>
+&bull; See the remark below for compatibility with the original ML<sup>6</sup>.<br>
+</td>
+</tr>
+
+<tr>
+<td>Circle<sup>1</sup></td>
+<td>crc(radius, RGB, fill, Xdeg, Ydeg)</td>
+<td>
+&bull; <strong>radius:</strong> in degrees<br>
+&bull; <strong>RGB:</strong> a triplet [R G B] with values 0-1<br>
+&bull; <strong>fill:</strong> 0 (outline) or 1 (filled)<br>
+&bull; <strong>Xdeg</strong> and <strong>Ydeg:</strong> in degrees<sup>2</sup><br>
+</td>
+</tr>
+
+<tr>
+<td>Square<sup>1</sup></td>
+<td>sqr(size, RGB, fill, Xdeg, Ydeg)</td>
+<td>
+&bull; <strong>size:</strong> 1 element (square) or 2 (rectangle) in degrees<br>
+&bull; <strong>RGB:</strong> a triplet [R G B] with values 0-1<br>
+&bull; <strong>fill:</strong> 0 (outline) or 1 (filled)<br>
+&bull; <strong>Xdeg</strong> and <strong>Ydeg:</strong> in degrees<sup>2</sup><br>
+</td>
+</tr>
+
+<tr>
+<td>Sound</td>
+<td>
+snd(filename)<br>
+snd(<em>sin</em>, duration, frequency)<br>
+</td>
+<td>
+&bull; <strong>filename:</strong> WAV, MP3, M4A, AAC, OGG or MAT<sup>3</sup><br>
+&bull; <strong><em>sin</em></strong> is to be typed literally.<br>
+&bull; <strong>duration:</strong> in seconds<br>
+&bull; <strong>frequency:</strong> in Hertz<br>
+</td>
+</tr>
+
+<tr>
+<td>Stimulation</td>
+<td>
+stm(port, datasource)<br>
+stm(port, datasource, retriggerable)<br>
+</td>
+<td>
+&bull; <strong>port:</strong> Stimulation # on the main menu I/O panel<br>
+&bull; <strong>datasource:</strong> WAV, MP3, M4A, AAC, OGG or MAT<sup>3</sup><br>
+&bull; <strong>retriggerable:</strong> 0 (can be triggered only once) or 1 (multiple times)<sup>4</sup><br>
+</td>
+</tr>
+
+<tr>
+<td>TTL pulse</td>
+<td>ttl(port)</td>
+<td>&bull; <strong>port:</strong> TTL # on the main menu I/O panel</td>
+</tr>
+
+<tr>
+<td>User-generated Pic or Mov<sup>1</sup></td>
+<td>
+gen(function_name)<br>
+gen(function_name, Xdeg, Ydeg)<br>
+</td>
+<td>
+&bull; <strong>function_name:</strong> a user-provided MATLAB function<sup>5</sup><br>
+&bull; <strong>Xdeg</strong> and <strong>Ydeg:</strong> in degrees<sup>2</sup><br>
+</td>
+</tr>
+
+</table>
+
+<ol>
+	<li><p>For visual stimuli, an object with a smaller number will layer atop those with larger numbers. For example, when TaskObject#1 and TaskObject#2 are presented at the same location, TaskObject#1 will appear in front of TaskObject#2.</p></li>
+	<li><p>The center of the screen is the origin ([0 0]). The positive direction is the right of the origin for x axis and above the origin for y axis.</p></li>
+	<li><p>The MAT files must contain two variables, &ldquo;y&rdquo; and &ldquo;fs&rdquo;, for waveform and frequency, respectively.</p></li>
+	<li><p>When the &ldquo;retriggerable&rdquo; flag of an STM object is 1, stopping the stimulation will take a slightly longer time, to reload the waveform.</p></li>
+	<li id="GEN">
+		<p>The GEN user function can take one of the following prototypes.</p>
+<code style="margin-left:2em">imdata = gen_func(TrialRecord);
+imdata = gen_func(TrialRecord, MLConfig);
+[imdata, info] = gen_func(___);
+[imdata, Xdeg, Ydeg] = gen_func(___);
+[imdata, Xdeg, Ydeg, info] = gen_func(___);
+</code>
+
+		<p>The GEN function takes the <strong>TrialRecord</strong> structure as input and can optionally take the <strong>MLConfig</strong> structure as the second argument.</p>
+		<p><strong>imdata</strong> can be <u>a filename</u> or <u>a matrix</u> of one of the following dimensions.</p>
+		<p style="margin-left:2em">
+			<strong>Y-by-X:</strong> gray-scale image<br>
+			<strong>Y-by-X-by-3:</strong> RGB image<br>
+			<strong>Y-by-X-by-4:</strong> ARGB image (A: alpha channel)<br>
+			<strong>Y-by-X-by-3-by-N:</strong> RGB movie (N: # of frames)<br>
+			<strong>Y-by-X-by-4-by-N:</strong> ARGB movie (A: alpha channel, N: # of frames)
+		</p>
+		<p>If <strong>Xdeg</strong> and <strong>Ydeg</strong> are not given in the conditions file, they can be provided from the GEN function. They are both 0 by default.</p>
+		<p>Users can deliver extra information about the GEN stimulus to the timing script or other user functions by adding new fields to the <strong>info</strong> structure. There are a few reserved field names.</p>
+		<p style="margin-left:2em">
+			<strong>info.Colorkey</strong> (for images only): a 1-by-3 RGB color, [R G B], which should be treated as transparent<br>
+			<strong>info.Looping</strong> (for movies only): true or false; if true, the movie is repeated when the last frame is reached.<br>
+			<strong>info.TimePerFrame</strong> (for matrix-based movies only): the interval between movie frames; in milliseconds<br>
+			<strong>info.FrameByFrame</strong> (for file-based movies only): true or false; if true, the movie is played as in the original MonkeyLogic (repeatable and manipulatable frame by frame)
+		</p>
+		<p>The <strong>info</strong> structure can be accessed in the timing script or other user functions this way.</p>
+<code style="margin-left:2em">StimulusInfo(TaskObject#).MoreInfo                              <gr>% in timing script</gr>
+TrialRecord.CurrentConditionStimulusInfo(TaskObject#).MoreInfo  <gr>% via TrialRecord structure</gr>
+</code>
+	</li>
+	<li>
+		<p id="PlayMovieFrameByFrame">The original ML processes movies frame by frame without respecting their frame rates. This makes the speed of movies dependent on the refresh rate. To play movies in the same way as the original MonkeyLogic does, use GEN, instead of MOV, and assign 1 to info.FrameByFrame.</p>
+<code style="margin-left:2em">gen(moviefile,0,0)      <gr>% in the conditions file</gr>
+
+<bl>function</bl> [imdata,info] = moviefile(TrialRecord,MLConfig)   <gr>% gen script</gr>
+    imdata = <mg>'moviefile.avi'</mg>;
+    info.FrameByFrame = 1;
+<bl>end</bl>
+</code>
+	</li>
+</ol>
+
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

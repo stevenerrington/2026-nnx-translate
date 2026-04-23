@@ -1,0 +1,142 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_TouchscreenSetup.html">Hardware, Touchscreen</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_PhotodiodeTuner.html">Hardware, Photodiode Tuner</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>Triggering a remote reward device via Bluetooth</h1>
+			
+			<h3 class="line-spacing2">Purpose</h3>
+			<ul>
+				<li>To build a TTL pulse generator that can be triggered wirelessly via Bluetooth</li>
+			</ul>
+			<h3>Advantages</h3>
+			<ul>
+				<li>No need to physically connect the PC and the reward device with cables</li>
+				<li>No need to use DAQ boards just for reward, if the PC (laptop, tablet, etc.) has a Bluetooth radio</li>
+			</ul>
+			<h3>Prerequisites</h3>
+			<ul>
+				<li>Arduino Uno (almost any Arduino compatible board is fine, but the instructions in this document are written based on Uno)</li>
+				<li><a href="https://www.arduino.cc/en/software" onclick="return external_link();">Arduino IDE<span class="ext"></span></a></li>
+				<li><a href="extra/Arduino_sketch_for_Bluetooth.zip">Arduino_sketch_for_Bluetooth.zip</a> (click to download)</li>
+				<li>USB A-to-USB B cable (to temporarily connect the Arduino to the PC for programming)</li>
+				<li>HC-05 Bluetooth module</li>
+				<li>1kΩ & 2kΩ resistors</li>
+				<li>Battery or Power supply for Arduino (for deployment)</li>
+			</ul>
+			
+			<h2 class="line-spacing2">Step 1. Build a circuit for HC-05</h2>
+			<p>HC-05 is a Bluetooth module that can be purchased from Amazon or many other places. It can be paired with the Bluetooth radio on a PC (laptop, tablet, etc.) and, once paired, can communicate with the PC as a serial port.</p>
+			<p>HC-05 can be a slave or master device, but we will use it as a slave. There is another type of Bluetooth module, HC-06, which can be a slave only. Although HC-06 is a little cheaper, HC-05 is easier to configure with a mode switch button.</p>
+			<p>First, connect the HC-05 module with Arduino as in the following diagrams.</p>
+			<p align="center"><img src="images/docs_bluetooth_arduino_circuit.png"></p>
+<table style="table-layout:fixed;text-align:center;">
+<tr><td bgcolor="#D0D0D0"><b>Arduino</b></td><td bgcolor="#D0D0D0"><b>HC-05</b></td></tr>
+<tr><td><span style="color:#FF0000"><b>5V</b></span></td><td><span style="color:#FF0000"><b>VCC</b></span></td></tr>
+<tr><td><b>GND</b></td><td><b>GND</b></td></tr>
+<tr><td><span style="color:#00B0F0"><b>Pin 2 (software serial RX)</b></span></td><td><span style="color:#00B0F0"><b>TX</b></span></td></tr>
+<tr><td><span style="color:#4EA72E"><b>Pin 3 (software serial TX)</b></span></td><td><span style="color:#4EA72E"><b>RX</b></span></td></tr>
+</table>
+			<p>Note that there is a voltage divider (gray line in the above figure) composed of 1kΩ & 2kΩ resistors between Arduino TX and HC-05 RX. While Arduino is powered by 5V, HC-05 runs on 3.3V. HC-05 has a voltage regulator for VCC, so it can be powered with 5V without damage. However, the logic gate level of HC-05 is 3.3V. If it communicates with 5 volt signals from the Arduino for a prolonged time, the module may be damaged. Therefore, the resistors are added to reduce the voltage output of Arduino.</p>
+			<p>Now connect the Uno to the PC using the USB cable and move to next step.</p>
+
+			<h2 class="line-spacing2">Step 2. Test the circuit</h2>
+			<p>Arduino and HC-05 talk to each other through serial communication, but Uno has only one serial (USB-to-Serial) port, which it already uses to communicate with the PC. So we will use SoftwareSerial (pin 2 as RX and pin 3 as TX) for the communication between Arduino and HC-05 while setting up the HC-05 module and switch back to the hardware serial later when deploying them.</p>
+			<p><img src="images/docs_bluetooth_serial_pinouts.png"></p>
+			<p>To test if the circuit is working correctly, we will use the "01_Test" sketch, which is in the <a href="extra/Arduino_sketch_for_Bluetooth.zip">Arduino_sketch_for_Bluetooth.zip</a> file.</p>
+			<p>This sketch requires the HC-05 module to start in the AT command mode. Disconnect the VCC (power) line from the HC-05 and reconnect it while holding down the button on the module. The HC-05 LED should blink on and off at about 2 second intervals. Otherwise, try again. Once it begins to blink slowly, release the button.</p>
+			<p>Upload the sketch and open the serial monitor in the Arduino IDE (CTRL+SHIFT+M). Change the serial monitor options to "Both NL & CR" & "9600 baud".</p>
+			<p>Type "AT" and send. If "OK" returns, it means that the circuit is working fine.</p>
+			<p><img src="images/docs_bluetooth_at_commands.png"></p>
+			<p><u>Close the serial monitor</u> and move to the next step.</p>
+			<h3>Trouble shooting</h3>
+			<p>If "Enter AT commands:" is not displayed when the serial monitor is opened, check the manufacturer's documentation for the default baud rate of the HC-05 module. Most default to 38400 in the AT command mode. If not the case, change the value of "softserial_baudrate" in the sketch to match the HC-05 default baud rate and upload again. The message will also not display if the serial monitor's options are not set to "Both NL & CR" & "9600 baud".</p>
+			
+			<h2 class="line-spacing2">Step 3. Initialize HC-05</h2>
+			<p>The "02_Init" sketch (from <a href="extra/Arduino_sketch_for_Bluetooth.zip">Arduino_sketch_for_Bluetooth.zip</a>) is used to change the name of the HC-05 module, the passcode and the default serial communication parameters.</p>
+			<p>This sketch also needs the HC-05 to start in the AT command mode, so hold down the button and restart the module, if it is not in the AT command mode already.</p>
+			<p>Before uploading the sketch, select a name and passcode and change them in the "02_Init" sketch code. By default, the name is "RewardDevice001" and the passcode is "1234". They are assigned to the variables, hc05_name & hc05_password, respectively.</p>
+			<p>Upload the sketch, open the serial monitor and wait for the "Setup complete!!!" message (see the figure below). The "Name" field in the previous settings may be blank (retrieving the previous name requires holding down the button while the sketch is executed), but that is okay.</p>
+			<p><img src="images/docs_bluetooth_init_hc-05.png"></p>
+			<p><u>Close the serial monitor</u> and move to Step 4.</p>
+			<h3>Trouble shooting</h3>
+			<p>If there is an error while uploading this sketch, see if the serial monitor was left open in the other sketch windows. Close all of them before trying this step again.</p>
+			
+			<h2 class="line-spacing2">Step 4. Set up for deployment</h2>
+			<p>First, make it sure that no wire is connected to Arduino pin 0 & 1. Otherwise, sketch uploading will fail.</p>
+			<p>Upload the "03_Setup" sketch (from <a href="extra/Arduino_sketch_for_Bluetooth.zip">Arduino_sketch_for_Bluetooth.zip</a>). If the baud rate of HC-05 was changed during Step 3, change the value in this sketch as well before uploading.</p>
+			<p>SoftwareSerial was used for testing and initializing the HC-05 module, but hardware serial will be used to communicate for reward delivery. Thus, after uploading this sketch, move RX from pin 2 to pin 0 and TX from pin 3 to pin 1. (Note, the Uno cannot be connected to a computer without removing the wires from pins 0 and 1.)</p>
+			<p>To get started with reward delivery, pair the HC-05 module with the ML PC. For this, the module must be in the communication mode. Disconnect the VCC from the HC-05 and reconnect without pushing the button on the HC-05. The LED should be blinking quickly about 5 times per second. Right-click on the Bluetooth icon on the tray of your PC and choose "Show Bluetooth Devices".</p>
+			<p><img src="images/docs_bluetooth_show_bt_devices.png"></p>
+			<p class="line-spacing2">In the "Bluetooth & other devices" window below, <span style="font-weight:bold;color:red">1</span>) click "Add Bluetooth or other device" and <span style="font-weight:bold;color:red">2</span>) then click "Bluetooth" in the resulting dialog ("Add a device"). When the name of the HC-05 module ("RewardDevice001") shows up, click on it and enter the PIN (it is "1234", if not changed in Step 3). The LED should be blinking shortly once about every 2 seconds now.</p>
+			<p>After the pairing is complete, close the "Add a device" window and <span style="font-weight:bold;color:red">3</span>) open "Device and printers". Then <span style="font-weight:bold;color:red">4</span>) right-click on the reward device and choose the "Properties" menu.</p>
+			<p><img src="images/docs_bluetooth_add_bt_device.png"></p>
+			<p><img src="images/docs_bluetooth_devices_and_printers.png"></p>
+			<p class="line-spacing2">In the Properties window, click on either "hardware" or "Services" tab. There should now be a serial port ("COM") created for this Bluetooth connection. Memorize its number ("COM5" in the two figures below).</p>
+			<p><img src="images/docs_bluetooth_property_hardware_tab.png"> <img src="images/docs_bluetooth_property_services_tab.png"></p>
+			<p>If there is no COM port here, remove the device in the "Bluetooth & other devices" window, restart the HC-05 module and start over from Step 1.</p>
+			<p>Once the pairing is complete, start NIMH ML in MATLAB and open the "Other device settings" menu. In the "Reward via Bluetooth" menu, choose the COM port of the HC-05. Click the […] button on the right and change the "Baud rate" to 38400 in the resulting window. Do not change any other option.</p>
+			<p><img src="images/docs_bluetooth_other_device_settings.png"></p>
+			<p class="line-spacing2">Close the "Other device settings" window and click the "Test" button in "Reward polarity" on the main menu. The Arduino circuit will produce TTL pulses according to the options given to goodmonkey(). The LED will blink shortly twice every 2 seconds at this point, if the test is successful.</p>
+			<p>The TTL pulses can be used to drive multiple reward devices. In the "03_Setup" sketch, pin 2-12 of Arduino is assigned to JuiceLine 1-11, respectively.</p>
+			<p>The link between the HC-05 module and the ML PC will be disconnected when a task is finished but will reconnect automatically next time the COM port is used. Sometimes an 1168 error may occur when the connection is re-established. Then just try again.</p>
+			<h3>Trouble shooting</h3>
+			<p>If the COM port is assigned correctly, but did not produce TTL output from the Arduino, check to see if RX and TX wires are on pins 0 and 1, respectively.</p>
+			
+			<h3 class="line-spacing2">Benchmarks</h3>
+			<p><img src="images/docs_bluetooth_benchmark.png"></p>
+			<p>The above plots show benchmark performance of the Bluetooth connection. For benchmarking, a command to trigger a 300-ms reward 3 times at 300-ms intervals was repeated 1000 times from MATLAB. Event markers were sent before and after the command, and their timing was compared with the times of the resulting TTL pulses. All signals were recorded at 40 kHz. The latency from the command issuance to the 1st reward was 12.50 ± 4.05 ms (mean ± SD, Panel A). The time from the end of the 3rd reward to the "OK" response was 25.61 ± 8.18 ms (Panel B). The actual pulse duration was 300.07 ± 0.01 ms (Panel C) and the interval between pulses was 300.08 ± 0.01 ms (Panel D). Performance was tested with a nearby device, but may vary depending on the quality of signal reception.</p>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

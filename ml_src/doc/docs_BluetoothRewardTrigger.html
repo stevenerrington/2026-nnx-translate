@@ -1,0 +1,84 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_TouchscreenSetup.html">Hardware, Touchscreen</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_PhotodiodeTuner.html">Hardware, Photodiode Tuner</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>Arduino for Reward</h1>
+			
+			<p>The <a href="docs_BluetoothRewardTrigger_HC05.html">previous method using Arduino Uno + HC-05</a> is now deprecated. To upload the custom sketches provided on this page to an Arduino board, you will need the <a href="https://www.arduino.cc/en/software" onclick="return external_link();">Arduino IDE<span class="ext"></span></a>. The MATLAB Support Package for Arduino Hardware is not necessary.</p>
+			
+			<h3 class="line-spacing1">1. Wired Connection (USB)</h3>
+			<p>In this setup, an Arduino board is connected to the NIMH ML computer via a USB cable and sends TTL signals to reward devices through its digital pins.</p>
+			<p><b>Steps:</b></p>
+			<ol type="i">
+				<li>Upload the provided sketch (<a href="extra/Arduino_via_USB.zip">Arduino_via_USB.zip</a>) to your Arduino board.</li>
+				<li>Open the <b>[Other device settings (USB, etc.)]</b> menu and select the COM port assigned to the board under <b>[Arduino for Reward]</b>.</li>
+				<img src="images/docs_Arduino_via_USB.png">
+				<li>Connect your reward device(s) to the digital pins <b>D2 to D12</b> on the Arduino. These pins correspond to <b>JuiceLine 1 to 11</b> in the <a href="docs_RuntimeFunctions.html#goodmonkey">goodmonkey</a> function. (Note: Only one digital pin can be triggered at a time.)</li>
+			</ol>
+			
+			<h3 class="line-spacing2">2. Wireless Connection (BLE)</h3>
+			<p>For a wireless setup, use an Arduino board with Bluetooth Low Energy (BLE), such as the <b>Nano 33 BLE series</b> (Rev1, Rev2, Sense, or Sense Rev2). These boards can be placed away from the NIMH ML computer and receive trigger commands via BLE without a physical connection. The Bluetooth radio on your NIMH ML computer must also support BLE; typically, Bluetooth 4.0 devices include BLE support.</p>
+			<p><b>Steps:</b></p>
+			<ol type="i">
+				<li>Upload the provided sketch (<a href="extra/Arduino_via_BLE.zip">Arduino_via_BLE.zip</a>) to your Nano 33 BLE board.</li>
+				<li>In the <b>[Other device settings (USB, etc.)]</b> menu, click the <b>[...]</b> button next to <b>[Arduino for Reward]</b>.</li>
+				<img src="images/docs_Arduino_via_BLE.png">
+				<li>Click <b>[Search BLE]</b>, then select a device from the dropdown menu. If no BLE device appears, increase the timeout duration and try again.</li>
+				<li>The board will automatically connect to NIMH ML when a task starts. A green LED blinks when the board is powered on, then turns solid blue once the connection is established.</li>
+				<li>The digital pins <b>D2 to D12</b> on the Nano 33 BLE correspond to <b>JuiceLine 1 through 11</b> of the <a href="docs_RuntimeFunctions.html#goodmonkey">goodmonkey</a> function. (Note: Only one digital pin can be triggered at a time.)</li>
+			</ol>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

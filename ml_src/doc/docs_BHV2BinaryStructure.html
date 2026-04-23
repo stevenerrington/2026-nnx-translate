@@ -1,0 +1,278 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_KeycodeTable.html">Appx., Keycode Table</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_HDF5Implementation.html">Appx., HDF5 Format</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>BHV2 Binary Structure</h1>
+			<p><b>NOTE:</b> If you just want to know how to read BHV2 in MATLAB, see "<a href="docs_GettingStarted.html#FormatsSupported">File Formats Supported by NIMH MonkeyLogic</a>". This document is for those who want to develop their own BHV2 reader in different programming languages.</p>
+			
+			<p class="line-spacing2">BHV2 is a custom binary format designed to store MATLAB variables. It has a very simple structure that can be read with a recursive algorithm.</p>
+			<p>BHV2 has no file header and just begins with variable blocks. Each variable block has 6 fields of a variable header, as shown in the following diagram. The 1st, 3rd and 5th fields indicate the lengths of the 2nd, 4th and 6th fields, respectively.</p>
+			<p><img src="images\docs_bhv2_variable_header.png"></p>
+			
+			<p class="line-spacing3">If the variable type is one of the MATLAB primitive data types (char, integers, single, double, logical, etc.), then the content of the variable follows those 6 fields in <b>column-major order</b>. For example, if A is a 2-by-2 double matrix, the byte order of A will be:</p>
+<code>>> A = [1 2; 3 4]
+
+A =
+
+    1    2
+    3    4
+</code>
+
+<style>
+.variable { table-layout:fixed; border-collapse:separate; text-align:center; }
+.variable td { background-color:#5782bf; color:white; font-weight:bold; }
+.variable .header { background-color:#b94f4b; color:white; font-weight:bold; }
+</style>
+<table class="variable line-spacing1">
+<tr>
+<td class="header">1</td>
+<td class="header">A</td>
+<td class="header">6</td>
+<td class="header">double</td>
+<td class="header">2</td>
+<td class="header">[2 2]</td>
+<td>1</td>
+<td>3</td>
+<td>2</td>
+<td>4</td>
+</tr>
+</table>
+			<p>The type of the last 4 data fields above (i.e., 1, 3, 2, 4) is double, so you should read them as doubles, when you build your own reader.</p>
+
+			<p class="line-spacing3">If the variable type is <b>struct</b>, there is <u>one more field of uint64</u> that indicates the number of fields in the struct, followed by the first field of the first struct array.</p>
+<code>>> AA = [struct('a',1,'b','def') struct('a',2,'b','ghi') struct('a',9,'b','xyz')]   % 2 fields, a &amp; b
+
+AA =
+
+  1×3 struct array with fields:
+  
+    a
+    b
+</code>
+
+<table class="variable line-spacing1">
+<tr>
+<td class="header">2</td>
+<td class="header">AA</td>
+<td class="header">6</td>
+<td class="header">struct</td>
+<td class="header">2</td>
+<td class="header">[1 3]</td>
+<td style="background-color:green">2</td>
+<td>AA(1).a</td>
+<td>AA(1).b</td>
+<td>AA(2).a</td>
+</tr>
+</table>
+<table class="variable line-spacing1">
+<tr>
+<td>AA(2).b</td>
+<td>AA(3).a</td>
+<td>AA(3).b</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+			<p>Note that each struct field (e.g., AA(1).a) can contain any type of variables so each starts with its own variable headers (6 fields). See "Byte order of a struct" below.</p>
+
+			<p class="line-spacing3">If the variable type is <b>cell</b>, each cell of the cell array is in column-major order.</p>
+<code>>> AAA = cell(3,2);
+</code>
+<table class="variable line-spacing1"">
+<tr>
+<td class="header">3</td>
+<td class="header">AAA</td>
+<td class="header">4</td>
+<td class="header">cell</td>
+<td class="header">2</td>
+<td class="header">[3 2]</td>
+<td>AAA{1,1}</td>
+<td>AAA{2,1}</td>
+<td>AAA{3,1}</td>
+<td>AAA{1,2}</td>
+</tr>
+</table>
+<table class="variable line-spacing1">
+<tr>
+<td>AAA{2,2}</td>
+<td>AAA{3,2}</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</table>
+
+			<h2 class="line-spacing2">Byte order of a struct</h2>
+<code><span style="color:red">A(1).a = [1 2 3];</span>
+A(1).b = 'xyz';
+<span style="color:blue">A(2).a = [5 6; 7 8];</span>
+A(2).b = '';
+</code>
+
+<style>
+.byte_order { border:0; border-spacing:0; }
+.byte_order td { border:0; padding:0; }
+</style>
+<table class="code byte_order line-spacing2">
+
+<tr><td style="width:100px">1</td><td style="width:150px">[1x1 uint64]</td><td>% length('A')</td></tr>
+<tr><td>A</td><td>[1x1 char]</td><td>% struct name</td></tr>
+<tr><td>6</td><td>[1x1 uint64]</td><td>% length('struct')</td></tr>
+<tr><td>struct</td><td>[1x6 char]</td><td>% variable type</td></tr>
+<tr><td>2</td><td>[1x1 uint64]</td><td>% dimension of variable</td></tr>
+<tr><td>[1 2]</td><td>[1x2 double]</td><td>% size of struct</td></tr>
+<tr style="color:green"><td>2</td><td>[1x1 uint64]</td><td>% number of fields in A</td></tr>
+
+<tr style="color:red"><td>1</td><td>[1x1 uint64]</td><td>% length('a')</td></tr>
+<tr style="color:red"><td>a</td><td>[1x1 char]</td><td>% name of the first field</td></tr>
+<tr style="color:red"><td>6</td><td>[1x1 uint64]</td><td>% length('double')</td></tr>
+<tr style="color:red"><td>double</td><td>[1x6 char]</td><td>% variable type</td></tr>
+<tr style="color:red"><td>2</td><td>[1x1 uint64]</td><td>% dimension of variable</td></tr>
+<tr style="color:red"><td>[1 3]</td><td>[1x2 double]</td><td>% size of variable</td></tr>
+<tr style="color:red"><td>1 2 3</td><td>[1x3 double]</td><td>% content of the first field</td></tr>
+
+<tr><td>1</td><td>[1x1 uint64]</td><td>% length('b')</td></tr>
+<tr><td>b</td><td>[1x1 char]</td><td>% name of the second field</td></tr>
+<tr><td>4</td><td>[1x1 uint64]</td><td>% length('char')</td></tr>
+<tr><td>char</td><td>[1x4 char]</td><td>% variable type</td></tr>
+<tr><td>2</td><td>[1x1 uint64]</td><td>% dimension of variable</td></tr>
+<tr><td>[1 3]</td><td>[1x2 double]</td><td>% size of variable</td></tr>
+<tr><td>xyz</td><td>[1x3 char]</td><td>% content of the second field</td></tr>
+
+<tr style="color:blue"><td>1</td><td>[1x1 uint64]</td><td>% length('a')</td></tr>
+<tr style="color:blue"><td>a</td><td>[1x1 char]</td><td>% name of the first field</td></tr>
+<tr style="color:blue"><td>6</td><td>[1x1 uint64]</td><td>% length('double')</td></tr>
+<tr style="color:blue"><td>double</td><td>[1x6 char]</td><td>% variable type</td></tr>
+<tr style="color:blue"><td>2</td><td>[1x1 uint64]</td><td>% dimension of variable</td></tr>
+<tr style="color:blue"><td>[2 2]</td><td>[1x2 double]</td><td>% size of variable</td></tr>
+<tr style="color:blue"><td>5 7 6 8</td><td>[2x2 double]</td><td>% content of the first field</td></tr>
+
+<tr><td>1</td><td>[1x1 uint64]</td><td>% length('b')</td></tr>
+<tr><td>b</td><td>[1x1 char]</td><td>% name of the second field</td></tr>
+<tr><td>4</td><td>[1x1 uint64]</td><td>% length('char')</td></tr>
+<tr><td>char</td><td>[1x4 char]</td><td>% variable type</td></tr>
+<tr><td>2</td><td>[1x1 uint64]</td><td>% dimension of variable</td></tr>
+<tr><td>[0 0]</td><td>[1x2 double]</td><td>% size of variable</td></tr>
+<tr><td><strike>''</strike></td><td><strike>[0x0 char]</strike></td><td><strike>% content of the second field</strike></td></tr>
+<tr><td>(end)</td><td></td><td></td></tr>
+
+</table>
+			<p class="line-spacing2">The last byte in the above example does not exist since its content is blank. Note that the content of A(2).a is written as [5 7 6 8], not [5 6 7 8], since matrices are in column major order in MATLAB.</p>
+			
+			<h2 class="line-spacing2">Byte order of a cell</h2>
+<code>A = cell(2,2);
+<span style="color:red">A{1 1} = [1 2 3];</span>
+<span style="color:green">A{1,2} = 'xyz';</span>
+<span style="color:blue">A{2,1} = [5 6; 7 8];</span>
+A{2,2} = '';
+</code>
+
+<table class="code byte_order line-spacing2">
+
+<tr><td style="width:100px">1</td><td style="width:150px">[1x1 uint64]</td><td>% length('A')</td></tr>
+<tr><td>A</td><td>[1x1 char]</td><td>% cell array name</td></tr>
+<tr><td>4</td><td>[1x1 uint64]</td><td>% length('cell')</td></tr>
+<tr><td>cell</td><td>[1x4 char]</td><td>% variable type</td></tr>
+<tr><td>2</td><td>[1x1 uint64]</td><td>% dimension of variable</td></tr>
+<tr><td>[2 2]</td><td>[1x2 double]</td><td>% size of cell array</td></tr>
+
+<tr style="color:red"><td>0</td><td>[1x1 uint64]</td><td>% A{1,1} has no name</td></tr>
+<tr style="color:red"><td><strike>''</strike></td><td><strike>[0x0 char]</strike></td><td><strike>% no name</strike></td></tr>
+<tr style="color:red"><td>6</td><td>[1x1 uint64]</td><td>% length('double')</td></tr>
+<tr style="color:red"><td>double</td><td>[1x6 char]</td><td>% variable type</td></tr>
+<tr style="color:red"><td>2</td><td>[1x1 uint64]</td><td>% dimension of variable</td></tr>
+<tr style="color:red"><td>[1 3]</td><td>[1x2 double]</td><td>% size of variable</td></tr>
+<tr style="color:red"><td>1 2 3</td><td>[1x3 double]</td><td>% content of A{1,1}</td></tr>
+
+<tr style="color:blue"><td>0</td><td>[1x1 uint64]</td><td>% A{2,1} has no name</td></tr>
+<tr style="color:blue"><td><strike>''</strike></td><td><strike>[0x0 char]</strike></td><td><strike>% no name</strike></td></tr>
+<tr style="color:blue"><td>6</td><td>[1x1 uint64]</td><td>% length('double')</td></tr>
+<tr style="color:blue"><td>double</td><td>[1x6 char]</td><td>% variable type</td></tr>
+<tr style="color:blue"><td>2</td><td>[1x1 uint64]</td><td>% dimension of variable</td></tr>
+<tr style="color:blue"><td>[2 2]</td><td>[1x2 double]</td><td>% size of variable</td></tr>
+<tr style="color:blue"><td>5 7 6 8</td><td>[2x2 double]</td><td>% content of A{2,1}</td></tr>
+
+<tr style="color:green"><td>0</td><td>[1x1 uint64]</td><td>% A{1,2} has no name</td></tr>
+<tr style="color:green"><td><strike>''</strike></td><td><strike>[0x0 char]</strike></td><td><strike>% no name</strike></td></tr>
+<tr style="color:green"><td>4</td><td>[1x1 uint64]</td><td>% length('char')</td></tr>
+<tr style="color:green"><td>char</td><td>[1x4 char]</td><td>% variable type</td></tr>
+<tr style="color:green"><td>2</td><td>[1x1 uint64]</td><td>% dimension of variable</td></tr>
+<tr style="color:green"><td>[1 3]</td><td>[1x2 double]</td><td>% size of variable</td></tr>
+<tr style="color:green"><td>xyz</td><td>[1x3 char]</td><td>% content of A{1,2}</td></tr>
+
+<tr><td>0</td><td>[1x1 uint64]</td><td>% A{2,2} has no name</td></tr>
+<tr><td><strike>''</strike></td><td><strike>[0x0 char]</strike></td><td><strike>% no name</strike></td></tr>
+<tr><td>4</td><td>[1x1 uint64]</td><td>% length('char')</td></tr>
+<tr><td>char</td><td>[1x4 char]</td><td>% variable type</td></tr>
+<tr><td>2</td><td>[1x1 uint64]</td><td>% dimension of variable</td></tr>
+<tr><td>[0 0]</td><td>[1x2 double]</td><td>% size of variable</td></tr>
+<tr><td><strike>''</strike></td><td><strike>[0x0 char]</strike></td><td><strike>% content of A{2,2}</strike></td></tr>
+<tr><td>(end)</td><td></td><td></td></tr>
+
+</table>
+			<p class="line-spacing2">Again, the fields that have any 0-sized dimension are not written to the file. And note that not only a numeric matrix (A{2,1}) but also a cell (‘A’ itself) is arranged in column-major order. In other words, A{1,2} is placed after A{2,1} in the file.</p>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

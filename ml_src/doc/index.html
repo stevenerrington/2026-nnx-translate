@@ -1,0 +1,116 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<section>
+	<div class="two-columns">
+		<div>
+			<p><img src="images/main_screenshot.png" class="hide-in-print"></p>
+		</div>
+	</div>
+	<div class="two-columns">
+		<div>
+			<h1 class="home-title">NIMH MonkeyLogic</h1>
+			
+			<h2>Behavioral Control and Data Acquisition in MATLAB</h2>
+			<p class="indent">NIMH MonkeyLogic is a MATLAB-based software tool for behavioral control and data acquisition. It allows users to design sensory, motor, or cognitive tasks with a familiar, high-level language and execute them with high temporal accuracy. Many stimulus types are available for task composition and data can be collected during tasks from various signal sources. The timing of events can be synchronized with external devices via event code exchanges.</p>
+		</div>
+	</div>
+</section>
+
+<section>
+	<div class="two-columns">
+		<div>
+			<h2 id="Features">Features</h2>
+			<ul style="padding-left:1em">
+				<li>Full support for latest 64-bit MATLAB</li>
+				<li>Compatible with the original MonkeyLogic behavioral tasks</li>
+				<li>NIMH Data Acquisition (DAQ) Toolbox</li>
+				<ul>
+					<li>Real-time behavior monitoring using only one DAQ board</li>
+					<li>Support for a wide variety of input and output devices
+						<ul>
+							<li>Monocular or binocular eye signals (voltage or TCP/IP)</li>
+							<li>Up to two joysticks (voltage, USB or TCP/IP)</li>
+							<li>Touchscreen (multi-touch), mouse and keyboard</li>
+							<li>Webcams</li>
+							<li>Triggering remote reward devices via Bluetooth</li>
+							<li>Low-latency voice recording via WASAPI</li>
+							<li>Sampling faster than 1 kHz (secondary DAQ needed)</li>
+							<li>Importing data from the lab streaming layer</li>
+						</ul>
+					</li>
+				</ul>
+				<li>MonkeyLogic Graphics Library (MGL)</li>
+				<ul>
+					<li>"What you see is what your monkey sees."</li>
+					<li>Transparent images by alpha blending or color key</li>
+					<li>Movie & sound streaming (no limit to length)</li>
+					<li>Low-latency audio output with XAudio2 and WASAPI</li>
+				</ul>
+				<li>mlplayer: a trial-replay and video-exporting tool</li>
+				<li>Simulation mode that allows testing user tasks with no special hardware</li>
+			</ul>
+		</div>
+	</div>
+	<div class="two-columns">
+		<div>
+			<h2 id="SystemRequirements">System Requirements</h2>
+			<ul style="padding-left:1em">
+				<li>Windows 10 or later (64-bit)</li>
+				<ul>
+					<li>Windows N requires the Media Feature Pack.</li>
+				</ul>
+				<li>MATLAB R2014b or later (64-bit)</li>
+				<ul>
+					<li>No MATLAB toolbox is required.</li>
+				</ul>
+				<li>Microsoft Visual C++ Redistributable for Visual Studio 2022 (x64)</li>
+				<li>National Instruments Multifunction I/O Device (optional)</li>
+				<ul>
+					<li>No need to install two boards</li>
+					<li>USB-type DAQ devices are supported.</li>
+				</ul>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

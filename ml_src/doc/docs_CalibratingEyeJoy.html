@@ -1,0 +1,101 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_NIMultifunctionIODevice.html">Hardware, NI Board</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_TouchscreenSetup.html">Hardware, Touchscreen</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>Calibrating Eye/Joystick Signals</h1>
+			<p>Calibration is a process of converting and aligning input signals to coordinates of visual object space. The first step is to set the physical dimensions of the visual space correctly. Measure <u>the diagonal size of the subject monitor</u> and <u>the distance between the monitor and the subject</u> and put them in the main menu as shown below. NIMH ML then provides you a conversion factor in pixels per degree of visual angle (45.859 in the figure shown below). Use this number to convert the size of visual objects to visual angles. For example, a 320 x 240 pixel movie is [320 240] / 45.859 = [6.9779 5.2334] degrees in visual angles. (See <a href="docs_MainMenu.html#AdjustedPPD">Pixels per degree</a> for what the <b>Adjust</b> option does)</p>
+			
+			<p><img src="images\docs_eyejoy_pixels_per_degree.png"></p>
+			
+			<p>NIMH MonkeyLogic currently provides options to use <b>Raw Signal</b> and two calibration methods, <b>Origin & Gain</b> and <b>2-D Spatial Transformation</b>. The <b>Origin & Gain</b> requires only 2 fixation points and is much easier to use with untrained subjects. The <b>2-D Spatial Transformation</b> requires sampling voltages for at least 4 fixation points (or more, depending on the transform type) but can do more complex mapping by a projective or polynomial transform. Both methods include a tool to move and present the fixation point with the mouse. By clicking on yellow squares on the control screen, a fixation point will be displayed in the corresponding location on the subject screen.</p>
+
+			<p>There are a few shortcut keys for calibration. These shortcuts work during the task as well.<p>
+			<ul>
+				<li>[C] key: Brings the current eye position to the center of the screen.</li>
+				<li>[U] key: Cancels the previous 'C' key. Undo can be done multiple times.</li>
+				<li>[R] key: Delivers a manual reward.</li>
+				<li>[-] key: Decreases the reward pulse length by 10 ms.</li>
+				<li>[+] key: Increases the reward pulse length by 10 ms.</li>
+			</ul>
+			
+			<ol>
+				<h2 id="RawSignal" class="line-spacing2"><li>Raw Signal (Pre-calibrated)</li></h2>
+				<p>Choose this option when the signals are calibrated already, or to get unaltered input.  One volt in the calibrated signals should correspond to one degree of displacement.  If the signal is calibrated but the conversion ratio is not one to one, it is possible to do further adjustment with the Origin & Gain method.</p>
+
+				<h2 id="OriginGain" class="line-spacing2"><li>Origin & Gain</li></h2>
+				<p><img src="images\docs_eyejoy_origin_and_gain.png"></p>
+				<p>This method requires sampling the central fixation point (FP) and adjusting X & Y gains. </p>
+				<ol type="none" style="margin-left:-2em;">
+					<li>1) To use the GUI controls on the right, unlock them first by clicking the [Unlock] button. Lock them again afterwards, to prevent your key input from triggering those controls.</li>
+					<li>2) Click the FP (yellow square) at the center or the [Show Center] button on the GUI. It will display a FP on the subject screen. Then wait until the subject looks at it.</li>
+					<li>3) Click the [Set Origin] button while the subject is looking at the central FP. Alternatively, you can press the space bar (or 'C' key). It will register the current voltage reading for the center.</li>
+					<li>4) Click one of the FPs on the periphery. Increase (or decrease) X & Y gains if the subject's saccade undershoots (or overshoots).</li>
+				</ol>
+				
+				<h2 id="SpatialTransformation" class="line-spacing2"><li>2-D Spatial Transformation</li></h2>
+				<p><img src="images\docs_eyejoy_2d_spatial_transformation.png"></p>
+				<p>This tool supports two types of geometric transformations: projective and polynomial. The projective transform requires at least 4 non-collinear FPs and the polynomial transform, 10 or 15 FPs, depending on its degree.</p>
+				<ol type="none" style="margin-left:-2em;">
+					<li>1) Only selected FPs can be presented for this calibration. These FPs are numbered. To select/unselect FPs, use the right mouse button. Changing the intervals of FPs may leave some numbers off of FPs. Those numbers can only be unselected.</li>
+					<li>2) Selected FPs can be turned on/off individually with the keyboard (N key & P key) or with mouse left-clicks. The FP currently being presented is indicated by a circle around it. The circle may not be shown, if its size is too small. In that case, try increasing [Fixation window radius].</li>
+					<li>3) Hit the space key while the subject is looking at the FP turned on the subject screen. The voltage reading at that moment will be registered for the FP location and its number will turn from red (<span style="background-color:#FF0000;">[Uncalibrated]</span> color) to cyan (<span style="background-color:#00FFFF;">[Calibrated]</span> color).</li>
+					<li>4) There is a choice for how to reward eye fixation. The default option is to deliver reward at the time of the space key press and move to the next FP.</li>
+					<li>5) Repeat 2) and 3) for the entire selected FPs a couple of times until no more improvement is observed.</li>
+					<li>6) The projective transformation is a linear transformation and can map a tilted voltage space to a rectangular eye space. The polynomial transformation can warp a curved voltage space (red circles in the minimap). The higher the order of the polynomial, the better the fit.</li>
+				</ol>
+			</ol>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,3375 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<link rel="stylesheet" href="css/runtimefunctions.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onresize="menuResizeFunction()" onscroll="fixNavbarOnScroll()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_TrialRecordStructure.html">Appx., TrialRecord</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_ScreenObject.html">Appx., Screen Object</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section class="hide-in-print">
+	<div class="one-column">
+		<div>
+			<h1>Timing script functions</h1>
+		</div>
+	</div>
+
+	<div class="two-columns">
+		<div>
+<table class="functionlist">
+<tr>
+
+<td width="250" valign="top">
+<h2>Runtime functions</h2>
+<ul>
+	<li><a href="#bhv_code">bhv_code</a></li>
+	<li><a href="#bhv_variable">bhv_variable</a></li>
+	<li><a href="#dashboard">dashboard</a></li>
+	<li><a href="#editable">editable</a></li>
+	<li><a href="#escape_screen">escape_screen</a></li>
+	<li><a href="#eventmarker">eventmarker</a></li>
+	<li><a href="#eye_position">eye_position</a></li>
+	<li><a href="#eye_position">eye2_position</a></li>
+	<li><a href="#forced_eye_drift_correction">forced_eye_drift_correction</a></li>
+	<li><a href="#get_analog_data">get_analog_data</a></li>
+	<li><a href="#get_object_duration">get_object_duration</a></li>
+	<li><a href="#getkeypress">getkeypress</a></li>
+	<li><a href="#goodmonkey">goodmonkey</a></li>
+	<li><a href="#hotkey">hotkey</a></li>
+	<li><a href="#idle">idle</a></li>
+	<li><a href="#include">include</a></li>
+	<li><a href="#istouching">istouching</a></li>
+	<li><a href="#eye_position">joystick_position</a></li>
+	<li><a href="#eye_position">joystick2_position</a></li>
+	<li><a href="#mouse_position">mouse_position</a></li>
+	<li><a href="#reposition_object">reposition_object</a></li>
+	<li><a href="#rescale_object">rescale_object</a></li>
+	<li><a href="#rotate_object">rotate_object</a></li>
+	<li><a href="#rewind_object">rewind_object</a></li>
+	<li><a href="#set_bgcolor">set_bgcolor</a></li>
+	<li><a href="#set_iti">set_iti</a></li>
+	<li><a href="#touch_position">touch_position</a></li>
+	<li><a href="#trialerror">trialerror</a></li>
+	<li><a href="#trialtime">trialtime</a></li>
+	<li><a href="#user_text">user_text</a></li>
+	<li><a href="#user_text">user_warning</a></li>
+</ul>
+</td>
+
+<td width="250" valign="top">
+<h2>Version 1 specific</h2>
+<ul>
+	<li><a href="#eyejoytrack">eyejoytrack</a></li>
+	<li><a href="#set_frame_event">set_frame_event</a></li>
+	<li><a href="#set_frame_order">set_frame_order</a></li>
+	<li><a href="#set_object_path">set_object_path</a></li>
+	<li><a href="#showcursor">showcursor</a></li>
+	<li><a href="#showcursor">showcursor2</a></li>
+	<li><a href="#showtouch">showtouch</a></li>
+	<li><a href="#toggleobject">toggleobject</a></li>
+</ul>
+<h2 style="margin-top:2em">Version 2 specific</h2>
+<ul>
+	<li><a href="#create_scene">create_scene</a></li>
+	<li><a href="#run_scene">run_scene</a></li>
+</ul>
+</td>
+
+</tr>
+</table>
+		</div>
+	</div>
+
+	<div class="two-columns">
+		<div>
+<table class="functionlist">
+
+<tr>
+<td colspan="2" width="500" valign="top">
+<h2>Adapters for Version 2</h2>
+</td>
+</tr>
+
+<tr>
+<td width="250" valign="top">
+<ul>
+	<li><a href="#Trackers">EyeTracker</a></li>
+	<li><a href="#Trackers">Eye2Tracker</a></li>
+	<li><a href="#Trackers">JoyTracker</a></li>
+	<li><a href="#Trackers">Joy2Tracker</a></li>
+	<li><a href="#Trackers">TouchTracker</a></li>
+	<li><a href="#Trackers">ButtonTracker</a></li>
+	<li><a href="#Trackers">MouseTracker</a></li>
+	<li><a href="#Trackers">NullTracker</a></li>
+	<br>
+	<li><a href="#SingleTarget">SingleTarget</a></li>
+	<li><a href="#MultiTarget">MultiTarget</a></li>
+	<li><a href="#WaitThenHold">WaitThenHold</a></li>
+	<li><a href="#FreeThenHold">FreeThenHold</a></li>
+	<li><a href="#LooseHold">LooseHold</a></li>
+	<li><a href="#ComplementaryWindow">ComplementaryWindow</a></li>
+	<li><a href="#BlinkDetector">BlinkDetector</a></li>
+	<br>
+	<li><a href="#SingleButton">SingleButton</a></li>
+	<li><a href="#PulseCounter">PulseCounter</a></li>
+	<li><a href="#OnsetDetector">OnsetDetector</a></li>
+	<li><a href="#KeyChecker">KeyChecker</a></li>
+	<br>
+	<li><a href="#TimeCounter">TimeCounter</a></li>
+	<li><a href="#FrameCounter">FrameCounter</a></li>
+	<br>
+	<li><a href="#AnalogInputMonitor">AnalogInputMonitor</a></li>
+	<li><a href="#PropertyMonitor">PropertyMonitor</a></li>
+	<li><a href="#WebcamMonitor">WebcamMonitor</a></li>
+	<li><a href="#FrameMarker">FrameMarker</a></li>
+	<li><a href="#OnOffMarker">OnOffMarker</a></li>
+	<li><a href="#OnOffDisplay">OnOffDisplay</a></li>
+	<li><a href="#OnOffGraphic">OnOffGraphic</a></li>
+	<li><a href="#PhotoDiode">PhotoDiode</a></li>
+	<br>
+</ul>
+</td>
+<td width="250" valign="top">
+<ul>
+	<li><a href="#BoxGraphic">BoxGraphic</a></li>
+	<li><a href="#CircleGraphic">CircleGraphic</a></li>
+	<li><a href="#PieGraphic">PieGraphic</a></li>
+	<li><a href="#PolygonGraphic">PolygonGraphic</a></li>
+	<li><a href="#TextGraphic">TextGraphic</a></li>
+	<li><a href="#ImageGraphic">ImageGraphic</a></li>
+	<li><a href="#MovieGraphic">MovieGraphic</a></li>
+	<li><a href="#SineGrating">SineGrating</a></li>
+	<li><a href="#RandomDotMotion">RandomDotMotion</a></li>
+	<li><a href="#GraphicContainer">GraphicContainer</a></li>
+	<br>
+	<li><a href="#CurveTracer">CurveTracer</a></li>
+	<li><a href="#ImageChanger">ImageChanger</a></li>
+	<li><a href="#GraphicProperty">GraphicProperty</a></li>
+	<li><a href="#BackgroundColorChanger">BackgroundColorChanger</a></li>
+	<br>
+	<li><a href="#AudioSound">AudioSound</a></li>
+	<li><a href="#Stimulator">Stimulator</a></li>
+	<li><a href="#TTLOutput">TTLOutput</a></li>
+	<br>
+	<li><a href="#AllContinue">AllContinue</a></li>
+	<li><a href="#AnyContinue">AnyContinue</a></li>
+	<li><a href="#Concurrent">Concurrent</a></li>
+	<li><a href="#Sequential">Sequential</a></li>
+	<li><a href="#AndAdapter">AndAdapter</a></li>
+	<li><a href="#OrAdapter">OrAdapter</a></li>
+	<li><a href="#NotAdapter">NotAdapter</a></li>
+	<br>
+	<li><a href="#DragAndDrop">DragAndDrop</a></li>
+	<li><a href="#FixTimeAnalyzer">FixTimeAnalyzer</a></li>
+	<li><a href="#RewardScheduler">RewardScheduler</a></li>
+	<br>
+</ul>
+</td>
+</tr>
+
+</table>
+		</div>
+	</div>
+	
+	<div class="one-column">
+		<div>
+			<h1>Command window functions</h1>
+<table class="functionlist">
+<tr>
+<td valign="top">
+<ul>
+	<li><a href="#behaviorsummary">behaviorsummary</a></li>
+	<li><a href="#convert_format">bhv2bhvz</a></li>
+	<li><a href="#convert_format">bhv2h5</a></li>
+	<li><a href="#convert_format">bhv2mat</a></li>
+	<li><a href="#convert_format">convert_format</a></li>
+	<li><a href="#mlconcatenate">mlconcatenate</a></li>
+	<li><a href="#mlexportstim">mlexportstim</a></li>
+	<li><a href="#mlexportwebcam">mlexportwebcam</a></li>
+	<li><a href="#mlimportwebcam">mlimportwebcam</a></li>
+	<li><a href="#mlplayer">mlplayer</a></li>
+	<li><a href="#mlread">mlread</a></li>
+	<li><a href="#mlreadsignal">mlreadsignal</a></li>
+</ul>
+</td>
+</tr>
+</table>
+		</div>
+	</div>
+</section>
+
+<section>
+	<div class="one-column">
+		<div>
+
+<h3 id="bhv_code">bhv_code</h3>
+<ul>
+	<p>This function assigns string labels to numeric behavioral codes.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">bhv_code(code_number1, code_name1, code_number2, code_name2, ...);</ul>
+	<p class="example">Example:<p>
+	<ul class="example">bhv_code(10, <mg>'Fixation cue on'</mg>, 20, <mg>'Sample'</mg>, 30, <mg>'Delay'</mg>, 40, <mg>'Go'</mg>, 50, <mg>'Reward'</mg>);
+	</ul>
+</ul>
+
+<h3 id="bhv_variable">bhv_variable</h3>
+<ul>
+	<p>This function stores the current values of variables to the data file.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">bhv_variable(var_name1, var_value1, var_name2, var_value2, ...);</ul>
+	<p class="example">Example:</p>
+	<ul class="example">bhv_variable(<mg>'direction'</mg>, direction, <mg>'choice'</mg>, choice);</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>If the function is called multiple times for the same variable, only the value at the very last call is stored.</li>
+	</ul>
+</ul>
+
+<h3 id="dashboard">dashboard</h3>
+<ul>
+	<p>This function displays user texts on the control screen.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">dashboard(line_number, text, color);
+dashboard(line_number, text, color, property1, value1, property2, value2, ...);
+dashboard(line_number, text, property1, value1, property2, value2, ...);
+</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>line_number:</strong> Ten lines of strings can be displayed.</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">dashboard(1, <mg>'DMS Task'</mg>);
+dashboard(2, sprintf(<mg>'Choice: %d'</mg>, choice), [1 1 1], <mg>'bgcolor'</mg>, [0 0 0]);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>This function does not update the screen itself. For the text to be displayed, one of screen update commands (toggleobject, eyejoytrack, idle or run_scene) should be followed.</li>
+		<li>The text stays on the screen even after the end of a trial, until it is modified by another dashboard call. To delete it, assign an empty string ('').</li>
+	</ul>
+</ul>
+
+<h3 id="editable">editable</h3>
+<ul>
+	<p>This function registers variables to the edit menu.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">editable(var_name1, var_name2, ...);
+editable(type, var_name);
+editable(type, {var_name1, var_name2, ...});
+</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>type:</strong> '-file', '-dir', '-color', '-category' or '-range'</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">editable(<mg>'fix_duration'</mg>, <mg>'-file'</mg>, <mg>'parameter_file'</mg>);  <gr>% 'parameter_file' is a file type</gr>
+	
+face_color = [0.5 0.5 0.5]; edge_color = [1 0 0];   <gr>% color should be between 0 and 1</gr>
+editable(<mg>'-color'</mg>, {<mg>'face_color'</mg>, <mg>'edge_color'</mg>});   <gr>% multiple variables with one type indicator</gr>
+
+category1 = {<mg>'Red'</mg>, <mg>'Green'</mg>, <mg>'Blue'</mg>, <mg>'Blue'</mg>};   <gr>% the last element indicates the selected item</gr>
+editable(<mg>'-category'</mg>, <mg>'category1'</mg>);
+
+range1 = [0 1000 100 300];      <gr>% [min max step value]</gr>
+editable(<mg>'-range'</mg>, <mg>'range1'</mg>);   <gr>% adjust the value (the 4th element) with a slider control</gr>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>Editable variables must be initialized in the timing script with specific values (numbers or characters). They cannot be initialized with other variables or return values of functions.</li>
+<code>var1 = 1000;
+editable(<mg>'var1'</mg>);  <gr>% okay</gr>
+
+var1 = 1000;
+var2 = var1;       <gr>% initialized with another variable</gr>
+editable(<mg>'var2'</mg>);  <gr>% error!!!</gr>
+</code>
+		<li>Variables with no <strong>type</strong> should be logical or double with 6 elements or fewer.
+		<li>The <strong>type</strong> argument allows users to invoke MATLAB GUI controls to pick up a filename, a directory name or a color.</li>
+		<li>The variable types for '-file' and '-dir' should be <i>char</i>.</li>
+		<li>The '-color' variable should be a 1-by-3 vector, [R G B], between 0 and 1.</li>
+		<li>The '-category' type must be a cell char array. Its last element is the currently selected item.</li>
+		<li>The '-range' type must be a 1-by-4 vector, [min max step value]. Its last element is the currently determined value.</li>
+		<li>For editable variables, trial-by-trial change histories are recorded in the data file. Check the VariableChanges field in the data file.</li><br>
+		<li>See the 'task\runtime v1\9 editable demo' directory for more examples.</li>
+		<li>Editable variables can be accessed in the user functions (e.g., userloop), like <b>TrialRecord.Editable.<i>var_name</i></b>. See 'task\userloop\3 access editables from userloop'.</li>
+		<li>'reward_dur' is an editable, by default. It is inherited from the original MonkeyLogic. The value of reward_dur can be adjusted with the '-' and '+' keys by 10 (msec).</li>
+	</ul>
+</ul>
+
+<h3 id="escape_screen">escape_screen</h3>
+<ul>
+	<p>This function pauses the task after the current trial.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">escape_screen;</ul>
+</ul>
+
+<h3 id="eventmarker">eventmarker</h3>
+<ul>
+	<p>This function marks the current time with eventcodes. The eventcodes can also be sent to external devices, if <i>Behavioral Codes</i> and <i>Strobe Bit</i> are assigned on the main menu I/O panel.</p>
+	<p>To more accurately mark onset times of stimuli or rewards, use the eventmarker option of <b><a href="#toggleobject">toggleobject</a></b> and <b><a href="#goodmonkey">goodmonkey</a></b> or the eventcode argument of <b><a href="#run_scene">run_scene</a></b>, instead of this function.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">eventmarker(eventcodes);</ul>
+	<p class="example">Example:</p>
+	<ul class="example">eventmarker([10 20 30]);</ul>
+</ul>
+
+<h3 id="eye_position">eye_position / eye2_position / joystick_position / joystick2_position</h3>
+<ul>
+	<p>These functions return the current eye or joystick position. The return values are in degrees.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">xy_deg = eye_position;
+[x_deg y_deg] = eye_position;
+</ul>
+</ul>
+
+<h3 id="forced_eye_drift_correction">forced_eye_drift_correction</h3>
+<ul>
+	<p>This function translates the current eye calibration grid to a new origin.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">forced_eye_drift_correction;
+forced_eye_drift_correction(origin);
+forced_eye_drift_correction(origin, eye_num);
+</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>origin:</strong> [x y] in degrees</li>
+		<li><strong>eye_num:</strong> 1 for eye1 (default), 2 for eye2</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">forced_eye_drift_correction;             <gr>% correct eye 1. see the remarks.</gr>
+forced_eye_drift_correction([], 2);      <gr>% correct eye 2. see the remarks.</gr>
+forced_eye_drift_correction([1 0], 2);   <gr>% [1 0] will be the new center of eye2</gr>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>In case the <b>origin</b> argument is not provided or is empty, this function determines the new origin based on these rules.</li>
+		<ul>
+			<p>- [0 0], if there is no visual TaskObject on the screen<br>
+			- The position of the visual TaskObject, if there is only one object on the screen<br>
+			- The position of the visual TaskObject closest to the current eye position, if there are multiple objects on the screen</p>
+		</ul>
+		<li>The position of the new origin will be recorded in the VariableChanges field of the data file at the end of each trial.</li>
+	</ul>
+</ul>
+
+<h3 id="get_analog_data">get_analog_data</h3>
+<ul>
+	<p>This function returns the most recently acquired analog samples of the specified signal.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">data = get_analog_data(sig_name);
+data = get_analog_data(sig_name, num_samples);
+[data, sample_rate] = get_analog_data(__);
+</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>sig_name:</strong> Case-insensitive.</li>
+		<ul>
+			<li>'eye'</li>
+			<li>'eye2'</li>
+			<li>'eyeextra' (extra eye data received via TCP/IP)</li>
+			<li>'joy' or 'joystick'</li>
+			<li>'joy2' or 'joystick2'</li>
+			<li>'touch'</li>
+			<li>'mouse'</li>
+			<li>'mousebutton'</li>
+			<li>'key'</li>
+			<li>'gen#' or 'general#' (e.g., 'gen1', 'general1')</li>
+			<li>'btn#' or 'button#' (e.g., 'btn1', 'button1')</li>
+			<li>'high#' or 'highfrequency#' (e.g., 'high1', 'highfrequency1')</li>
+			<li>'voice'</li>
+			<li>'lsl#' (data received from the lab streaming layer)</li>
+		</ul>
+		<li><strong>num_samples:</strong> Number of samples to return. 1 by default.</li>
+	</ul>
+	<p class="returnval">Return values:</p>
+	<ul class="returnval">
+		<li><strong>data</strong> is an n-by-m matrix where n is the number of samples and m is the number of channels, depending on the signal type.</li>
+		<li><strong>sample_rate</strong> is the actual sample rate of the signal. See the remarks below for more information.</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">data = get_analog_data(<mg>'eye'</mg>, 1000);  <gr>% data will be a 1000-by-2 matrix</gr></ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>This function takes a snapshot of the most recently acquired data backward in time and returns immediately.</li>
+		<li>The size of <b>data</b> can be less than <b>num_samples</b>, if the number of recorded samples is small.</li>
+		<li>Check <b>sample_rate</b> for the actual sample rate of the <b>data</b>. Most analog signals are sampled at 1 kHz, regardless of the [AI sample rate] setting on the main menu. High frequency channels, voice and the lab streaming layer are sampled at their own rates, not at 1 kHz.</li>
+	</ul>
+</ul>
+
+<h3 id="get_object_duration">get_object_duration</h3>
+<ul>
+	<p>This function returns the durations of MOV and SND objects.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">duration = get_object_duration(taskobjects);</ul>
+	<p class="example">Example:</p>
+	<ul class="example">duration = get_object_duration([1 2]);  <gr>% get durations (in milliseconds) of TaskObject#1 and #2</gr></ul>
+</ul>
+
+<h3 id="getkeypress">getkeypress</h3>
+<ul>
+	<p>This function waits for a key input.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">[scancode, rt] = getkeypress(max_time);</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>To retrieve the scancode of a particular key, call the kbdkeycode function on the MATLAB command window.</li>
+	</ul>
+</ul>
+
+<h3 id="goodmonkey">goodmonkey</h3>
+<ul>
+	<p>This function initiates timed reward pulses to reward devices.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">goodmonkey(duration);
+goodmonkey(duration, option1, value1, option2, value2, ...);
+</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>duration:</strong> In milliseconds</li>
+		<li><strong>options:</strong> Case-insensitive. All options should be paired with values.</li>
+		<ul>
+			<li><b>NumReward</b> - Number of drops</li>
+			<li><b>PauseTime</b> - Interval between drops, in milliseconds</li>
+			<li><b>TriggerVal</b> - Triggering voltage, for analogoutput only</li>
+			<li><b>JuiceLine</b> - Reward channel to trigger, for digital output only. Multiple lines need to be assigned to Reward in the Input/Output menu.</li>
+			<li><b>EventMarker</b> - Behavioral(s) code to stamp for each drop. Multiple codes can be given. For example, [10 20 30] will mark 10 for the 1st drop, 20 for the 2nd and 30 for the 3rd.</li>
+			<li><b>NonBlocking</b> - Deliver reward in the background so that the task is not blocked.
+			<ul>
+				<li>0 (blocking, by default)</li>
+				<li>1 (non-blocking, yield to other threads)</li>
+				<li>2 (non-blocking, do not yield, more precise timing)</li>
+			</ul>
+		</ul>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">goodmonkey(100, <mg>'juiceline'</mg>, 2, <mg>'numreward'</mg>, 3, <mg>'pausetime'</mg>, 300, <mg>'eventmarker'</mg>, 90, ...
+    <mg>'nonblocking'</mg>, 2);
+</ul>
+</ul>
+
+<h3 id="hotkey">hotkey</h3>
+<ul>
+	<p>This function defines a key macro.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">hotkey(key, things-to-do);</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>key:</strong> one letter among '`1234567890-=qwertyuiop[]\asdfghjkl;''zxcvbnm,./'<br>
+		&nbsp;&nbsp;&nbsp;&nbsp; or 'esc', 'rarr', 'larr', 'uarr', 'darr', 'numrarr', 'numlarr', 'numuarr', 'numdarr', 'space', 'bksp', 'f1' - 'f12'</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">hotkey(<mg>'r'</mg>, [<mg>'goodmonkey(reward_dur, ''juiceline'', MLConfig.RewardFuncArgs.JuiceLine,'</mg> ...
+    <mg>'''eventmarker'', 14, ''nonblocking'', 1);'</mg>]);  <gr>% manual reward</gr>
+hotkey(<mg>'x'</mg>, <mg>'escape_screen(); assignin(''caller'',''continue_'',false);'</mg>);  <gr>% stop the task immediately</gr>
+</ul>
+</ul>
+
+<h3 id="idle">idle</h3>
+<ul>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">idle(duration);
+idle(duration, screen_color);
+idle(duration, screen_color, eventcodes);
+</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>duration:</strong> In milliseconds</li>
+		<li><strong>screen_color:</strong> New background color, [R G B]; can be an empty vector ([]) if the change is not necessary</li>
+		<li><strong>eventcode:</strong> Code(s) to stamp when the screen color changes</li>
+	</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>When the screen_color is given, the background color changes for the duration and goes back to the initial color. See <b><a href="#set_bgcolor">set_bgcolor</a></b>, for how to change it permanently.</li>
+	</ul>
+</ul>
+
+<h3 id="include">include</h3>
+<ul>
+	<p>This function includes other script files into the timing script.
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">include(filepath1, filepath2, ...);</ul>
+	<p class="example">Example:</p>
+	<ul class="example">include(<mg>'common_hotkeys.txt'</mg>, <mg>'common_editables.m'</mg>);</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>The script names must be statsic strings. They cannot be determined dynamically.</li>
+	</ul>
+</ul>
+
+<h3 id="istouching">istouching</h3>
+<ul>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">tf = istouching;</ul>
+	<p class="returnval">Return values:</p>
+	<ul class="returnval">
+		<li><strong>tf:</strong> true if the screen is being touched. Otherwise, false.</li>
+	</ul>
+</ul>
+
+<h3 id="mouse_position">mouse_position</h3>
+<ul>
+	<p>This function returns the current mouse position and the button/key state.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">xy_deg = mouse_position;
+[xy_deg, buttons, keys] = mouse_position;
+		
+xy = mouse_position('raw');
+</ul>
+	<p class="returnval">Return values:</p>
+	<ul class="returnval">
+		<li><strong>buttons:</strong> A 1-by-2 logical vector, [left right]; 1 - clicked, 0 - not clicked</li>
+		<li><strong>keys:</strong> States of keys registered in the main menu, a 1-by-n logical vector; 1 - pressed, 0 - not pressed</li>
+	</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>If any argument is provided, the function returns Windows coordinates of the mouse cursor ("raw" values). Otherwise, the return value is in degrees.</li>
+	</ul>
+</ul>
+
+<h3 id="reposition_object">reposition_object</h3>
+<ul>
+	<p>This function moves graphic objects to new locations.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">reposition_object(taskobjects, xy_degs);</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>xy_degs:</strong> An n-by-2 matrix.</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">reposition_object([1 2], [-5 0; 5 0]);  <gr>% move TaskObject#1 to [-5 0] and TaskObject#2 to [5 0]</gr></ul>
+</ul>
+
+<h3 id="rescale_object">rescale_object</h3>
+<ul>
+	<p>This function changes the size of graphic objects to the given scale.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">rescale_object(taskobjects, scale);</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>scale:</strong> Ratio. 1 indicates the original size. Use two-element vectors to apply different scales to width and height.</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">rescale_object([1 2], 2);           <gr>% make TaskObject#1 & #2 twice larger in both X and Y directions.</gr>
+rescale_object([1 2], [2 1; 1 3]);  <gr>% TaskObject#1 twice larger in X and TaskObject#2 three times in Y</gr>
+</ul>
+</ul>
+
+<h3 id="rotate_object">rotate_object</h3>
+<ul>
+	<p>This function rotates graphic objects.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">rotate_object(taskobjects, angle);</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>angle:</strong> In degrees.</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">rotate_object([1 2], [45 60]);  <gr>% rotate TaskObject#1 & #2 by 45 and 60 degrees, respectively</gr></ul>
+</ul>
+
+<h3 id="rewind_object">rewind_object</h3>
+<ul>
+	<p>This function moves the playback positions of MOV and SND TaskObjects.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">rewind_object(taskobjects);
+rewind_object(taskobjects, position);
+</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>position:</strong> In milliseconds. 0, by default, if not given.</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">rewind_object([1 2]);              <gr>% rewind TaskObject#1 & #2 to 0 sec</gr>
+rewind_object([1 2], [500 1000]);  <gr>% move their playback positions to 0.5 sec and 1 sec, respectively</gr>
+</ul>
+</ul>
+
+<h3 id="set_bgcolor">set_bgcolor</h3>
+<ul>
+	<p>This function changes the background color of the subject screen.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">set_bgcolor(bgcolor);</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>bgcolor:</strong> New background color, [R G B]; can be an empty vector ([]) to switch back to the original background</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">set_bgcolor([1 0 0]);  <gr>% change the background color to red</gr>
+idle(1000);
+set_bgcolor([]);       <gr>% change it back to the original color</gr>
+idle(0);               <gr>% show the original background</gr>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>To make this color change shown, one of screen update commands (toggleobject, eyejoytrack, idle or run_scene) should be followed</li>
+	</ul>
+</ul>
+
+<h3 id="set_iti">set_iti</h3>
+<ul>
+	<p>This function overwrites the default inter-trial interval set on the main menu.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">set_iti(duration);</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>If this function is not called, the ITI is reset to the value provided on the main menu.</li>
+	</ul>
+</ul>
+
+<h3 id="touch_position">touch_position</h3>
+<ul>
+	<p>This function returns xy coordinates of the places that are currently being touched.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">xy_deg = touch_position;</ul>
+	<p class="returnval">Return values:</p>
+	<ul class="returnval">
+		<li><strong>xy_deg:</strong> a 1-by-(2 * # of touches) vector, like [x1 y1 x2 y2 x3 y3 ...]. If the touchscreen is not enabled, it is empty.</li>
+	</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>The total number of touches that can be simultaneously tracked can be set on the main menu. It is also dependent on the touchscreen's capability.</li>
+		<li>Untouched/detached coordinates are filled with NaN.</li>
+	</ul>
+</ul>
+
+<h3 id="trialerror">trialerror</h3>
+<ul>
+	<p>This function records the error code of the current trial to the TrialRecord structure.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">trialerror(number1,string1,number2,string2, ...);  <gr>% overwrite the default error labels</gr><br>
+trialerror(number);  <gr>% put a single number to mark the error code</gr>
+trialerror(string);  <gr>% use a text label, instead; case-insensitive</gr>
+</ul>
+	<p class="example">Example:<p>
+	<ul class="example">trialerror(1, <mg>'Error 1'</mg>, 2, <mg>'Error 2'</mg>, 3, <mg>'Error 3'</mg>);  <gr>% change the labels of error codes 1, 2 and 3</gr><br>
+trialerror(0);          <gr>% mark the current trial as Correct</gr>
+trialerror(<mg>'Correct'</mg>);  <gr>% the same as above</gr>
+</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>Error code:</strong></li>
+		<ul>
+			<li>0 - Correct</li>
+			<li>1 - No response</li>
+			<li>2 - Late response</li>
+			<li>3 - Break fixation</li>
+			<li>4 - No fixation</li>
+			<li>5 - Early response</li>
+			<li>6 - Incorrect</li>
+			<li>7 - Lever break</li>
+			<li>8 - Ignored</li>
+			<li>9 - Aborted</li>
+		</ul>
+	</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>The first syntax can be used to overwrite the default error labels. The input argument should be number/label pairs. This has to be done before calling the function again for marking an error code.</li>
+		<li>The numeric code 0 always indicates a correct/succeeded trial, irrespective of its label.</li>
+	</ul>
+</ul>
+
+<h3 id="trialtime">trialtime</h3>
+<ul>
+	<p>This function returns the time elapsed from the trial start in milliseconds.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">time = trialtime;</ul>
+	<br>
+</ul>
+
+<h3 id="user_text">user_text / user_warning</h3>
+<ul>
+	<p>This function displays user texts on the control screen GUI at the end of a trial.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">user_text(message);
+user_warning(message);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>user_text displays messages in blue and user_warning, in red.</li>
+	</ul>
+</ul>
+
+<h3 id="eyejoytrack">eyejoytrack</h3>
+<ul>
+	<p>This function monitors behavioral signal inputs.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">ontarget = eyejoytrack(tracking_type, taskobject(s), threshold, duration);  <gr>% single tracking</gr>
+	
+ontarget = eyejoytrack(tracking_type1, taskobject(s)1, threshold1, ...      <gr>% multi-tracking</gr>
+    tracking_type2, taskobject(s)2, threshold2, ...
+	.
+	.
+	.
+    tracking_typeN, taskobject(s)N, thresholdN, duration);
+
+[ontarget, rt, t_resp] = eyejoytrack(__);  <gr>% multiple return values; see Remarks.</gr>
+</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>tracking_type:</strong> Choose one according to the signal type and the behavior type (<b>Acquisition</b> or <b>Hold</b>). The difference between Acquisition and Hold is whether the XY input is outside the threshold window or inside at the beginning. <b>eyejoytrack</b> terminates immediately, if the signal crosses the threshold window. Otherwise, it runs for the entire duration.</li>
+		<ul>
+			<img src="images\docs_function_eyejoytrack.png" style="display:block;margin:10px auto">
+			<table border="1">
+				<tr align="center">
+					<td width="200"><strong>Signal type</strong></td>
+					<td width="200"><strong>Acquisition</strong></td>
+					<td width="200"><strong>Hold</strong></td>
+					<td width="200"><strong>Inverse acquisition</strong></td>
+				</tr>
+				<tr align="center">
+					<td>eye</td><td>'acquirefix'</td><td>'holdfix'</td><td></td>
+				</tr>
+				<tr align="center">
+					<td>eye2</td><td>'acquirefix2'</td><td>'holdfix2'</td><td></td>
+				</tr>
+				<tr align="center">
+					<td>joystick</td><td>'acquiretarget'</td><td>'holdtarget'</td><td></td>
+				</tr>
+				<tr align="center">
+					<td>joystick2</td><td>'acquiretarget2'</td><td>'holdtarget2'</td><td></td>
+				</tr>
+				<tr align="center">
+					<td>touch</td><td>'touchtarget'</td><td>'releasetarget'</td><td>'~touchtarget'</td>
+				</tr>
+				<tr align="center">
+					<td>button</td><td>'acquiretouch'</td><td>'holdtouch'</td><td></td>
+				</tr>
+				<tr align="center">
+					<td>function</td><td>'acquirefunc'</td><td>'holdfunc'</td><td></td>
+				</tr>
+			</table>
+		</ul><br>
+		<li><strong>taskobject:</strong> TaskObject# (for eye, joystick, touch) or Button# (for button)</li>
+		<li><strong>threshold:</strong> The target window size (for eye, joystick, touch) or voltage threshold (for button). A scalar creates a circular window; and a 1-by-2 vector, a rectangular window. Multiple rectangular windows can be set with a matrix [w1 h1; w2 h2; ...].</li>
+		<li><strong>duration:</strong> In milliseconds</li>
+	</ul>
+	<p class="example">Example 1: single tracking</p>
+	<ul class="example">ontarget = eyejoytrack(<mg>'acquirefix'</mg>, 1, 3, 5000);  <gr>% ontarget will be 1 if the eye comes in the 3-deg</gr>
+                                                   <gr>% window around TaskObject#1 within 5000 ms.</gr></ul>
+	<p class="example">Example 2: multi-tracking</p>
+	<ul class="example">ontarget = eyejoytrack(<mg>'acquirefix'</mg>, 1, 3, ...  <gr>% eyejoytrack ends immediatly when eye fixation is</gr>
+    <mg>'holdtouch'</mg>, 1, [], ...                     <gr>% acquired or either button is released. ontarget</gr>
+    <mg>'holdtouch'</mg>, 2, [], 3000);                  <gr>% will be a 1-by-3 vector.</gr>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>For the usage of the additional return values (rt & t_resp), see <a href="docs_GettingStarted.html#ReactionTime">Migrating from the Original MonkeyLogic, Reaction time</a>.</li>
+
+		<li>For <b>Acquisition</b>, multiple TaskObjects can be assigned as a vector. In that case, the return value is the ordinal number of the acquired target. Only one TaskObject should be used for <b>Hold</b>.</li>
+<code>ontarget = eyejoytrack(<mg>'acquirefix'</mg>, [2 3 5], 3, 5000);  <gr>% eyejoytrack will return 3, if the eye</gr>
+                <gr>% fixates on TaskObject#5, because TaskObject#5 is the third object in the list.</gr>
+</code>
+		<li>For button input, use Button# from the main menu I/O panel, instead of TaskObject#. The threshold can be either a voltage level or an empty vector (default threshold). The default threshold is 3 for analog buttons and 0.5 for digital buttons.</li>
+<code>ontarget = eyejoytrack(<mg>'acquiretouch'</mg>, 2, 5, 500);  <gr>% Button #2; input voltage should be larger</gr>
+                                                    <gr>% than 5V when the button is pushed.</gr>
+													
+ontarget = eyejoytrack(<mg>'holdtouch'</mg>, 1, [], 500);    <gr>% Button #1; use the default threshold.</gr>
+</code>
+
+		<li>'~touchtarget' is a tracking type available for touch input only. eyejoytrack will return 1 when the outside of the threshold window is touched.</li>
+		
+		<li>'acquirefunc' and 'holdfunc' allow using a user function as a signal source. The user function should return true (inside the threshold window) or false (outside the threshold) to mimic the <b>Acquisition</b> and <b>Hold</b> behavior. The threshold variable (<i>input_args</i> below) is used as input arguments to the user function. Use a cell to provide multiple arguments to the function.</li>
+<code>ontarget = eyejoytrack(<mg>'acquirefunc'</mg>, @function_handle, input_args, duration);
+</code>
+
+		<li>To monitor more than one behavior types simultaneously, you must use the syntax for multi-tracking (<i>Example 2</i>) and put them in one <b>eyejoytrack</b> command. If multiple tracking types are provided, <b>eyejoytrack</b> returns a vector, in which each element indicates the success state of those tracking types. <b>eyejoytrack</b> will stop when threshold crossing occurs in any of them.</li>
+<code>ontarget = eyejoytrack(<mg>'acquirefix'</mg>, 1, 3, <mg>'holdtouch'</mg>, 1, [], 2000);  <gr>% track for 2 sec</gr></code>
+		<ul>
+			<table border="1">
+				<tr align="center">
+					<td width="120"><strong>Eye fixation</strong></td>
+					<td width="120"><strong>Button state</strong></td>
+					<td width="200"><strong>eyejoytrack returns</strong></td>
+					<td width="100"><strong>ontarget</strong></td>
+				</tr>
+				<tr align="center">
+					<td>not acquired</td><td>released</td><td>immediately on release</td><td>[0 0]</td>
+				</tr>
+				<tr align="center">
+					<td>not acquired</td><td>held down</td><td>after 2 sec</td><td>[0 1]</td>
+				</tr>
+				<tr align="center">
+					<td>acquired</td><td>released</td><td>immediately on fixation/release</td><td>[1 0]</td>
+				</tr>
+				<tr align="center">
+					<td>acquired</td><td>held down</td><td>immediately on fixation</td><td>[1 1]</td>
+				</tr>
+			</table>
+		</ul>
+	</ul>
+</ul>
+
+<h3 id="set_frame_event">set_frame_event</h3>
+<ul>
+	<p>This function marks the time with eventcodes when particular frames are presented.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">set_frame_event(taskobject, frame_numbers, eventcodes);</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>frame_numbers & eventcodes:</strong> The lengths of both vectors must be the same.</li>
+	</ul>
+</ul>
+
+<h3 id="set_frame_order">set_frame_order</h3>
+<ul>
+	<p>This function rearranges the order of movie frames.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">set_frame_event(taskobject, frame_order);</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>frame_order:</strong> If empty, the frames are reset to the original order.</li>
+	</ul>
+</ul>
+
+<h3 id="set_object_path">set_object_path</h3>
+<ul>
+	<p>This function translates a graphic object through a given path.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">set_object_path(taskobject, xy_deg);
+set_object_path(taskobject, x_deg, y_deg);</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>To show the motion, either <strong>idle</strong> or <strong>eyejoytrack</strong> needs to be called.</li>
+	</ul>
+</ul>
+
+<h3 id="showcursor">showcursor / showcursor2</h3>
+<ul>
+	<p>This function turns on and off the joystick cursor on the subject screen. By default, it is off. <strong>showcursor2</strong> is for the 2nd joystick.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">showcursor(status);</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>status:</strong> Can be 'on'/'off' (char) or true/false (logical).</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">showcursor(true);</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>Turning off the cursor when it is already off removes the cursor from the control screen as well.</li>
+		<li>For the scene framework (v2), use <a href="#TrackerMethods">joy_.showcursor()</a> and <a href="#TrackerMethods">joy2_.showcursor()</a>, instead.</li>
+	</ul>
+</ul>
+
+<h3 id="showtouch">showtouch</h3>
+<ul>
+	<p>This function turns on and off the touch cursor on the subject screen. By default, it is off.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">showtouch(status);</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>status:</strong> Can be 'on'/'off' (char) or true/false (logical).</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">showtouch(true);</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>Turning off the cursor when it is already off removes the cursor from the control screen as well.</li>
+		<li>For the scene framework (v2), use <a href="#TrackerMethods">touch_.showcursor()</a>.</li>
+	</ul>
+</ul>
+
+<h3 id="toggleobject">toggleobject</h3>
+<ul>
+	<p>This function turns on and off TaskObjects.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">fliptime = toggleobject(taskobjects);
+fliptime = toggleobject(taskobjects, option1, value1, option2, value2, ...);
+</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>options:</strong> Case-insensitive. All options should be paired with values.</li>
+		<ul>
+			<li>EventMarker - Behavioral code(s) to stamp at the presentation of the taskobject.</li>
+			<li>Status - 'on' or 'off'. Manually determines the status of the taskobjects</li>
+			<li>MovieStartFrame, MovieStep, StartPosition, PositionStep - These options are deprecated. To adjust the speed of movies, change their frame time with movie editing software.</li>
+		</ul>
+	</ul>
+	<p class="returnval">Return values:</p>
+	<ul class="returnval">
+		<li><strong>fliptime:</strong> The trialtime at which the screen "flip" occurs. In milliseconds.</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">toggleobject([1 2], <mg>'eventmarker'</mg>, 90, <mg>'status'</mg>, <mg>'off'</mg>);  <gr>% turn off both objects</gr>	</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>If only non-visual stimuli (SND, STM and TTL) are provided, they are presented immediately without waiting for the screen flip.</li>
+		<li>When non-visual and visual stimuli are given together, the presentation of non-visual stimuli is synchronized with the screen flip timing.</li>
+		<li>If the <b>Status</b> option is not used, the state of each object is toggled individually.</li>
+<code><gr>% Example 1</gr>
+toggleobject(1, <mg>'status'</mg>, <mg>'off'</mg>);     <gr>% TaskObject#1 OFF</gr>
+toggleobject(2, <mg>'status'</mg>, <mg>'on'</mg>);      <gr>% TaskObject#2 ON</gr>
+toggleobject([1 2], <mg>'status'</mg>, <mg>'on'</mg>);  <gr>% Both TaskObject#1 and #2 are ON</gr>
+
+<gr>% Example 2</gr>
+toggleobject(1, <mg>'status'</mg>, <mg>'off'</mg>);
+toggleobject(2, <mg>'status'</mg>, <mg>'on'</mg>);
+toggleobject([1 2]);                  <gr>% TaskObject#1 ON; TaskObject#2 OFF</gr>
+</code>
+		<li>Do not put the stimuli that should be presented simultaneously in separate toggleobject commands.</li>
+<code><gr>% Example 1</gr>
+toggleobject(1);
+toggleobject(2);      <gr>% TaskObject#2 is turned on one frame later than TaskObject#1</gr>
+
+<gr>% Example 2</gr>
+toggleobject([1 2]);  <gr>% TaskObject#1 & #2 are turned on simultaneously</gr>
+</code>
+	</ul>
+</ul>
+
+<h3 id="create_scene">create_scene</h3>
+<ul>
+	<p>This function collects the information of the adapter chain for the offline trial replay.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">scene = create_scene(adapter, taskobjects);</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>taskobjects:</strong> TaskObject# to present during the scene; can be a vector of multiple TaskObjects</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">fix = SingleTarget(eye_);
+fix.Target = 1;                <gr>% TaskObject#1</gr>
+fix.Threshold = 3;             <gr>% 3 degrees</gr>
+wth = WaitThenHold(fix);
+wth.WaitTime = 5000;
+wth.HoldTime = 500;
+scene = create_scene(wth, 2);  <gr>% present TaskObject#2 additionally</gr>
+run_scene(scene);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>The "adapter" argument provided to <b>create_scene</b> is important, because <b>run_scene</b> ends when that adapter stops.</li>
+		<li>TaskObjects inserted to the scene by <b>create_scene</b> are terminated at the end of the scene, unless they are inserted in the next scene as well.</li>
+		<li>Also see <a href="docs_CreatingTask.html#HowToCreateAdapterChains">How to create adapter chains</a>.</li>
+	</ul>
+</ul>
+
+<h3 id="run_scene">run_scene</h3>
+<ul>
+	<p>This function runs the adapter chain.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">fliptime = run_scene(scene, eventcodes);</ul>
+	<p class="argument">Input arguments:</p>
+	<ul class="argument">
+		<li><strong>scene:</strong> This is the return value of <b><a href="#create_scene">create_scene</a></b>.</li>
+		<li><strong>eventcodes:</strong> Eventcode(s) to send out when the first frame of the scene is presented.</li>
+	</ul>
+	<p class="returnval">Return values:</p>
+	<ul class="returnval">
+		<li><strong>fliptime:</strong> The trialtime (in milliseconds) at which the first frame of the screen is presented</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">box = BoxGraphic(null_);
+box.List = { [1 1 1], [1 1 1], 1, [0 0] };
+fix = SingleTarget(eye_);
+fix.Target = box;                 <gr>% graphic object</gr>
+fix.Threshold = 3;                <gr>% 3 degrees</gr>
+wth = WaitThenHold(fix);
+wth.WaitTime = 5000;
+wth.HoldTime = 500;
+scene = create_scene(wth);
+fliptime = run_scene(scene, 10);  <gr>% Eventcode 10 will be marked when the first frame is presented</gr>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>This function does not end until the top-most adapter in the chain (the one provided to create_scene) stops. For the stop conditions of adapters, see the description of each adapter.</li>
+	</ul>
+</ul>
+
+<h3 id="Trackers">EyeTracker, Eye2Tracker, JoyTracker, Joy2Tracker, TouchTracker, ButtonTracker, MouseTracker, NullTracker</h3>
+<ul>
+	<p>Users do not need to create tracker objects. They are pre-defined with reserved names in the timing script: <strong>eye_</strong>, <strong>eye2_</strong>, <strong>joy_</strong>,
+	<strong>joy2_</strong>, <strong>touch_</strong>, <strong>button_</strong>, <strong>mouse_</strong> and <strong>null_</strong>.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true if there are data samples read; otherwise, false</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>Trackers never stop the scene and should be used with other adapters.</li>
+	</ul>
+	<p class="property">Tracker Properties:</p>
+	<ul class="property">
+		<p>All trackers have common properties like the following.</p>
+		<ul>
+			<li><strong>Signal:</strong> The name of the signal that it reads ('Eye', 'Eye2', 'Joystick', 'Joystick2', 'Touch', 'Button', 'Mouse', 'Null')</li>
+			<li><strong>Screen:</strong> The instance of the mlscreen object</li>
+			<li><strong>DAQ:</strong> Data acquisition object</li>
+			<li><strong>TaskObject:</strong> Task objects</li>
+			<li><strong>CalFun:</strong> Calibration object</li>
+		</ul>
+		<p>Every adapter in a chain can access the above objects via its Tracker property, which is a convenient way to get the information about
+		screens, data sources and TaskObjects from the inside of the adapter.</p>
+		<ul class="example">obj.Tracker.Signal
+obj.Tracker.Screen
+obj.Tracker.DAQ
+obj.Tracker.TaskObject
+obj.Tracker.CalFun
+</ul>
+
+		<p>The trackers also have the following data fields for different types.</p>
+		<p>
+			<table>
+				<tr align="center">
+					<td width="150"><strong>eye_, eye2_</strong></td>
+					<td width="150"><strong>joy_, joy2_</strong></td>
+					<td width="150"><strong>touch_</strong></td>
+					<td width="150"><strong>button_</strong></td>
+					<td width="150"><strong>mouse_</strong></td>
+					<td width="150"><strong>null_</strong></td>
+				</tr>
+				<tr>
+					<td valign="top">XYData<br>LastSamplePosition</td>
+					<td valign="top">XYData<br>LastSamplePosition</td>
+					<td valign="top">XYData<br>LastSamplePosition</td>
+					<td valign="top">ClickData<br>LastSamplePosition</td>
+					<td valign="top">XYData<br>ClickData<br>KeyInput<br>LastSamplePosition</td>
+					<td valign="top"></td>
+				</tr>
+			</table>
+		</p>
+		<ul>
+			<li><strong>XYData:</strong> An n-by-2 XY position matrix in screen pixels. In case of touch, 2 more columns are added for each additional touch (e.g., [x1 y1 x2 y2 ...]) and they are filled with [NaN NaN] when there is no touch.</li>
+			<li><strong>ClickData:</strong> States of buttons; logical true (pressed) or false (released)</li>
+			<li><strong>KeyInput:</strong> States of keys specified in the Mouse/Key menu; logical true (pressed) or false (released)</li>
+			<li><strong>LastSamplePosition:</strong> Cumulative number of samples acquired before XYData, MouseData and ClickData were read.
+			So the total number of samples read so far is LastSamplePosition + size(XYData,1). </li>
+		</ul>
+		<p>These fields are continuously updated with data acquired during the previous frame (or data acquired before the scene start, if it is the very first frame of the scene). So, at a refresh rate of 60 Hz, about 16-17 samples are kept in each of them (except LastSamplePosition) from moment to moment.</p>
+		<p id="JoyCursor">The joystick cursors can be modified in the timing file via the following properties. Use <b>joy2_</b> for the second joystick.</p>
+		<ul class="example"><b>joy_</b>.TracerImage  <gr>% image filename; when this is set, the other properties are ignored.</gr>
+<b>joy_</b>.TracerShape  <gr>% cursor shape; 'Circle' or 'Square'</gr>
+<b>joy_</b>.TracerColor  <gr>% [R G B] between 0 and 1</gr>
+<b>joy_</b>.TracerSize   <gr>% in pixels</gr></ul>
+	</ul>
+	<p class="method" id="TrackerMethods">Tracker Methods:</p>
+	<ul class="method">
+		<ul class="example"><strong>joy_</strong>.showcursor(true);   <gr>% show the cursor of the 1st joystick to the subject; false, by default</gr>
+<strong>joy2_</strong>.showcursor(true);  <gr>% show the cursor of the 2nd joystick to the subject; false, by default</gr>
+<strong>touch_</strong>.showcursor(true); <gr>% show the touch cursor on the subject screen; false, by default</gr>
+</ul>
+		<p>Calling <b>joy_</b>.showcursor(false) or <b>touch_</b>.showcursor(false) one more time while the cursor is hidden removes the cursor from the control screen as well.</p>
+		<ul class="example"><strong>button_</strong>.threshold(button#, buttonThreshold);  <gr>% change the threshold of the analog button</gr>
+<strong>button_</strong>.invert(button#);                      <gr>% invert the polarity of the button</gr>
+<strong>button_</strong>.label(button#, str);                  <gr>% rename the button icon on the control screen</gr>
+</ul>
+		<p>When a button is inverted with <b>button_</b>.invert(), the input from the button is saved as inverted in the data file. If you want to change the polarity of a button but not the saved values, use <b><a href="#NotAdapter">NotAdapter</a></b> (see its usage example for details).</p>
+		<ul class="example"><strong>mouse_</strong>.showcursor(false);          <gr>% hide the mouse cursor from the subject; true, by default</gr>
+<strong>mouse_</strong>.setCursorPos([xdeg ydeg]);  <gr>% move the mouse cursor to the given location</gr>
+</ul>
+	</ul>
+</ul>
+
+<h3 id="SingleTarget">SingleTarget</h3>
+<ul>
+	<p>This adapter tells whether the position of a XY tracker (eye_, joy_, touch_ and mouse_) is within or outside the threshold window.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true while the position of the XY tracker is within the threshold window; otherwise, false</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <strong>Success</strong> becomes true</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Target:</strong> Graphic adapter, TaskObject# or a 2-element vector, [x y], in degrees</li>
+		<li><strong>Threshold:</strong> Size of the threshold window around the Target; a scalar (circle radius) or [width height] (rectangle) in degrees.</li>
+		<li><strong>Color:</strong> Color of the threshold window shown on the control screen; [R G B]</li>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>Time:</strong> trialtime when the XY tracker crossed the threshold window; in milliseconds</li>
+	</ul>
+	<p class="method">Methods:</p>
+	<ul class="method">
+		<li><strong>setTarget(graphic_obj<i>, index</i>):</strong> If the graphic adapter contains multiple objects, use the optional <i>index</i> argument to indicate which object should be used.</li>
+	</ul>
+	<p class="example">Example 1:</p>
+	<ul class="example">box = BoxGraphic(null_);
+box.List = { [1 0 0], [1 0 0], 2, [-5 0];  <gr>% red square</gr>
+    [0 1 0], [0 1 0], 2, [0 0];           <gr>% green square</gr>
+    [0 0 1], [0 0 1], 2, [5 0] };         <gr>% blue square</gr>
+fix = SingleTarget(eye_);
+fix.Target = box;           <gr>% SingleTarget needs only one target and will use the red square.</gr>
+fix.Threshold = [4 3];      <gr>% rectangular window</gr>
+scene = create_scene(fix);
+run_scene(scene);           <gr>% The scene will end when the fixation is acquired.</gr>
+</ul>
+	<p class="example">Example 2:</p>
+	<ul class="example">box = BoxGraphic(null_);
+box.List = { [1 0 0], [1 0 0], 2, [-5 0];  <gr>% red square</gr>
+    [0 1 0], [0 1 0], 2, [0 0];           <gr>% green square</gr>
+    [0 0 1], [0 0 1], 2, [5 0] };         <gr>% blue square</gr>
+t = linspace(0, 2*pi, 1000)';
+x = 6 * sin(3 * t);
+y = 9 * sin(4 * t) ./ 1.5;
+ct = CurveTracer(eye_);
+ct.setTarget(box,3);        <gr>% Set the blue square as a target.</gr>
+ct.Trajectory = [x y];
+fix = SingleTarget(ct);     <gr>% moving target with CurveTracer</gr>
+fix.Threshold = 3;
+scene = create_scene(fix);
+run_scene(scene);
+</ul>
+	<p class="example">Example 3:</p>
+	<ul class="example">box = BoxGraphic(null_);
+box.List = { [1 1 1], [1 1 1], 2, [0 0] };
+fix = SingleTarget(eye_);
+fix.Target = [2 0];         <gr>% Use XY coordinates to create an off-center window.</gr>
+fix.Threshold = [4 3];
+con = Concurrent(fix);
+con.add(box);               <gr>% Display the box, since SingleTarget won't do.</gr>
+scene = create_scene(con);
+run_scene(scene);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>To prevent a jitter from being detected as a fixation, SingleTarget does not change its <strong>Success</strong> state until the tracker stays within the threshold window at least for one frame.</li>
+		<li>If Target is a graphic adapter or a TaskObject, the target graphic will appear and disappear automatically. When [x y] is the target, nothing is displayed by SingleTarget.</li>
+		<li>To implement a moving target, SingleTarget's Target property must be empty. Use the Target property of <b><a href="#CurveTracer">CurveTracer</a></b> instead, as shown in <i>Example 2</i>.</li>
+	</ul>
+</ul>
+
+<h3 id="MultiTarget">MultiTarget</h3>
+<ul>
+	<p>This adapter monitors the capture of an XY tracker for multiple targets.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true when one target is chosen AND the choice is maintained for HoldTime</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <b>Success</b> becomes true</li>
+		<li>When <b>WaitTime</b> is expired without any fixation attempt or, if AllowFixBreak is false, when the acquired fixation is broken before HoldTime passes</li>
+		<li>When <b>AllowEarlyFix</b> is false and a fixation is made before the first frame of the scene</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Target:</strong> Graphic adapter(s), TaskObjects, or an n-by-2 matrix ([x1 y1; x2 y2; ...]) in degrees</li>
+		<li><strong>Threshold:</strong> Radius or [width height] of the detection window around the Target; in degrees</li>
+		<li><strong>WaitTime:</strong> Maximum time to wait until one of the targets is chosen; in milliseconds</li>
+		<li><strong>HoldTime:</strong> Duration for which the choice should be maintained; in milliseconds</li>
+		<li><strong>Color:</strong> Color of the threshold window shown on the control screen; [R G B]</li>
+		<li><strong>AllowFixBreak:</strong> true or false (by default); if true, fixation break is allowed before commiting to one target</li>
+		<li><strong>TurnOffUnchosen:</strong> true (by default) or false to determine whether to turn off unchosen targets during HoldTime. It is meaningful only when <b>AllowFixBreak</b> is false.</li>
+		<li><strong>AllowEarlyFix:</strong> true (by default) or false. When it is false, the scene stops immediately if a fixation is made before the scene starts.</li>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>Waiting:</strong> true if the choice was never made</li>
+		<li><strong>AcquiredTime:</strong> trialtime when the XY tracker crossed the threshold window of the chosen target</li>
+		<li><strong>RT:</strong> Reaction (or response) time, which is the difference between the time of the first frame of the scene and the AcquiredTime</li>
+		<li><strong>ChosenTarget:</strong> TaskObject#, if the targets were TaskObjects; the ordinal number of the chosen target, if the targets were graphic adapters or XY coordinates. This property is set only when MultiTarget succeeded.</li>
+		<li><strong>ChoiceHistory:</strong> [ChosenTarget1 AcquiredTime1; ChosenTarget2 AcquiredTime2; ...]; this property is set whether MultiTarget succeeded or not.</li>
+	</ul>
+	<p class="method">Methods:</p>
+	<ul class="method">
+		<li><strong>setTarget(graphic_obj<i>, index</i>):</strong> This method assigns the first target graphic adapter. If the adapter contains multiple objects and only some of them should be included, use the optional <i>index</i> argument.</li>
+		<li><strong>addTarget(graphic_obj<i>, index</i>):</strong> Any additional adapter target should be assigned with this method.</li>
+	</ul>
+	<p class="example">Example 1:</p>
+	<ul class="example">box = BoxGraphic(null_);
+box.List = { [1 0 0], [1 0 0], 2, [5 5];  <gr>% red square</gr>
+    [0 1 0], [0 1 0], 2, [-5 5];          <gr>% green square</gr>
+    [0 0 1], [0 0 1], 2, [-5 -5];         <gr>% blue square</gr>
+    [1 1 1], [1 1 1], 2, [5 -5] };        <gr>% white square</gr>
+mul = MultiTarget(eye_);
+mul.Target = box;                         <gr>% The four squares</gr>
+mul.Threshold = 3;
+mul.WaitTime = 5000;
+mul.HoldTime = 500;
+scene = create_scene(mul);
+run_scene(scene);
+</ul>
+	<p class="example">Example 2:</p>
+	<ul class="example">box = BoxGraphic(null_);
+box.List = { [1 0 0], [1 0 0], 2, [5 5] };         <gr>% Target #1</gr>
+crc = CircleGraphic(null_);
+crc.List = { [0 1 0], [0 1 0], 2, [-5 5] };        <gr>% Target #2</gr>
+img = ImageGraphic(null_);
+img.List = { <mg>'A.bmp'</mg>, [-5 -5]; <mg>'B.bmp'</mg>, [5 -5] };  <gr>% Target #3 & #4</gr>
+mul = MultiTarget(eye_);
+mul.setTarget(box);       <gr>% first target</gr>
+mul.addTarget(crc);       <gr>% additional target</gr>
+mul.addTarget(img);       <gr>% additional targets</gr>
+mul.Threshold = 3;
+mul.WaitTime = 5000;
+mul.HoldTime = 500;
+scene = create_scene(mul);
+run_scene(scene);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>To prevent a jitter from being detected as a fixation, MultiTarget does not change its <strong>Waiting</strong> state until the tracker stays within the threshold window at least for one frame.</li>
+		<li>When stacking multiple adapter targets, the first adapter is assigned with setTarget() but subsequent assigments must use addTarget(). See <i>Example 2</i> above.</li>
+		<li>The meaning of <b>ChosenTarget</b> is different, depending on the Target type. If the targets are TaskObjects, the number that <b>ChosenTarget</b> returns is TaskObject#; for graphic adapters and XY coordinates, it is the ordinal number of the selected target.</li>
+		<li><b>MultiTarget</b> can work with one target, when a graphic adapter is used as the target. For TaskObjects or XY coordinates, it requires at least two targets.</li>
+	</ul>
+</ul>
+
+<h3 id="WaitThenHold">WaitThenHold</h3>
+<ul>
+	<p>This adapter checks if the Success state of the child adapter becomes true within WaitTime and stays true for HoldTime. It can be used to test if eye fixation or touch is acquired and maintained.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true if the Success of the child adapter becomes true within WaitTime AND stays true for HoldTime; false, until then.</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <b>Success</b> becomes true</li>
+		<li>When <b>WaitTime</b> is over without any fixation attempt or when the acquired fixation is broken before <b>HoldTime</b> passes</li>
+		<li>When <b>AllowEarlyFix</b> is false and a fixation is made before the first frame of the scene</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>WaitTime:</strong> Maximum time to wait until the XY tracker enters the threshold window; in milliseconds</li>
+		<li><strong>HoldTime:</strong> Duration for which the fixation should be held; in milliseconds</li>
+		<li><strong>AllowEarlyFix:</strong> true (by default) or false. When it is false, the scene stops immediately if a fixation is made before the scene starts.</li>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>Waiting:</strong> true if the fixation is never made</li>
+		<li><strong>AcquiredTime:</strong> trialtime when the fixation is made</li>
+		<li><strong>RT:</strong> Reaction (or response) time, which is the difference between the time of the first frame of the scene and the AcquiredTime</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">box = BoxGraphic(null_);
+box.List = { [1 1 1], [1 1 1], 1, [0 0] };
+fix = SingleTarget(eye_);
+fix.Target = box;
+fix.Threshold = 3;
+wth = WaitThenHold(fix);
+wth.WaitTime = 5000;
+wth.HoldTime = 500;
+scene = create_scene(wth);
+run_scene(scene);
+<bl>if</bl> wth.Success
+    dashboard(1, <mg>'Success'</mg>);
+<bl>elseif</bl> wth.Waiting
+    dashboard(1, <mg>'No fixation'</mg>);
+<bl>else</bl>
+    dashboard(1, <mg>'Fixation break'</mg>);
+<bl>end</bl>
+idle(1000);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>Although <b>SingleTarget</b> is used as an example, <b>WaitThenHold</b> can track any adapter in which the Success property indicates its state change.
+		See the "task\runtime v2\17 multi-input tracking 1" example.</li>
+	</ul>
+</ul>
+
+<h3 id="FreeThenHold">FreeThenHold</h3>
+<ul>
+	<p>This adapter is similar to <b><a href="#WaitThenHold">WaitThenHold</a></b>. The difference is that FreeThenHold allows breaking fixation and trying again, as long as WaitTime is not expired.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true if the fixation is made, before WaitTime passes, and maintained for HoldTime; false, until then.</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <b>Success</b> becomes true</li>
+		<li>When <b>WaitTime</b> is over without a successful fixation</li>
+		<li>When <b>AllowEarlyFix</b> is false and a fixation is made before the first frame of the scene</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>WaitTime:</strong> Maximum time to allow trying fixation for; in milliseconds</li>
+		<li><strong>HoldTime:</strong> Duration for which the fixation should be held; in milliseconds.</li>
+		<li><strong>AllowEarlyFix:</strong> true (by default) or false. When it is false, the scene stops immediately if a fixation is made before the scene starts.</li>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>BreakCount:</strong> Number of fixations that are made before the fixation succeeds or WaitTime is expired.</li>
+		<li><strong>AcquiredTime:</strong> trialtime when the last fixation is made (i.e., the time of the last fixation window crossing)</li>
+		<li><strong>RT:</strong> Reaction (or response) time, which is the difference between the time of the first frame of the scene and the AcquiredTime</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">box = BoxGraphic(null_);
+box.List = { [1 1 1], [1 1 1], 1, [0 0] };
+fix = SingleTarget(eye_);
+fix.Target = box;
+fix.Threshold = 3;
+fth = FreeThenHold(fix);
+fth.WaitTime = 5000;
+fth.HoldTime = 500;
+scene = create_scene(fth);
+run_scene(scene);
+<bl>if</bl> fth.Success
+    dashboard(1, <mg>'Success'</mg>);
+<bl>elseif</bl> 0==fth.BreakCount
+    dashboard(1, <mg>'No fixation'</mg>);
+<bl>else</bl>
+    dashboard(1, <mg>'Fixation break'</mg>);
+<bl>end</bl>
+idle(1000);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>Although <b>SingleTarget</b> is used as an example, <b>FreeThenHold</b> can track any adapter in which the Success property indicates its state change.</li>
+	</ul>
+</ul>
+
+<h3 id="LooseHold">LooseHold</h3>
+<ul>
+	<p>This adapter checks to see if the Success state of the child adapter stays true for HoldTime. It allows brief state changes (i.e., to be false), as long as the change is shorter than BreakTime. This is useful to test if the previously acquired eye fixation is maintained while allowing for temporary breaks due to blinking.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true when the Success property of the child adapter remains true for <b>HoldTime</b>; false, until then.</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <strong>Success</strong> becomes true</li>
+		<li>When the fixation is broken for longer than BreakTime</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>HoldTime:</strong> Duration for which the fixation should be held; in milliseconds</li>
+		<li><strong>BreakTime:</strong> Maximum duration to allow breaking fixation; in milliseconds</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">box = BoxGraphic(null_);
+box.List = { [1 1 1], [1 1 1], 1, [0 0] };
+fix = SingleTarget(eye_);
+fix.Target = box;
+fix.Threshold = 3;
+wth = WaitThenHold(fix);
+wth.WaitTime = 5000;
+wth.HoldTime = 0;
+scene1 = create_scene(wth);
+lh = LooseHold(fix);
+lh.HoldTime = 3000;
+lh.BreakTime = 500;
+scene2 = create_scene(lh);
+run_scene(scene1);
+<bl>if</bl> wth.Success
+    run_scene(scene2);
+    <bl>if</bl> lh.Success
+        dashboard(1, <mg>'Success'</mg>);
+    <bl>else</bl>
+        dashboard(1, <mg>'Fixation break'</mg>);
+    <bl>end</bl>
+<bl>else</bl>
+    dashboard(1, <mg>'No fixation'</mg>);
+<bl>end</bl>
+idle(1000);
+</ul>
+</ul>
+
+<h3 id="ComplementaryWindow">ComplementaryWindow</h3>
+<ul>
+	<p>This adapter sets a complementary window around the target(s) to detect XY input outside the window.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true if the outside of the window is touched; false, otherwise.</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <strong>Success</strong> becomes true</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Target:</strong> TaskObject# or [x y] coordinates in degrees. Either SingleTarget or MultiTarget object can be assigned instead, to copy their target(s) and threshold (see the example below).</li>
+		<li><strong>Threshold:</strong> Size of the window; a scalar or [w h] in degrees</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">box = BoxGraphic(null_);
+box.List = { [1 1 1], [1 1 1], 1, [0 0] };
+fix = SingleTarget(touch_);
+fix.Target = box;
+fix.Threshold = 3;
+wth = WaitThenHold(fix);
+wth.WaitTime = 5000;
+wth.HoldTime = 0;
+out = ComplementaryWindow(touch_);
+out.Target = fix;
+ac = AllContinue(wth);
+ac.add(out);
+dashboard(1,<mg>''</mg>);
+scene = create_scene(ac);
+run_scene(scene);
+<bl>if</bl> wth.Success
+    dashboard(1,<mg>'The window is touched.'</mg>);
+<bl>elseif</bl> out.Success
+    dashboard(1,<mg>'The outside of the window is touched.'</mg>);
+<bl>else</bl>
+    dashboard(1,<mg>'The window is not touched.'</mg>);
+<bl>end</bl>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>This adapter works with touch input only. For the other signals, adding <b><a href="#NotAdapter">NotAdapter</a></b> after <b>SingleTarget</b> will do the same.</li>
+	</ul>
+</ul>
+
+<h3 id="BlinkDetector">BlinkDetector</h3>
+<ul>
+	<p>This adapter checks if the XY tracker enters a specified area during the scene. Since eye trackers typically send out some extreme values for blinks, it can be used to detect the blinks by setting a forbidden area around the extreme coordinates.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the forbidden area is trespassed (if <strong>StopOnDetection</strong> is true); or when the child adapter stops (if <strong>StopOnDetection</strong> is false)</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>XRange:</strong> [left right] of the forbidden area in degrees</li>
+		<li><strong>YRange:</strong> [bottom top] of the forbidden area in degrees</li>
+		<li><strong>StopOnDetection:</strong> If this property is true (by default), the adapter stops when the forbidden area is trespassed.</li>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>Detected:</strong> true, if the XY tracker entered the forbidden area; false, otherwise</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">fix = SingleTarget(eye_);
+fix.Target = [0 0];
+fix.Threshold = 3;
+wth = WaitThenHold(fix);
+wth.WaitTime = 5000;
+wth.HoldTime = 500;
+bd = BlinkDetector(wth);
+bd.XRange = [80 Inf];    <gr> % Let's say that we receive (90, -90) when blinking occurs.</gr>
+bd.YRange = [-Inf -80];  <gr> % Then set the area defined by 80&lt;X & Y&lt;-80 as a forbidden place.</gr>
+scene = create_scene(bd);
+run_scene(scene);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>Users need to know what numbers they get when blinking occurs and set <b>XRange</b> and <b>YRange</b> appropriately. Note that those numbers are calibrated values, not the raw values from the eye tracker/joystick.</li>
+	</ul>
+</ul>
+
+<h3 id="SingleButton">SingleButton</h3>
+<ul>
+	<p>This adapter checks if the specified button was pressed.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true while the button is pressed; false, otherwise.</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <strong>Success</strong> becomes true</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Button:</strong> Button #</li>
+		<li><strong>TouchMode:</strong> true or false. See the remarks below.</li>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>Time:</strong> trialtime when the button state changed for the last time; in milliseconds</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">btn = SingleButton(button_);
+btn.Button = 1;    <gr>% Button#1</gr>
+scene = create_scene(btn);
+run_scene(scene);  <gr>% The scene will end when the button is pressed</gr>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>The responsiveness of SingleButton differs, depending on whether the input is analog or digital. For analog input, SingleButton does not change its Success state until the button is pressed/released for at least one frame, to prevent a jitter from being detected as a normal button press/release. For digital buttons that are less susceptible to noise, the Success state changes without waiting for one frame.</li>
+		<li>To force SingleButton to change its Success state immediately for analog input as well, set the <b>TouchMode</b> property to true after assigning the Button number, like the following.
+<code>btn.Button = 1;
+btn.TouchMode = true;  <gr>% After assigning Button</gr>
+</code>
+		<li>To make SingleButton respond to the button release, instead of the press, invert the input via ButtonTracker (<b>button_</b>) as below. The inverted button is colored in red on the control screen and treated as a button sending out 0 when pressed. <u>Note that this makes the saved button signal inverted as well.</u></li>
+<code><strong>button_</strong>.invert(1);     <gr>% Invert Button#1</gr>
+</code>
+		<li>The button threshold for analog input can be adjusted like the following.</li>
+<code><strong>button_</strong>.threshold(button#, buttonThreshold);
+</code>
+	</ul>
+</ul>
+
+<h3 id="PulseCounter">PulseCounter</h3>
+<ul>
+	<p>This adapter counts the number of TTL pulses (or # of button presses).</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true once a pulse is detected</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <strong>Success</strong> becomes true</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Button:</strong> Button #</li>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>Count:</strong> Number of pulses (or button presses)</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">pc = PulseCounter(button_);
+pc.Button = 1;  <gr>% Button#1</gr>
+tc = TimeCounter(pc);
+tc.Duration = 1000;
+scene = create_scene(tc);
+run_scene(scene);
+dashboard(1, sprintf(<mg>'Count: %d'</mg>, pc.Count));
+idle(1000);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>Unlike <strong><a href="#SingleButton">SingleButton</a></strong>, PulseCounter does not require the button state to be stable for one frame and works with high-frequency input (<500Hz).</li>
+		<li>PulseCounter detects rising edges, not high levels. If the button is already being pushed at the beginning of the scene, the first pulse does not count until it is released and pushed again.</li>
+	</ul>
+</ul>
+
+<h3 id="OnsetDetector">OnsetDetector</h3>
+<ul>
+	<p>This adapter detects when the child adapter's Success becomes true for the first time.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true once the Success of the child adapter becomes true</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <strong>Success</strong> becomes true</li>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>AcquiredTime:</strong> trialtime of the first signal change</li>
+		<li><strong>RT:</strong> Reaction (or response) time, which is the difference between the time of the first frame of the scene and the AcquiredTime</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">btn = SingleButton(button_);
+btn.Button = 1;    <gr>% Button#1</gr>
+od = OnsetDetector(btn);
+scene = create_scene(od);
+run_scene(scene);  <gr>% The scene will end when a signal change is detected</gr>
+dashboard(1, sprintf(<mg>'Onset time: %d ms'</mg>, od.AcquiredTime));
+idle(1000);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>If the child adapter's Success is true from the start of the scene, the OnserDetector will not indicate true. The adapter waits for a change from false to true.</li>
+		<li>Exception to the first rule. If the child adapter is one of the trackers, OnsetDetector becomes true from the beginning, since the trackers never become false.</li>
+		<li><strong>AcquiredTime</strong> is in millisecond resolution only when the child adapter is SingleTarget, SingleButton, PulseCounter or KeyChecker.
+		Otherwise, the precision drops to a multiple of the refresh rate.</li>
+	</ul>
+</ul>
+
+<h3 id="KeyChecker">KeyChecker</h3>
+<ul>
+	<p>This adapter checks the state of a key. Key code(s) to monitor must be set in the [Other device settings] menu first.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true once a key stroke is detected</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <strong>Success</strong> becomes true</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>KeyNum:</strong> Keycode number to track (the order in the keycodes given in the 'Mouse / Key' menu)</li>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>Count:</strong> Counts of key strokes</li>
+		<li><strong>Time:</strong> trialtime(s) when the key was pressed</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">kc = KeyChecker(mouse_);
+kc.KeyNum = 1;  <gr>% 1st keycode</gr>
+tc = TimeCounter(null_);
+tc.Duration = 5000;
+or = OrAdapter(kc);
+or.add(tc);
+scene = create_scene(or);
+run_scene(scene);
+<bl>if</bl> kc.Success, dashboard(1, sprintf(<mg>'Key press time: %d ms'</mg>, kc.Time(1))); <bl>end</bl>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>This adapter requires MouseTracker (<b>mouse_</b>). To activate <b>mouse_</b>, check on 'Mouse / Key' in the [Other device settings] menu and type the keycodes to monitor there.</li>
+		<li>See <a href="docs_KeycodeTable.html">the keycode table</a> for available keys.</li>
+	</ul>
+</ul>
+
+<h3 id="TimeCounter">TimeCounter</h3>
+<ul>
+	<p>This adapter measures a duration.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true when <strong>Duration</strong> has passed</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <strong>Success</strong> becomes true</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Duration:</strong> In milliseconds</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">box = BoxGraphic(null_);
+box.List = { [1 1 1], [1 1 1], 3, [0 0] };
+tc = TimeCounter(box);
+tc.Duration = 1000;
+scene = create_scene(tc);
+run_scene(scene);
+idle(0);  <gr>% clear screen</gr>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>The stimuli will be presented for one frame even if <b>Duration</b> is 0.</li>
+		<li>If <b>Duration</b> is not a multiple of the frame length, the actual duration can be longer up to one frame.</li>
+		<li>Stimuli will not disappear, even after TimeCounter finishes. To remove the stimuli from the screen, call the <b><a href="#idle">idle</a></b> command or present next scene.</li>
+	</ul>
+</ul>
+
+<h3 id="FrameCounter">FrameCounter</h3>
+<ul>
+	<p>This adapter measures a duration in terms of the number of frames.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true when the given number of frames (<strong>NumFrame</strong>) is presented</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <strong>Success</strong> becomes true</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>NumFrame:</strong> Number of frames</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">bhv_code(10, <mg>'Scene start'</mg>, 20, <mg>'Image end'</mg>);
+img = ImageGraphic(null_);
+img.List = { <mg>'A.bmp'</mg>, [0 0] };
+fc = FrameCounter(img);
+fc.NumFrame = 60;   <gr>% 60 frames. Corresponds to 1 sec at a 60-Hz refresh rate</gr>
+scene = create_scene(fc);
+run_scene(scene, 10);
+idle(500, [], 20);  <gr>% Clear screen. This is time when the image goes off</gr>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>FrameCounter will spend at least one frame, even if <strong>NumFrame</strong> is 0.</li>
+		<li>Stimuli will not turn themselves off, even after TimeCounter finishes. To turn off the stimuli, call the <b><a href="#idle">idle</a></b> command or present next scene.</li>
+	</ul>
+</ul>
+
+<h3 id="AnalogInputMonitor">AnalogInputMonitor</h3>
+<ul>
+	<p>This adapter draws a trace of a selected signal (General Input, High Frequency and Voice) on the control screen for a monitoring purpose.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Channel:</strong> General Input number from the I/O menu (scalar) or signal name such as 'general1', 'gen2', 'highfrequency3', 'high4', 'voice', etc.</li>
+		<li><strong>Position:</strong> [left top width height] of the monitor panel in pixels. When not resized, the left-top corner of the control screen is [0 0] and the right-bottom is [800 600]. Alternatively normalized units (0 to 1) can be used.</li>
+		<li><strong>YLim:</strong> Voltage range ([ymin ymax]) of the selected General Input to display</li>
+		<li><strong>Title:</strong> Name of the selected General Input</li>
+		<li><strong>Color:</strong> [R G B]</li>
+		<li><strong>UpdateInterval:</strong> Update intervals in frames. 1, by default.</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">aim = AnalogInputMonitor(null_);
+aim.Channel = 1;                        <gr>% General Input 1</gr>
+aim.Position = [0.725 0.04 0.25 0.09];  <gr>% [left top width height] in normalized units</gr>
+aim.YLim = [0 5];
+aim.Title = <mg>'Heart beat'</mg>;
+aim.UpdateInterval = 2;                 <gr>% redraw every 2 frames</gr>
+tc = TimeCounter(aim);
+tc.Duration = 10000;
+scene = create_scene(tc);
+run_scene(scene);
+
+<img src="images\docs_adapter_analoginputmonitor.png" border="1">
+</ul>
+</ul>
+
+<h3 id="PropertyMonitor">PropertyMonitor</h3>
+<ul>
+	<p>This adapter displays the value of a child adapter property on the dashboard during run_scene().</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Dashboard:</strong> Dashboard line number</li>
+		<li><strong>Color:</strong> Dashboard color</li>
+		<li><strong>ChildProperty:</strong> A property of the child adapter to monitor. 'Success', by default.</li>
+		<li><strong>Format:</strong> String format for dashboard (the same as formatSpec of the sprintf command). if empty, [property_name ': ' property_value] is displayed, by default.</li>
+		<li><strong>UpdateInterval:</strong> Update intervals in frames. 30, by default.</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">btn = SingleButton(button_);
+btn.Button = 1;             <gr>% Button#1</gr>
+pm = PropertyMonitor(btn);  <gr>% display the state of Button#1 on the screen</gr>
+pm.Dashboard = 1;
+tc = TimeCounter(pm);
+tc.Duration = 5000;
+scene = create_scene(tc);
+run_scene(scene);
+idle(0);
+</ul>
+</ul>
+
+<h3 id="WebcamMonitor">WebcamMonitor</h3>
+<ul>
+	<p>This adapter displays images captured by webcams on the screen.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>CamNumber:</strong> Webcam number, 1 to 4</li>
+		<li><strong>Position:</strong> [left top width height] of the monitor panel in pixels. When not resized, the left-top corner of the control screen is [0 0] and the right-bottom is [800 600]. Alternatively normalized units (0 to 1) can be used.</li>
+		<li><strong>UpdateInterval:</strong> Update intervals in frames. 2, by default.</li>
+		<li><strong>Screen:</strong> 1 (subject screen) or 2 (control screen; default value)</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">cam = WebcamMonitor(null_);
+cam.CamNumber = 1;
+cam.Position = [0.6 0 0.4 0.4];  <gr>% [left top width height] in normalized units</gr>
+tc = TimeCounter(cam);
+tc.Duration = 10000;
+scene = create_scene(tc);
+run_scene(scene);
+</ul>
+</ul>
+
+<h3 id="FrameMarker">FrameMarker</h3>
+<ul>
+	<p>This adapter stamps eventcode(s) when a particular frame is presented.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>FrameEvent:</strong> An n-by-2 cell or matrix. The 1st column is the frame number (1-based) and the 2nd column is the event(s).</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">bhv_code(2, <mg>'Frame 10'</mg>, 4, <mg>'Frame 20'</mg>);
+fc = FrameCounter(null_);
+fc.NumFrame = 60;
+fm = FrameMarker(fc);
+fm.FrameEvent = [10 2; 20 4];  <gr>% 2 when the 10th frame is presented and 4 when the 20th is presented</gr>
+scene = create_scene(fm);
+run_scene(scene);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>Multiple codes can be provided as a cell.</li>
+	</ul>
+</ul>
+
+<h3 id="OnOffMarker">OnOffMarker</h3>
+<ul>
+	<p>This adapter sends out pre-set eventcodes when the state of a child adapter property changes.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>OnMarker:</strong> Eventcode to send when the state of the child adapter changes from false to true</li>
+		<li><strong>OffMarker:</strong> Eventcode to send when the state of the child adapter changes from true to false</li>
+		<li><strong>ChildProperty:</strong> A property of the child adapter to monitor. 'Success', by default.</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">bhv_code(0, <mg>'Released'</mg>, 1, <mg>'Pressed'</mg>);
+btn = SingleButton(button_);
+btn.Button = 1;  <gr>% Button#1</gr>
+oom = OnOffMarker(btn);
+oom.OnMarker = 1;
+oom.OffMarker = 0;
+tc = TimeCounter(oom);
+tc.Duration = 3000;
+scene = create_scene(tc);
+run_scene(scene);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>The cycle of calling OnOffMarker is synchronized with the screen refresh rate, so the actual time of the state change can be earlier than
+		the time of events by up to one frame length.</li>
+	</ul>
+</ul>
+
+<h3 id="OnOffDisplay">OnOffDisplay</h3>
+<ul>
+	<p>This adapter displays pre-set messages depending on the state of a child adapter property.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Dashboard:</strong> Dashboard line number</li>
+		<li><strong>OnMessage:</strong> Message to show when the state of the child adapter is true</li>
+		<li><strong>OffMessage:</strong> Message to show when the state of the child adapter is false</li>
+		<li><strong>OnColor:</strong> Color of OnMessage</li>
+		<li><strong>OffColor:</strong> Color of OffMessage</li>
+		<li><strong>ChildProperty:</strong> A property of the child adapter to monitor. 'Success', by default.</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">btn = SingleButton(button_);
+btn.Button = 1;  <gr>% Button#1</gr>
+ood = OnOffDisplay(btn);
+ood.Dashboard = 1;
+ood.OnMessage = <mg>'Pressed'</mg>;
+ood.OffMessage = <mg>'Not pressed'</mg>;
+tc = TimeCounter(ood);
+tc.Duration = 3000;
+scene = create_scene(tc);
+run_scene(scene);
+idle(0);
+</ul>
+</ul>
+
+<h3 id="OnOffGraphic">OnOffGraphic</h3>
+<ul>
+	<p>This adapter draws pre-set graphics depending on the state of a child adapter property.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>OnGraphic:</strong> TaskObjects# or a graphic adapter to display while the state of the child adapter is true</li>
+		<li><strong>OffGraphic:</strong> TaskObjects# or a graphic adapter to display while the state of the child adapter is false</li>
+		<li><strong>ChildProperty:</strong> A property of the child adapter to monitor. 'Success', by default.</li>
+	</ul>
+	<p class="method">Methods:</p>
+	<ul class="method">
+		<li><strong>setOnGraphic(graphic_obj<i>, index</i>):</strong> Either graphic TaskObjects or a graphic adapter. If the graphic adapter has multiple objects created with the List property, use the optional <i>index</i> argument, to indicate which one(s) should be used.</li>
+		<li><strong>setOffGraphic(graphic_obj<i>, index</i>):</strong> The same as setOnGraphic.</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">crc = CircleGraphic(null_);
+crc.List = { [1 1 1], [1 1 1], 1, [-3 3]; [1 1 1], [1 1 1], 1, [3 3]; ...
+    [1 0 0], [1 0 0], 1, [-3 -3]; [1 0 0], [1 0 0], 1, [3 -3] };
+fix = SingleTarget(eye_);
+fix.Target = [0 0];
+fix.Threshold = 3;
+on = OnOffGraphic(fix);
+on.setOnGraphic(crc,[2 3]);
+on.setOffGraphic(crc,[1 4]);
+tc = TimeCounter(on);
+tc.Duration = 5000;
+scene = create_scene(tc);
+run_scene(scene);
+</ul>
+</ul>
+
+<h3 id="PhotoDiode">PhotoDiode</h3>
+<ul>
+	<p>Normally the photodiode trigger is toggled only at the beginning of a scene, but this adapter makes it toggled every frame during the scene (<i>Example 1</i>) or when an eventcode is issued (<i>Example 2</i>).</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Mode:</strong> 'Frame' (default) or 'Event'. This option determines whether to toggle the trigger per frame or eventcode.</li>
+	</ul>
+	<p class="example">Example 1:</p>
+	<ul class="example">pd = PhotoDiode(null_);  <gr>% toggle the trigger every frame ('Frame' mode)</gr>
+tc = TimeCounter(pd);
+tc.Duration = 3000;
+scene = create_scene(tc);
+run_scene(scene);
+</ul>
+	<p class="example">Example 2:</p>
+	<ul class="example">img = ImageChanger(null_);
+img.List = {
+    <mg>'A.bmp'</mg>, [0 0], 15, 101; ...  <gr>% ImageChanger sends out eventcodes when new images are presented.</gr>
+    [], [], 15, 100; ...
+    <mg>'B.bmp'</mg>, [0 0], 15, 102; ...
+    [], [], 15, 100; ...
+    <mg>'C.bmp'</mg>, [0 0], 15, 103; ...
+    [], [], 15, 100; ...
+    <mg>'D.bmp'</mg>, [0 0], 15, 104; ...
+    [], [], 15, 100;
+};
+pd = PhotoDiode(img);
+pd.Mode = <mg>'Event'</mg>;       <gr>% toggle the trigger when an eventcode is sent out ('Event' mode)</gr>
+scene = create_scene(pd);
+run_scene(scene);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>The photodiode trigger option should be selected on the main menu.</li>
+		<li>For the event mode, this adapter should be <a href="docs_CreatingTask.html#HowToCreateAdapterChains">the parent</a> of another adapter that produces eventcodes, as in Example 2, or added to <a href="docs_ScriptingScenes.html#AdapterAggregators">the aggregators</a> at the very last.</li>
+	</ul>
+</ul>
+
+<h3 id="BoxGraphic">BoxGraphic</h3>
+<ul>
+	<p>This adapter draws a square/rectangle.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Enable:</strong> true (by default) or false</li>
+		<li><strong>EdgeColor:</strong> [R G B]</li>
+		<li><strong>FaceColor:</strong> [R G B]</li>
+		<li><strong>Size:</strong> A scalar (square) or a 1-by-2 vector (rectangle), [width height] in degrees</li>
+		<li><strong>Position:</strong> [X Y] in degrees</li>
+		<li><strong>Scale:</strong> Magnification. 1, by default. Use a two-element vector to apply X & Y scales separately, like [x_scale y_scale].</li>
+		<li><strong>Angle:</strong> Rotation in degrees. 0, by default.</li>
+		<li><strong>Zorder:</strong> z-order; 0 (back; by default) to 2147483647 (front)</li><br>
+		<li><strong>List:</strong> Use this property, instead of the above ones, to create multiple objects at once. See Example 2.</li><br>
+		<ul>
+			<li>box.List = { edgecolor1, facecolor1, size1, position1, scale1, angle1; ...<br>&nbsp;&nbsp;&nbsp;&nbsp;edgecolor2, facecolor2, size2, position2, scale2, angle2; ... }</li>
+		</ul><br>
+	</ul>
+	<p class="example">Example 1:</p>
+	<ul class="example">box = BoxGraphic(null_);
+box.EdgeColor = [1 0 0];
+box.FaceColor = [0 0 1];
+box.Size = [4 3];
+box.Position = [-5 5];
+
+fix = SingleTarget(eye_);
+fix.Target = box;
+fix.Threshold = 3;
+wth = WaitThenHold(fix);
+wth.WaitTime = 5000;
+wth.HoldTime = 500;
+
+scene = create_scene(wth);
+run_scene(scene);
+</ul>
+	<p class="example">Example 2:</p>
+	<ul class="example">box = BoxGraphic(null_);
+box.List = { [1 0 0], [0 0 1], [4 3], [-5 5] };  <gr>% The same shape as in the above example</gr>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>Previously, graphic adapters could not be directly assigned as Target, but it is now possible as shown in the above example. Update to the latest version, if it does not work.</li>
+	</ul>
+</ul>
+
+<h3 id="CircleGraphic">CircleGraphic</h3>
+<ul>
+	<p>This adapter is the same as <a href="#BoxGraphic">BoxGraphic</a> except that this one draws a circle/oval.</p>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>For the <strong>Size</strong> argument, use a scalar for a circle (diameter, not radius) or a 1-by-2 vector for an ellipse ([major_axis minor_axis]).</li>
+	</ul>
+</ul>
+
+<h3 id="PieGraphic">PieGraphic</h3>
+<ul>
+	<p>This adapter draws a filled arc.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Enable:</strong> true (by default) or false</li>
+		<li><strong>EdgeColor:</strong> [R G B]</li>
+		<li><strong>FaceColor:</strong> [R G B]</li>
+		<li><strong>Size:</strong> A scalar (square) or a 1-by-2 vector (rectangle), [width height] in degrees</li>
+		<li><strong>Position:</strong> [X Y] in degrees</li>
+		<li><strong>StartDegree:</strong> Angle measured in degrees counter-clockwise from the x-axis to the first side of the pie shape</li>
+		<li><strong>CenterAngle:</strong> Angle measured in degrees counter-clockwise from <strong>StartDegree</strong> to the second size of the pie shape</li>
+		<li><strong>Scale:</strong> Magnification. 1, by default. Use a two-element vector to apply X & Y scales separately, like [x_scale y_scale].</li>
+		<li><strong>Angle:</strong> Rotation in degrees. 0, by default.</li>
+		<li><strong>Zorder:</strong> z-order; 0 (back; by default) to 2147483647 (front)</li><br>
+		<li><strong>List:</strong> Use this property, instead of the above ones, to create multiple objects at once. See Example 2.</li><br>
+		<ul>
+			<li>pie.List = { edgecolor1, facecolor1, size1, position1, startdeg1, centerang1, scale1, angle1; ...<br>&nbsp;&nbsp;&nbsp;&nbsp;edgecolor2, facecolor2, size2, position2, startdeg2, centerang2, scale2, angle2; ... }</li>
+		</ul><br>
+	</ul>
+	<p class="example">Example 1:</p>
+	<ul class="example">pie = PieGraphic(null_);
+pie.EdgeColor = [1 0 0];
+pie.FaceColor = [1 1 0];
+pie.Size = [4 3];
+pie.Position = [-5 5];
+pie.StartDegree = 45;
+pie.CenterAngle = 270;
+
+fix = SingleTarget(eye_);
+fix.Target = pie;
+fix.Threshold = 3;
+wth = WaitThenHold(fix);
+wth.WaitTime = 5000;
+wth.HoldTime = 500;
+
+scene = create_scene(wth);
+run_scene(scene);
+</ul>
+	<p class="example">Example 2:</p>
+	<ul class="example">pie = PieGraphic(null_);
+pie.List = { [1 0 0], [1 1 0], [4 3], [-5 5], 45, 270 };  <gr>% The same shape as in Example 1</gr>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>Previously, graphic adapters could not be directly assigned as Target, but it is now possible as shown in the above example. Update to the latest version, if it does not work.</li>
+	</ul>
+</ul>
+
+<h3 id="PolygonGraphic">PolygonGraphic</h3>
+<ul>
+	<p>This adapter draws a user-defined polygon.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Enable:</strong> true (by default) or false</li>
+		<li><strong>EdgeColor:</strong> [R G B]</li>
+		<li><strong>FaceColor:</strong> [R G B]</li>
+		<li><strong>Size:</strong> A scalar (square) or a 1-by-2 vector (rectangle), [width height] in degrees</li>
+		<li><strong>Position:</strong> [X Y] in degrees</li>
+		<li><strong>Vertex:</strong> An n-by-2 matrix (n = number of vertices), [X1 Y1; X2 Y2; ...] in normalized coordinates (0 to 1)</li>
+		<li><strong>Scale:</strong> Magnification. 1, by default. Use a two-element vector to apply X & Y scales separately, like [x_scale y_scale].</li>
+		<li><strong>Angle:</strong> Rotation in degrees. 0, by default.</li>
+		<li><strong>Zorder:</strong> z-order; 0 (back; by default) to 2147483647 (front)</li><br>
+		<li><strong>List:</strong> Use this property, instead of the above ones, to create multiple objects at once. See Example 2.</li><br>
+		<ul>
+			<li>poly.List = { edgecolor1, facecolor1, size1, position1, vertex1, scale1, angle1; ...<br>&nbsp;&nbsp;&nbsp;&nbsp;edgecolor2, facecolor2, size2, position2, vertex2, scale2, angle2; ... }</li>
+		</ul><br>
+	</ul>
+	<p class="example">Example 1:</p>
+	<ul class="example">star = PolygonGraphic(null_);
+star.EdgeColor = [0 1 0];
+star.FaceColor = [0 1 0];
+star.Size = 2;
+star.Position = [0 0];
+star.Vertex = [0.5 1; 0.375 0.625; 0 0.625; 0.25 0.375; 0.125 0; 0.5 0.25; 0.875 0; 0.75 0.375; ...
+    1 0.625; 0.625 0.625];
+
+fix = SingleTarget(eye_);
+fix.Target = star;
+fix.Threshold = 3;
+wth = WaitThenHold(fix);
+wth.WaitTime = 5000;
+wth.HoldTime = 500;
+
+scene = create_scene(wth);
+run_scene(scene);
+</ul>
+	<p class="example">Example 2:</p>
+	<ul class="example">star = PolygonGraphic(null_);
+star.List = { [0 1 0], [0 1 0], 2, [0 0], [0.5 1; 0.375 0.625; 0 0.625; 0.25 0.375; 0.125 0; ...
+    0.5 0.25; 0.875 0; 0.75 0.375; 1 0.625; 0.625 0.625] };  <gr>% The same shape as in Example 1</gr>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>Previously, graphic adapters could not be directly assigned as Target, but it is now possible as shown in the above example. Update to the latest version, if it does not work.</li>
+	</ul>
+</ul>
+
+<h3 id="TextGraphic">TextGraphic</h3>
+<ul>
+	<p>This adapter draws a user string.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Enable:</strong> true (by default) or false</li>
+		<li><strong>Text:</strong> Text to display</li>
+		<li><strong>Position:</strong> [X Y] in degrees</li>
+		<li><strong>FontFace:</strong> Font name ('Arial', by default).</li>
+		<li><strong>FontSize:</strong> In points (10, by default)</li>
+		<li><strong>FontColor:</strong> [R G B] ([1 1 1], by default)</li>
+		<li><strong>FontStyle:</strong> 'normal' (default), 'bold', 'italic', 'underline' or 'strikeout'</li>
+		<li><strong>HorizontalAlignment:</strong> 'left' (default), 'center' or 'right'</li>
+		<li><strong>VerticalAlignment:</strong> 'top' (default), 'middle' or 'bottom'</li>
+		<li><strong>Scale:</strong> Magnification. 1, by default. Use a two-element vector to apply X & Y scales separately, like [x_scale y_scale].</li>
+		<li><strong>Angle:</strong> Rotation in degrees. 0, by default.</li>
+		<li><strong>Zorder:</strong> z-order; 0 (back; by default) to 2147483647 (front)</li><br>
+		<li><strong>List:</strong> Use this property, instead of the above ones, to create multiple objects at once. See Example 2.</li><br>
+		<ul>
+			<li>text.List = { text1, position1, fontface1, fontsize1, fontcolor1, fontstyle1, halign1, valign1, scale1, angle1; ...<br>&nbsp;&nbsp;&nbsp;&nbsp;text2, position2, fontface2, fontsize2, fontcolor2, fontstyle2, halign2, valign2, scale2, angle2; ... }</li>
+		</ul><br>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>Size:</strong> Size of the created text. In degrees.</li>
+	</ul>
+	<p class="example">Example 1:</p>
+	<ul class="example">txt = TextGraphic(null_);
+txt.Text = <mg>'This is a test.'</mg>;
+txt.Position = [0 0];
+txt.FontSize = 100;
+txt.FontColor = [0 1 0];
+txt.FontStyle = <mg>'italic'</mg>;
+txt.HorizontalAlignment = <mg>'center'</mg>;
+txt.VerticalAlignment = <mg>'middle'</mg>;
+
+tc = TimeCounter(txt);
+tc.Duration = 3000;
+scene = create_scene(tc);
+run_scene(scene);
+idle(0);  <gr>% Clean up</gr>
+</ul>
+	<p class="example">Example 2:</p>
+	<ul class="example">txt = TextGraphic(null_);
+txt.List = { <mg>'This is a test.'</mg>, [0 0], <mg>'Arial'</mg>, 100, [0 1 0], <mg>'italic'</mg>, <mg>'center'</mg>, <mg>'middle'</mg> };
+</ul>
+</ul>
+
+<h3 id="ImageGraphic">ImageGraphic</h3>
+<ul>
+	<p>This adapter presents static images.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Enable:</strong> true (by default) or false</li>
+		<li><strong>Position:</strong> [X Y] in degrees</li>
+		<li><strong>Scale:</strong> Magnification. 1, by default. Use a two-element vector to apply X & Y scales separately, like [x_scale y_scale].</li>
+		<li><strong>Angle:</strong> Rotation in degrees. 0, by default.</li>
+		<li><strong>Zorder:</strong> z-order; 0 (back; by default) to 2147483647 (front)</li><br>
+		<li><strong>List:</strong> An n-by-2, n-by-3 or n-by-4 cell matrix. Use this property to create multiple image objects. Their Position, Scale and Angle properties can be changed afterward.</li>
+		<ul>
+			<li>1st column: Image filename, function string (see Remarks) or <a href="docs_MonkeyLogicGraphicsLibrary.html#Bitmap">image matrix</a> (<strong>Y-by-X-by-3</strong> or <strong>Y-by-X-by-4</strong>)</li>
+			<li>2nd column: Image XY position in visual angles, an n-by-2 matrix ([x1 y1; x2 y2; ...])</li>
+			<li>3rd column (optional): Colorkey, [R G B] that should look transparent
+			<li>4th column (optional): Resize parameter. [Xsize Ysize] in pixels or a scalar (scale).</li>
+			<li>5th column (optional): Angle. In degrees.</li>
+		</ul>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>Size:</strong> Size of the created graphic in degrees ([x1 y1; x2 y2; ...]).</li>
+	</ul>
+	<p class="example">Example 1:</p>
+	<ul class="example">img = ImageGraphic(null_);
+img.List = { <mg>'A.bmp'</mg>, [-3 0]; <mg>'B.bmp'</mg>, [3 0] };  <gr>% put only one image in each row</gr>
+fc = FrameCounter(img);
+fc.NumFrame = 60;
+scene = create_scene(fc);
+run_scene(scene);
+idle(0);  <gr>% clear the screen</gr>
+</ul>
+	<p class="example">Example 2:</p>
+	<ul class="example">img = ImageGraphic(null_);
+img.List = { <mg>'make_circle(100, [1 1 1], 1)'</mg>, [0 0] };  <gr>% function string</gr>
+tc = TimeCounter(img);
+tc.Duration = 3000;
+scene = create_scene(tc);
+run_scene(scene);
+idle(0);  <gr>% clear the screen</gr>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>To show multiple images at the same time, put each of them in a different row of the List property.</li>
+		<li>The function string must be a char array that contains a function name and its argument(s), like 'make_circle(300,[1 1 1],1)'.
+		<li>In case that the image matrix contains 4 color panes, the first one is alpha and the other three are RGB. See "<a href="docs_MonkeyLogicGraphicsLibrary.html#Bitmap">MonkeyLogic Graphics Library</a>" for the details.</li>
+		<li>Using image matrices can increase the size of the data file, because they are kept in the data file. Consider using image files or function strings, if possible.</li>
+		<li>When the scene ends, the image(s) will stay on the screen. They are overwritten by the next scene or can be manually cleared with <b><a href="#idle">idle</a>.</b></li>
+	</ul>
+</ul>
+
+<h3 id="MovieGraphic">MovieGraphic</h3>
+<ul>
+	<p>This adapter presents movies.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Enable:</strong> true (by default) or false</li>
+		<li><strong>Position:</strong> [X Y] in degrees</li>
+		<li><strong>Looping:</strong> false (do not repeat) or true (repeat)</li>
+		<li><strong>Scale:</strong> Magnification. 1, by default. Use a two-element vector to apply X & Y scales separately, like [x_scale y_scale].</li>
+		<li><strong>Angle:</strong> Rotation in degrees. 0, by default.</li>
+		<li><strong>Zorder:</strong> z-order; 0 (back; by default) to 2147483647 (front)</li>
+		<li><strong>PlayPosition:</strong> Play position in milliseconds</li><br>
+		<li><strong>List:</strong> An n-by-2 or n-by-3 cell matrix. Use this property to create multiple movie objects. The other properties can be changed afterward.</li>
+		<ul>
+			<li>1st column: Movie filename, function string or <a href="docs_MonkeyLogicGraphicsLibrary.html#Bitmap">movie matrix</a> (<strong>Y-by-X-by-3-by-N</strong> or <strong>Y-by-X-by-4-by-N</strong>, N: # of frames)</li>
+			<li>2nd column: XY position in visual angles, an n-by-2 matrix ([x1 y1; x2 y2; ...])</li>
+			<li>3rd column (optional): Repeat (true) or not (false, by default) when the end of the movie is reached</li>
+			<li>4th column (optional): Scale. A scalar. 1 means no change in size.</li>
+			<li>5th column (optional): Angle. In degrees.</li>
+		</ul>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>Size:</strong> Size of the created graphic in degrees ([x1 y1; x2 y2; ...]).</li>
+		<li><strong>Duration:</strong> Length of the movie in milliseconds ([d1; d2; d3; ...]).</li>
+	</ul>
+	<p class="example">Example 1:</p>
+	<ul class="example">mov = MovieGraphic(null_);
+mov.List = { <mg>'testmovie.avi'</mg>, [0 0] };  <gr>% movie filename</gr>
+tc = TimeCounter(mov);
+tc.Duration = 3000;
+scene = create_scene(tc);
+run_scene(scene);
+idle(0);  <gr>% clear the screen</gr>
+</ul>
+	<p class="example">Example 2:</p>
+	<ul class="example">mov = MovieGraphic(null_);
+mov.List = { sprintf(<mg>'rand(100, 200, 3, 3 * %d)'</mg>, Screen.RefreshRate), [0 0] };  <gr>% function string</gr>
+tc = TimeCounter(mov);
+tc.Duration = 3000;
+scene = create_scene(tc);
+run_scene(scene);
+idle(0);  <gr>% clear the screen</gr>
+</ul>
+	<p class="example">Example 3:</p>
+	<ul class="example">imdata = rand(100, 200, 3, 3 * Screen.RefreshRate);  <gr>% Y-by-X-by-3-by-N</gr>
+mov = MovieGraphic(null_);
+mov.List = { imdata, [0 0] };
+tc = TimeCounter(mov);
+tc.Duration = 3000;
+scene = create_scene(tc);
+run_scene(scene);
+idle(0);  <gr>% clear the screen</gr>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>If the scene ends before the movie finishes, the last shown frame will stay on the screen. It will be cleared when the next scene starts or with idle(0).</li>
+		<li>Although a movie can be created from a matrix like Example 3, it increases the size of the data file rapidly because the matrix is saved for reconstructing initial conditions. Consider using a movie file or a function, like Example 1 & 2, to avoid such an issue.</li>
+	</ul>
+</ul>
+
+<h3 id="SineGrating">SineGrating</h3>
+<ul>
+	<p>This adapter draws a sine grating.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Enable:</strong> true (by default) or false</li>
+		<li><strong>Position:</strong> [X Y] in degrees</li>
+		<li><strong>Radius:</strong> Radius of the aperture in degrees</li>
+		<li><strong>Direction:</strong> Degree</li>
+		<li><strong>SpatialFrequency:</strong> Cycles per degree</li>
+		<li><strong>TemporalFrequency:</strong> Cycles per second</li>
+		<li><strong>Phase:</strong> Degree; 0, by default.</li>
+		<li><strong>Color1:</strong> 1-by-3 RGB vector</li>
+		<li><strong>Color2:</strong> 1-by-3 RGB vector</li>
+		<li><strong>WindowType:</strong> 'none', 'circular' (default), 'triangular', 'sine' (or 'cosine'), 'hann', 'hamming', 'gaussian'</li>
+		<li><strong>WindowSize:</strong> sigma for 'gaussian' (optional). 1/3 of Radius, by default.</li>
+		<li><strong>Zorder:</strong> z-order; 0 (back; by default) to 2147483647 (front)</li><br>
+		<li><strong>List:</strong> Use this property, instead of the above ones, to create multiple objects at once. See Example 2.</li><br>
+		<ul>
+			<li>grat.List = { position1, radius1, direction1, spatialfreq1, temporalfreq1, phase1, color11, color21, wintype1, winsize1; ...<br>&nbsp;&nbsp;&nbsp;&nbsp;position2, radius2, direction2, spatialfreq2, temporalfreq2, phase2, color12, color22, wintype2, winsize2; ... }</li>
+		</ul><br>
+	</ul>
+	<p class="example">Example 1:</p>
+	<ul class="example">grat = SineGrating(null_);
+grat.Position = [0 0];
+grat.Radius = 3;
+grat.Direction = 45;
+grat.SpatialFrequency = 1;
+grat.TemporalFrequency = 2;
+grat.Color1 = [1 0 0];
+grat.Color2 = [0 1 0];
+grat.WindowType = <mg>'gaussian'</mg>;
+
+fix = SingleTarget(eye_);
+fix.Target = grat.Position;  <gr>% SineGrating cannot be assigned directly, unlike graphic adapters.</gr>
+fix.Threshold = 3;
+wth = WaitThenHold(fix);
+wth.WaitTime = 5000;
+wth.HoldTime = 500;
+
+con = Concurrent(wth);
+con.add(grat);
+
+scene = create_scene(con);
+run_scene(scene);
+</ul>
+	<p class="example">Example 2:</p>
+	<ul class="example">grat = SineGrating(null_);
+grat.List = { [0 0], 3, 45, 1, 2, 0, [1 0 0], [0 1 0], <mg>'gaussian'</mg> };  <gr>% The same as above</gr>
+</ul>
+
+<h3 id="RandomDotMotion">RandomDotMotion</h3>
+<ul>
+	<p>This adapter draws a random dot motion stimulus.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Enable:</strong> true (by default) or false</li>
+		<li><strong>Position:</strong> [X Y] in degrees</li>
+		<li><strong>Radius:</strong> Radius of the aperture in degrees</li>
+		<li><strong>Coherence:</strong> 0 to 100</li>
+		<li><strong>Direction:</strong> Degree</li>
+		<li><strong>Speed:</strong> Degrees per sec</li>
+		<li><strong>NumDot:</strong> Numbers of dots; 100, by default</li>
+		<li><strong>DotSize:</strong> In degrees; 0.15, by default</li>
+		<li><strong>DotColor:</strong> [R G B]; [1 1 1], by default</li>
+		<li><strong>DotShape:</strong> 'square' (by default) or 'circle'</li>
+		<li><strong>Interleaf:</strong> Number of frames interleaving; 3, by default</li>
+		<li><strong>Zorder:</strong> z-order; 0 (back; by default) to 2147483647 (front)</li><br>
+		<li><strong>List:</strong> Use this property, instead of the above ones, to create multiple objects at once. See Example 2.</li><br>
+		<ul>
+			<li>rdm.List = { position1, radius1, coherence1, direction1, speed1, numdot1, dotsize1, dotcolor1, dotshape1, interleaf1; ...<br>&nbsp;&nbsp;&nbsp;&nbsp;position2, radius2, coherence2, direction2, speed2, numdot2, dotsize2, dotcolor2, dotshape2, interleaf2; ... }</li>
+		</ul><br>
+	</ul>
+	<p class="example">Example 1:</p>
+	<ul class="example">rdm = RandomDotMotion(null_);
+rdm.Position = [0 0];
+rdm.Radius = 5;
+rdm.Coherence = 30;
+rdm.Direction = 0;
+rdm.Speed = 5;
+
+fix = SingleTarget(eye_);
+fix.Target = rdm.Position;  <gr>% RandomDotMotion cannot be assigned directly, unlike graphic adapters.</gr>
+fix.Threshold = 5;
+wth = WaitThenHold(fix);
+wth.WaitTime = 5000;
+wth.HoldTime = 500;
+
+con = Concurrent(wth);
+con.add(rdm);
+
+scene = create_scene(con);
+run_scene(scene);
+idle(0);
+</ul>
+	<p class="example">Example 2:</p>
+	<ul class="example">rdm = RandomDotMotion(null_);
+rdm.List = { [0 0], 5, 30, 0, 5 };  <gr>The same stimulus as above</gr>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li><b>RectangularRDM</b> is the same as this adapter. Just its aperture size is specified by the <b>Size</b> property ([width height] in degrees), instead of <b>Radius</b>.</li>
+	</ul>
+</ul>
+
+<h3 id="GraphicContainer">GraphicContainer</h3>
+<ul>
+	<p>This adapter combines various graphic adapters into one.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Enable:</strong> true (by default) or false</li>
+		<li><strong>Position:</strong> [X Y] in degrees</li>
+		<li><strong>Zorder:</strong> z-order; 0 (back; by default) to 2147483647 (front)</li>
+	</ul>
+	<p class="method">Methods:</p>
+	<ul class="method">
+		<li><strong>add(graphic_obj<i>, index</i>):</strong> Add a graphic adapter to stack</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">pie = PieGraphic(null_);
+pie.List = { [1 0 0], [1 1 0], [3 2], [-5 0], 45, 270 };
+box = BoxGraphic(null_);
+box.List = { [1 0 0], [1 0 0], 2, [5 5];  <gr>% red box</gr>
+    [0 1 0], [0 1 0], 2, [-5 5];          <gr>% green box</gr>
+    [0 0 1], [0 0 1], 2, [-5 0] };        <gr>% blue box</gr>
+img = ImageGraphic(null_);
+img.List = { <mg>'A.bmp'</mg>, [-5 -5]; <mg>'B.bmp'</mg>, [5 -5] };
+txt = TextGraphic(null_);
+txt.List = { <mg>'This is a test.'</mg>, [5 0] };
+txt.HorizontalAlignment{1} = <mg>'center'</mg>;
+
+gc = GraphicContainer(pie);  <gr>% compose a set of various objects</gr>
+gc.add(box,1:2);             <gr>% add just the first two boxes</gr>
+gc.add(img);
+gc.add(txt);
+
+mul = MultiTarget(eye_);
+mul.Target = gc;             <gr>% The target number is in the order as they are added. That is,</gr>
+mul.Threshold = 3;           <gr>% 1. pie, 2. red box, 3. green box, 4. A.bmp, 5. B.bmp, 6. txt.</gr>
+mul.WaitTime = 5000;
+mul.HoldTime = 500;
+scene = create_scene(mul);
+run_scene(scene);
+idle(1000);
+</ul>
+</ul>
+
+<h3 id="CurveTracer">CurveTracer</h3>
+<ul>
+	<p>This adapter translates the position of a graphic object along the given path.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true when all x & y positions are traced to the end</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <b>Success</b> becomes true</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Target:</strong> Either a graphic TaskObject or a graphic adapter. To select one object from a graphic adapter that contains multiple objects, use setTarget().</li>
+		<li><strong>DurationUnit:</strong> 'frame' (by default) or 'msec'</li>
+		<li><strong>Repetition:</strong> The number of times to trace the path. 1, by default.</li><br>
+		<li><strong>List:</strong> An n-by-2, n-by-3 or n-by-4 numeric matrix</li>
+		<ul>
+			<li>1st column: X in degrees</li>
+			<li>2nd column: Y in degrees</li>
+			<li>3rd column: Duration (in frames or milliseconds; 1, if not provided)</li>
+			<li>4th column: Eventmarker (optional)</li>
+		</ul>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>Time:</strong> trialtime (an n-by-1 vector) when the object is moved to each position during the scene. NaN for skipped positions.</li>
+	</ul>
+	<p class="method">Methods:</p>
+	<ul class="method">
+		<li><strong>setTarget(graphic_obj<i>, index</i>):</strong> If the graphic adapter has multiple objects created with the List property, set the optional <i>index</i> argument to indicate which one should be used.</li>
+	</ul>
+	<p class="example">Example 1:</p>
+	<ul class="example">t = linspace(0, 2*pi, 1000)';
+x = 6 * sin(3 * t);
+y = 9 * sin(4 * t) ./ 1.5;
+ct = CurveTracer(null_);
+ct.Target = 1;  <gr>% TaskObject#1</gr>
+ct.List = [x y];
+scene = create_scene(ct, ct.Target);
+run_scene(scene);
+</ul>
+	<p class="example">Example 2:</p>
+	<ul class="example">crc = CircleGraphic(null_);
+crc.List = { [1 0 0], [1 0 0], 1; [0 1 0], [0 1 0], 1 };  <gr>% red & green circles</gr>
+t = linspace(0, 2*pi, 1000)';
+x = 6 * sin(3 * t);
+y = 9 * sin(4 * t) ./ 1.5;
+ct = CurveTracer(null_);
+ct.setTarget(crc, 2);  <gr>% use the 2nd circle in crc</gr>
+ct.List = [x y];
+scene = create_scene(ct);
+run_scene(scene);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>If <b>DurationUnit</b> is 'msec', the duration is rounded to the nearest multiple of the frame length.</li>
+		<li>This adapter can be linked with <b>SingleTarget</b> to create a moving target. See Example 2 of <b><a href="#SingleTarget">SingleTarget</a></b> for details.</li>
+	</ul>
+</ul>
+
+<h3 id="ImageChanger">ImageChanger</h3>
+<ul>
+	<p>This adapter presents multiple image sets in series.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true when all the images in the list are presented</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <strong>Success</strong> becomes true</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>List:</strong> An n-by-3 or n-by-4 or n-by-5 cell matrix</li>
+		<ul>
+			<li>1st column: Image filename(s) or function string(s) (see Remarks)</li>
+			<li>2nd column: Image XY position(s) in visual angles, an n-by-2 matrix ([x1 y1; x2 y2; ...])</li>
+			<li>3rd column: Duration in number of frames (or in milliseconds. See the <strong>DurationUnit</strong> property below.)</li>
+			<li>4th column: Eventmarker(s); optional</li>
+			<li>5th column: Resize parameter, [Xsize Ysize] in pixels; optional</li>
+		</ul><br>
+		<li><strong>DurationUnit:</strong> 'frame' (by default) or 'msec'</li>
+		<li><strong>Repetition:</strong> The number of times to repeat the image list. 1, by default.</li>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>Time:</strong> trialtime (an n-by-1 vector) when each image was presented during the scene. NaN for images not shown.</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">img = ImageChanger(null_);
+img.List = {
+    {<mg>'A.bmp'</mg>,<mg>'C.bmp'</mg>}, [5 5; -5 -5], 15, 101; ...
+    [], [], 15, []; ...  <gr>% 15 frames' blank</gr>
+    {<mg>'B.bmp'</mg>,<mg>'D.bmp'</mg>}, [5 5; -5 -5], 15, 102; ...
+    [], [], 15, []; ...
+    {<mg>'C.bmp'</mg>,<mg>'A.bmp'</mg>}, [5 5; -5 -5], 15, 103; ...
+    [], [], 15, []; ...
+    {<mg>'D.bmp'</mg>,<mg>'B.bmp'</mg>}, [5 5; -5 -5], 15, 104; ...
+    [], [], 15, [];
+};   <gr>% The images in each row will be shown for 15 frames in turn.</gr>
+scene = create_scene(img);
+run_scene(scene);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>If multiple images are assigned in the same row of <strong>List</strong>, they will be displayed simultaneously.</li>
+		<li>The function string is a char array that contains a function name and its argument(s), like 'make_circle(300,[1 1 1],1)'.</li>
+		<li>Column 4-5 of <strong>List</strong> are optional. An n-by-3 (or n-by-4 or n-by-5) matrix is sufficient. However, to assign something to Column 5, Column 4 must be defined.</li>
+		<li>If <b>DurationUnit</b> is 'msec', the duration of each image is rounded to the nearest multiple of the frame length.</li>
+	</ul>
+</ul>
+
+<h3 id="GraphicProperty">GraphicProperty</h3>
+<ul>
+	<p>This adapter changes properties of a graphic object over the course of the scene.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true when all the given property values are used</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <b>Success</b> becomes true</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Target:</strong> Either a graphic TaskObject or a graphic adapter. To select the objects in a graphic adapter that contains multiple objects, use setTarget() as in Example 2 below.</li>
+		<li><strong>Property:</strong> Name of the property to manipulate, such as 'EdgeColor', 'FaceColor', 'Size', 'Position', 'Scale', 'Angle' and 'Zorder'. In case of TaskObject, only 'Position', 'Scale', 'Angle' and 'Zorder' can be altered. To list multiple properties, use a cell array (see Example 2).</li><br>
+		<li><strong>List:</strong> A 1-by-p cell. p is the number of properties listed in <b>Property</b>. Two extra columns can be added for duration and eventmarkers.</li>
+		<ul>
+			<li>1st cell: New values for the 1st property (n-row matrix). Its number of columns is dependent on the property.</li>
+			<li>...</li>
+			<li>p-th cell: New values for the p-th property (n-row matrix). Its number of rows must be the same as the other cells.</li>
+			<li>(p+1)-th cell: Duration (in frames or milliseconds); 1, by default (optional)</li>
+			<li>(p+2)-th cell: Eventmarker (optional)</li>
+		</ul><br>
+		<li><strong>DurationUnit:</strong> 'frame' (by default) or 'msec'</li>
+		<li><strong>Repetition:</strong> The number of times to repeat the value list. 1, by default.</li>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>Time:</strong> trialtime (an n-by-1 vector) when new property values were applied during the scene. NaN for not shown.</li>
+	</ul>
+	<p class="method">Methods:</p>
+	<ul class="method">
+		<li><strong>setTarget(graphic_obj<i>, index</i>):</strong> If the graphic adapter has multiple objects created with the List property, set the optional <i>index</i> argument to indicate which one should be used.</li>
+	</ul>
+	<p class="example">Example 1:</p>
+	<ul class="example">box = BoxGraphic(null_);
+box.List = { [1 1 1], [1 1 1], [3 0.5], [0 0] };
+gp = GraphicProperty(null_);
+gp.Target = box;
+gp.Property = <mg>'size'</mg>;
+gp.List = {[linspace(3,6,60)' linspace(0.5,6,60)']};  <gr>% [width height] for size</gr>
+scene = create_scene(gp);
+run_scene(scene);
+</ul>
+	<p class="example">Example 2:</p>
+	<ul class="example">box = BoxGraphic(null_);
+box.List = { [1 1 1], [1 1 1], [3 0.5], [-5 0]; [1 1 1], [1 1 1], [3 0.5], [0 0] };  <gr>% two boxes</gr>
+gp = GraphicProperty(null_);
+gp.setTarget(box,2);  <gr>% the 2nd box</gr>
+gp.Property = {<mg>'size'</mg>,<mg>'angle'</mg>,<mg>'facecolor'</mg>};  <gr>% multiple properties</gr>
+gp.List = {[linspace(3,6,60)' linspace(0.5,6,60)'] linspace(0,360,60)' rand(60,3)};
+scene = create_scene(gp);
+run_scene(scene);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>If <b>DurationUnit</b> is 'msec', the duration of each color is rounded to the nearest multiple of the frame length.</li>
+	</ul>
+</ul>
+
+<h3 id="BackgroundColorChanger">BackgroundColorChanger</h3>
+<ul>
+	<p>This adapter changes the background color of the subject screen according to the given schedule.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true when all changes are made as scheduled</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <strong>Success</strong> becomes true</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>List:</strong> An n-by-4 or n-by-5 numeric matrix</li>
+		<ul>
+			<li>1st column: Red (0 to 1)</li>
+			<li>2nd column: Green (0 to 1)</li>
+			<li>3rd column: Blue (0 to 1)</li>
+			<li>4th column: Duration (in frames or milliseconds)</li>
+			<li>5th column: Eventmarker; optional</li>
+		</ul><br>
+		<li><strong>DurationUnit:</strong> 'frame' (by default) or 'msec'</li>
+		<li><strong>Repetition:</strong> The number of times to repeat the color list. 1, by default.</li>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>Time:</strong> trialtime (an n-by-1 vector) when each color change was made during the scene. NaN for skipped colors.</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">bgc = BackgroundColorChanger(null_);
+bgc.List = repmat([1 1 1 100; 0 0 0 100], 5, 1);  <gr>% alternate white and black every 100 ms</gr>
+bgc.DurationUnit = 'msec';
+scene = create_scene(bgc);
+run_scene(scene);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>If <b>DurationUnit</b> is 'msec', the duration of each color is rounded to the nearest multiple of the frame length.</li>
+	</ul>
+</ul>
+
+<h3 id="AudioSound">AudioSound</h3>
+<ul>
+	<p>This adapter presents audio sounds.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true when all sounds are finished</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <strong>Success</strong> becomes true</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Enable:</strong> true (by default) or false</li>
+		<li><strong>Looping:</strong> false (do not repeat) or true (repeat)</li>
+		<li><strong>PlayPosition:</strong> Play position in milliseconds</li><br>
+		<li><strong>List:</strong> An n-by-1 or n-by-2 cell matrix. Use this property to create multiple sounds at the same time.</li>
+		<ul>
+			<li>1st column: Audio filename, function string, or 1-by-2 vector of [duration frequency]</li>
+			<li>2nd column (optional): Looping; repeat (true) or not (false, by default) when the end of the sound is reached</li>
+		</ul>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>Duration:</strong> Length of the sound in milliseconds ([d1; d2; d3; ...]).</li>
+	</ul>
+	<p class="example">Example 1: Audio filename</p>
+	<ul class="example">snd = AudioSound(null_);
+snd.List = <mg>'Alarm01.wav'</mg>;  <gr>% wav file</gr>
+snd.PlayPosition = 1000;   <gr>% play from 1 sec</gr>
+scene = create_scene(snd);
+run_scene(scene);
+</ul>
+	<p class="example">Example 2: Function string</p>
+	<ul class="example">snd = AudioSound(null_);
+snd.List = <mg>'load_waveform({''sin'', 2, 1000})'</mg>;  <gr>% 1-kHz sine wave for 2 sec</gr>
+scene = create_scene(snd);
+run_scene(scene);
+</ul>
+	<p class="example">Example 3: [duration frequency]</p>
+	<ul class="example">snd = AudioSound(null_);
+snd.List = {[1000 1000], true; [1000 2000], false};  <gr>% only 1st sound will last for 3 s b/c of looping</gr>
+tc = TimeCounter(snd);
+tc.Duration = 3000;                                  <gr>% cut after 3 s</gr>
+scene = create_scene(tc);
+run_scene(scene);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>Function strings must be char and contain all input arguments in the strings, as in Example 2 above.</li>
+		<li>If the List is [duration frequency], a sine-wave tone of the given duration and frequency will be played</li>
+		<li>If Looping is true, the sound never ends and therefore the Success property does not become true.</li>
+	</ul>
+</ul>
+
+<h3 id="Stimulator">Stimulator</h3>
+<ul>
+	<p>This adapter delivers electrical stimulation via analog output.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true when the delivery of the current waveform is done</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <strong>Success</strong> becomes true</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Channel:</strong> Stimulation# (scalar or vector) assigned on the I/O menu.</li>
+		<li><strong>Waveform:</strong> can be one of the following.
+			<ul>
+				<li>1. A column vector (if only one channel was assigned to the Channel property)</li>
+				<li>2. A matrix (n-by-NumOfChannels) if multiple channels were assigned to the Channel property</li>
+				<li>3. A cell array that contains waveform data (1 or 2 above), to select a waveform on the fly</li>
+				<li>4. A MAT filename that contains one of the above waveform data. The waveform must be stored in a variable named 'y'. If there exists a variable, 'fs', in the MAT file, it will overwrite the Frequency property.</li>
+				<li>5. A char array that contains a function name and arguments (a.k.a. a funcion string), like 'load_waveform({''sin'',1,1000})'. The function must return [y, fs].</li>
+			</ul>
+		</li>
+		<li><strong>Frequency:</strong> The rate of the waveform sample generation, samples per second</li>
+		<li><strong>WaveformNumber:</strong> In case that multiple waveforms are loaded (as a cell array), this property indicates which waveform will be used.</li>
+		<li><strong>OffAtSceneEnd:</strong> When <b>true</b>, the signal output is turned off at the end of the scene; <b>false</b>, by default.</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">stim = Stimulator(null_);
+stim.Channel = [1 2];  <gr>% Stimulation #1 & #2</gr>
+stim.Waveform = {repmat([1 0.5; 0 0],5,1) [0.1 0.2 0.3 0.4 0.5 0; 0.5 0.4 0.3 0.2 0.1 0]'};  <gr>% two sets of waveforms</gr>
+stim.Frequency = 100;
+stim.WaveformNumber = 1;  <gr>% waveform set #1</gr>
+scene = create_scene(stim);
+run_scene(scene);  <gr>% send out the waveform set #1</gr>
+stim.WaveformNumber = 2;  <gr>% waveform set #2</gr>
+run_scene(scene);  <gr>% Do not create the Stimulator twice. Just recycle the same object.</gr>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>It is possible to trigger more than one analogoutput channel at a time, but all must be triggered together. This is a limitation of the DAQ device. Two independent stimulations will require two DAQ boards.</li>
+		<li>Using numeric arrays/matrices for <b>Waveform</b> can increase the size of the data file quickly, since they are saved in the data file. Consider using a MAT file or a function string to avoid it.</li>
+	</ul>
+</ul>
+
+<h3 id="TTLOutput">TTLOutput</h3>
+<ul>
+	<p>This adapter sends out TTL pulses via digital lines.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true when all pulses are sent out</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When Success becomes true</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Port:</strong> TTL # assigned in the I/O menu. Multiple ports can be assigned as a vector.</li>
+		<li><strong>Duration:</strong> Pulse lengths in milliseconds; optional.</li>
+		<li><strong>Delay:</strong> Delay (milliseconds) in starting the pulses; optional.</li>
+	</ul>
+	<p class="example">Example 1:</p>
+	<ul class="example">bhv_code(10,<mg>'TTL on'</mg>,20,<mg>'TTL off'</mg>);
+ttl = TTLOutput(null_);
+ttl.Port = 1;         <gr>% TTL #1 must be assigned in the I/O menu.</gr>
+tc = TimeCounter(ttl);
+tc.Duration = 1000;   <gr>% TTL duration is determined by TimeCounter.</gr>
+scene = create_scene(tc);
+run_scene(scene,10);  <gr>% on</gr>
+idle(100,[],20);      <gr>% off</gr>
+</ul>
+	<p class="example">Example 2:</p>
+	<ul class="example">ttl = TTLOutput(null_);
+ttl.Port = [1 2];           <gr>% TTL #1 & #2 must be assigned in the I/O menu.</gr>
+ttl.Duration = [500 1000];  <gr>% The 1st pulse is 500 ms long and the 2nd pulse is 1000 ms.</gr>
+scene = create_scene(ttl);
+run_scene(scene);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>If <b>Duration</b> is not specified, the pulse is turned off at the end of the scene.</li>
+		<li>If <b>Delay</b> or <b>Duration</b> is set, a background process is created to count the elapsed time. This allows presenting TTLs of which duration is not a multiple of a frame length, but the onset time may vary due to the background process creation.</li>
+		<li>If the background TTLs are not triggered before the trial end, they are cancelled automatically.</b>
+		<li>See <a href="docs_MainMenu.html#DAQSettings">Main Menu, DAQ board settings</a>, regarding to inverted TTLs.</li>
+	</ul>
+</ul>
+
+<h3 id="AllContinue">AllContinue</h3>
+<ul>
+	<p>This adapter combines multiple adapter chains and continues the scene while all the child chains continue.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true if none of the child chains stopped.</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When any child chain stops.</li>
+	</ul>
+	<p class="method">Methods:</p>
+	<ul class="method">
+		<li><strong>add(adapter)</strong>: Add another adapter chain</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">btn = SingleButton(button_);
+btn.Button = 1;
+fix = SingleTarget(eye_);
+fix.Target = [-5 5];
+fix.Threshold = 3;
+wth = WaitThenHold(fix);
+wth.WaitTime = 3000;
+wth.HoldTime = 0;
+ac = AllContinue(btn);
+ac.add(wth);
+scene = create_scene(ac);
+run_scene(scene);  <gr>% The scene ends upon either eye fixation, button press or time over</gr>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>Note that AllContinue's behavior is dependent on the child chains' stop conditions, not the success conditions.</li>
+	</ul>
+</ul>
+
+<h3 id="AnyContinue">AnyContinue</h3>
+<ul>
+	<p>This adapter combines multiple adapter chains and continues the scene if any of the child chains continues.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true if not all child chains stopped.</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When all child chains stop.</li>
+	</ul>
+	<p class="method">Methods:</p>
+	<ul class="method">
+		<li><strong>add(adapter)</strong>: Add another adapter chain</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">btn = SingleButton(button_);
+btn.Button = 1;
+fix = SingleTarget(eye_);
+fix.Target = [-5 5];
+fix.Threshold = 3;
+wth = WaitThenHold(fix);
+wth.WaitTime = 3000;
+wth.HoldTime = 0;
+ac = AnyContinue(btn);
+ac.add(wth);
+scene = create_scene(ac);
+run_scene(scene);  <gr>% The scene ends upon either eye fixation & button press or time over</gr>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>Note that AnyContinue's behavior is dependent on the child chains' stop conditions, not the success conditions.</li>
+	</ul>
+</ul>
+
+<h3 id="Concurrent">Concurrent</h3>
+<ul>
+	<p>This adapter runs multiple adapter chains simultaneously but watches only the first chain added. This adapter is useful to add extra graphics.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true when the first chain succeeds</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the first chain stops</li>
+	</ul>
+	<p class="method">Methods:</p>
+	<ul class="method">
+		<li><strong>add(adapter)</strong>: Add another adapter chain</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">fix = SingleTarget(eye_);   <gr>% Child chain 1: check eye fixation on the center</gr>
+fix.Target = [0 0];
+fix.Threshold = 3;
+grat = SineGrating(null_);  <gr>% Child chain 2: display a grating and a fixation point</gr>
+grat.Position = [5 5];
+crc = CircleGraphic(grat);
+crc.FaceColor = [1 0 0];
+con = Concurrent(fix);      <gr>% This scene will end when the fixation is acquired (i.e., when Child</gr>
+con.add(crc);               <gr>% chain 1 succeeds). Chain 2 is just for graphics.</gr>
+scene = create_scene(con);
+run_scene(scene);
+idle(0);
+</ul>
+</ul>
+
+<h3 id="Sequential">Sequential</h3>
+<ul>
+	<p>This adapter runs multiple chains sequentially.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true when the last chain is finished succesfully</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When any chain stops with its Success false or when the last chain is finished</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>EventMarker:</strong> Event marker(s) to send out, when each chain begins. Use NaN to skip a particular chain.</li>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>CurrentChain:</strong> Chain # that is currently running or the last chain that ran, if the adapter stopped before finishing all the chains.</li>
+	</ul>
+	<p class="method">Methods:</p>
+	<ul class="method">
+		<li><strong>add(adapter)</strong>: Add another adapter chain</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example"><gr>% any1 -- seq1a -- tc1a -- box1
+%    |        +--- tc1b
+%    |
+%    +--- seq1b -- tc1c
+%             +--- tc1d -- crc1</gr>
+box1 = BoxGraphic(null_);     <gr>% 1st chain of seq1a</gr>
+box1.List = { [1 1 1], [1 1 1], 1, [-5 0], 1, 0 };
+tc1a = TimeCounter(box1);
+tc1a.Duration = 2000;
+tc1b = TimeCounter(null_);    <gr>% 2nd chain of seq1a</gr>
+tc1b.Duration = 1000;
+seq1a = Sequential(tc1a);
+seq1a.add(tc1b);   <gr>% seq1a runs two chains sequentially. A box for 2 s and a blank for 1 s</gr>
+
+tc1c = TimeCounter(null_);    <gr>% 1st chain of seq1b</gr>
+tc1c.Duration = 1000;
+crc1 = CircleGraphic(null_);  <gr>% 2nd chain of seq1b</gr>
+crc1.List = { [1 1 1], [1 1 1], 1, [5 0], 1, 0 };
+tc1d = TimeCounter(crc1);
+tc1d.Duration = 2000;
+seq1b = Sequential(tc1c);
+seq1b.add(tc1d);   <gr>% seq1b runs two chains sequentially. A blank for 1 s and then a circle for 2 s</gr>
+
+any1 = AnyContinue(seq1a);    <gr>% Run both seq1a and seq1b simultaneously.</gr>
+any1.add(seq1b);              <gr>% The box and the circle will be overlapped in time for 1 s.</gr>
+scene1 = create_scene(any1);
+run_scene(scene1);
+idle(0);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>This adapter can be used to combine multiple scenes into one.</li>
+	</ul>
+</ul>
+
+<h3 id="AndAdapter">AndAdapter</h3>
+<ul>
+	<p>This adapter combines multiple adapter chains and finishes the scene when all the chains succeed.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true when all child chains' Success property become true</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <strong>Success</strong> becomes true</li>
+	</ul>
+	<p class="method">Methods:</p>
+	<ul class="method">
+		<li><strong>add(adapter)</strong>: Add another adapter chain</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">btn = SingleButton(button_);
+btn.Button = 1;
+fix = SingleTarget(eye_);
+fix.Target = [-5 5];
+fix.Threshold = 3;
+and = AndAdapter(btn);
+and.add(fix);
+scene = create_scene(and);
+run_scene(scene);  <gr>% The scene ends when the eye fixation is made AND the button is pressed</gr>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>Note that AndAdapter's behavior is dependent on the child chains' success conditions, not the stop conditions.</li>
+	</ul>
+</ul>
+
+<h3 id="OrAdapter">OrAdapter</h3>
+<ul>
+	<p>This adapter combines multiple adapter chains and finishes the scene when any one of them succeeds.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true when the Success property of any one adapter chain becomes true</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When <strong>Success</strong> becomes true</li>
+	</ul>
+	<p class="method">Methods:</p>
+	<ul class="method">
+		<li><strong>add(adapter)</strong>: Add another adapter chain</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">btn = SingleButton(button_);
+btn.Button = 1;
+fix = SingleTarget(eye_);
+fix.Target = [-5 5];
+fix.Threshold = 3;
+or = OrAdapter(btn);
+or.add(fix);
+scene = create_scene(or);
+run_scene(scene);  <gr>% The scene ends when the eye fixation is made OR the button is pressed</gr>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>Note that OrAdapter's behavior is dependent on the child chains' success conditions, not the stop conditions.</li>
+	</ul>
+</ul>
+
+<h3 id="NotAdapter">NotAdapter</h3>
+<ul>
+	<p>This adapter negates the Success state of the child adapter.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> the opposite of the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">btn = SingleButton(button_);
+btn.Button = 1;
+fix = SingleTarget(eye_);
+fix.Target = [-5 5];
+fix.Threshold = 3;
+nofix = NotAdapter(fix);  <gr>% invert the Success state of SingleTarget</gr>
+and = AndAdapter(btn);
+and.add(nofix);
+scene = create_scene(and);
+run_scene(scene);  <gr>% The scene ends when the button is pressed AND the eye fixation is NOT acquired</gr>
+</ul>
+</ul>
+
+<h3 id="DragAndDrop">DragAndDrop</h3>
+<ul>
+	<p>This adapter tracks the selected graphic stimulus until it is released from the previous hold. If the released location is close to the destination, the stimulus is pulled to the destination like a magnet. Otherwise, it goes back to the initial location.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> true when the stimulus is dropped on one of the destinations</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the stimulus is released from the hold (i.e., dropped) and moved to either destination or initial location.</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>Target:</strong> Either a graphic TaskObject or a graphic adapter. To select one object from a graphic adapter that contains multiple objects, use setTarget().</li>
+		<li><strong>Destination:</strong> [x1 y1; x2 y2; ...] in degrees</li>
+		<li><strong>Gravity:</strong> Degrees per second</li>
+		<li><strong>GravityWindow:</strong> Radius in degrees; [width height] for a rectangular window</li>
+		<li><strong>Color:</strong> Color of the gravity window</li>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>DropTime:</strong> trialtime when the stimulus is released</li>
+		<li><strong>DroppedDestination:</strong> Index # of the dropped destination. 0, if not dropped on any destination.</li>
+	</ul>
+	<p class="method">Methods:</p>
+	<ul class="method">
+		<li><strong>setTarget(graphic_obj<i>, index</i>):</strong> If the graphic adapter has multiple objects created with the List property, set the optional <i>index</i> argument to indicate which one should be used.</li>
+		<li><strong>reset():</strong> Return the target to its initial position.</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">txt1 = TextGraphic(null_);
+txt1.Text = <mg>'+'</mg>;
+txt1.Position = [5 0];
+txt1.FontSize = 30;
+txt1.HorizontalAlignment = <mg>'center'</mg>;
+txt1.VerticalAlignment = <mg>'middle'</mg>;
+
+crc1 = CircleGraphic(null_);
+crc1.EdgeColor = [1 0 0];
+crc1.FaceColor = [0 0 01];
+crc1.Size = 3;
+crc1.Position = [-5 0];
+
+tar1 = SingleTarget(touch_);
+tar1.Target = crc1.Position;
+tar1.Threshold = 3;
+wth1 = WaitThenHold(tar1);
+wth1.WaitTime = 10000;
+wth1.HoldTime = 50;
+con1 = Concurrent(wth1);
+con1.add(crc1);
+con1.add(txt1);
+scene1 = create_scene(con1);
+
+dd2 = DragAndDrop(touch_);
+dd2.Destination = txt1.Position;
+dd2.GravityWindow = 3;
+dd2.Target = crc1;
+con2 = Concurrent(dd2);
+con2.add(txt1);
+scene2 = create_scene(con2);
+
+dashboard(1,<mg>''</mg>);
+
+run_scene(scene1);
+<bl>if</bl> wth1.Success
+    run_scene(scene2);
+<bl>end</bl>
+
+<bl>if</bl> ~wth1.Success
+    dashboard(1,<mg>'Not picked!'</mg>);
+<bl>elseif</bl> ~dd2.Success
+    dashboard(1,<mg>'Not on the destination!'</mg>);
+<bl>else</bl>
+    dashboard(1,<mg>'Good job!'</mg>);
+<bl>end</bl>
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>This adapter requires touch input.</li>
+		<li>Before DragAndDrop is called, the target should already be touched. Confirm the finger touch first in the previous scene, as shown in the above example.</li>
+	</ul>
+</ul>
+
+<h3 id="FixTimeAnalyzer">FixTimeAnalyzer</h3>
+<ul>
+	<p>This adapter counts how long a XY tracker stays in the threshold window.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="property">Output properties:</p>
+	<ul class="property">
+		<li><strong>FixTime:</strong> Total accumulated fixation time in milliseconds</li>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">fix.Target = [0 0];
+fix.Threshold = 3;
+fta = FixTimeAnalyzer(fix);
+tc = TimeCounter(fta);
+tc.Duration = 5000;
+scene = create_scene(tc);
+run_scene(scene);
+dashboard(1, sprintf(<mg>'Fixation time: %d ms'</mg>,fta.FixTime));
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li><strong>FixTime</strong> can be different from the actual duration if the fixation already started before the scene or the task runs in the simulation mode.</li>
+	</ul>
+</ul>
+
+<h3 id="RewardScheduler">RewardScheduler</h3>
+<ul>
+	<p>This adapter delivers rewards at given intervals while its child adapter's Success state is true.</p>
+	<p class="success">Success Condition:</p>
+	<ul class="success">
+		<li><strong>Success:</strong> The same value as the child adapter's Success</li>
+	</ul>
+	<p class="stop">Stop Condition:</p>
+	<ul class="stop">
+		<li>When the child adapter stops</li>
+	</ul>
+	<p class="property">Input properties:</p>
+	<ul class="property">
+		<li><strong>JuiceLine:</strong> Reward channel to trigger; 1, by default.</li>
+		<li><strong>Schedule:</strong> An n-by-5 matrix.</li>
+		<ul>
+			<li>1st column: Min Success duration for the schedule in that row to be selected (in milliseconds)</li>
+			<li>2nd column: Min reward interval to next reward (in milliseconds)</li>
+			<li>3rd column: Max reward interval to next reward (in milliseconds)</li>
+			<li>4th column: Reward pulse length (in milliseconds)</li>
+			<li>5th column: Eventcode for reward (optional)</li>
+		</ul>
+	</ul>
+	<p class="example">Example:</p>
+	<ul class="example">tc = TimeCounter(null_);
+tc.Duration = 10000;
+fix = SingleTarget(eye_);
+fix.Target = [0 0];
+fix.Threshold = 5;
+rwd = RewardScheduler(fix);
+rwd.Schedule = [0 1000 1000 100;  <gr>% Once fixation starts, deliver a 100-ms reward every seconds</gr>
+    5000 800 800 200];  <gr>% if fix is maintained longer than 5 s, give a 200-ms reward every 800 ms</gr>
+con = Concurrent(tc);
+con.add(rwd);
+scene = create_scene(con);
+run_scene(scene);
+</ul>
+	<p class="remark">Remarks:</p>
+	<ul class="remark">
+		<li>The success duration and reward intervals given in the 1st to 3rd columns in <b>Schedule</b> are rounded to the nearest multiple of the frame length. The reward duration in the 4th column is not.</li>
+	</ul>
+</ul>
+
+<h3 id="behaviorsummary">behaviorsummary</h3>
+<ul>
+	<p>This function reads data files and shows a performance summary.</p>
+</ul>
+
+<h3 id="convert_format">convert_format (also bhv2bhvz / bhv2h5 / bhv2mat)</h3>
+<ul>
+	<p>This function rewrites NIMH ML data files (*.bhv2, *.bhvz, *.h5, *.mat) in a different format.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">convert_format(format);            <gr>% target file format: 'bhv2', 'bhvz', 'h5' or 'mat'</gr>
+convert_format(format, filelist);  <gr>% filelist can be a cell array for multiple files</gr>
+
+bhv2bhvz;                          <gr>% the same as convert_format('bhvz')</gr>
+bhv2bhvz(filelist);
+</ul>
+	<p class="syntax">Remarks:</p>
+	<ul class="remark">
+		<li>New files are created in the current directory.</li>
+		<li>The format of the source file is automatically determined from the file extension.</li>
+		<li>bhv2bhvz, bhv2h5 and bhv2mat are just a wrapper of convert_format(). They convert source files of any extension, not just BHV2.</li>
+	</ul>
+</ul>
+
+<h3 id="mlconcatenate">mlconcatenate</h3>
+<ul>
+	<p>This function combines trial-by-trial analog data into one large matrix and adjusts all timestamps accordingly, as if they are recorded in one single trial.
+	It is useful when reading data files that are continuously recorded through inter-trial intervals. This command does not process webcams and high frequency channels,
+	since loading them all at once can cause an out-of-memory error.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">data = mlconcatenate;
+data = mlconcatenate(filename);
+[data, MLConfig, TrialRecord, filename] = mlconcatenate;
+</ul>
+</ul>
+
+<h3 id="mlexportstim">mlexportstim</h3>
+<ul>
+	<p>This function extracts saved stimuli from the data file.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">stim_path = mlexportstim;  <gr>% open dialogs to pick up a data file and a destination folder</gr>
+mlexportstim(destination_path, datafile);
+</ul>
+</ul>
+
+<h3 id="mlexportwebcam">mlexportwebcam</h3>
+<ul>
+	<p>This function reads webcam videos from the data file and saves them as MP4. It is possible to strip off the videos completely from the data file by setting the <b>delete_video</b> option true. The original files will be kept in the "orig" folder.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">mlexportwebcam
+mlexportwebcam(datafile)
+mlexportwebcam(datafile, delete_video)
+</ul>
+</ul>
+
+<h3 id="mlimportwebcam">mlimportwebcam</h3>
+<ul>
+	<p>This function attaches exported webcam videos (MP4s) back to the data file. If the video files are not in the same folder as the data file, a path to the videos can be provided.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">mlimportwebcam
+mlimportwebcam(datafile)
+mlimportwebcam(datafile, video_folder)
+</ul>
+</ul>
+
+<h3 id="mlplayer">mlplayer</h3>
+<ul>
+	<p>This function opens a trial-replay and video-exporting dialog.</p>
+</ul>
+
+<h3 id="mlread">mlread</h3>
+<ul>
+	<p>This function provides a unified read interface for all the data formats (*.bhv2; *.bhvz; *.h5; *.mat). It returns trial-by-trial data in a 1-by-n array of structures.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">data = mlread;
+data = mlread(filename);
+[data, MLConfig, TrialRecord, filename] = mlread(__);
+</ul>
+</ul>
+
+<h3 id="mlreadsignal">mlreadsignal</h3>
+<ul>
+	<p>This function reads signals recorded at unconventional sample rates (i.e., not 1 kHz), such as High Frequency, Voice and Webcam.  These data usually have a large size, so loading them up all at once may cause an out-of-memory error. For that reason, <b>mlread</b> and <b>mlconcatenate</b> do not load them. Use this function instead.</p>
+	<p class="syntax">Syntax:</p>
+	<ul class="syntax">signal = mlreadsignal(signal_type); <gr>% 'highfrequency1' (or 'high1'), 'voice',
+                                    % 'webcam1' (or 'cam1'), etc.</gr>
+signal = mlreadsignal(signal_type, trial_number);  <gr>% trial_number is 1, if not assigned</gr>
+signal = mlreadsignal(signal_type, trial_number, filename);
+[video, timestamp] = mlreadsignal('webcam1',__);   <gr>% webcam returns timestamps as well</gr>
+</ul>
+</ul>
+
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

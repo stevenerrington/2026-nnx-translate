@@ -1,0 +1,220 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_TaskObjects.html">Appx., TaskObjects</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_RuntimeFunctions.html">Appx., Function Manual</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>TrialRecord Structure</h1>
+			
+			<p>TrialRecord is a MATLAB struct that contains information about the trial history. It is used as an input argument to many functions, such as timing scripts, condition-selection functions, block-selection functions, block-change functions, user-plot functions and user-generated image functions. This structure has the following fields that are updated every trial.</p>
+
+<table>
+
+<tr align="center">
+<td width="220"><strong>Fields of TrialRecord</strong></td>
+<td><strong>Remarks</strong></td>
+</tr>
+
+<tr>
+<td>CurrentTrialNumber</td>
+<td>The currently executing trial number, consecutively numbered from the start of the session (scalar)</td>
+</tr>
+
+<tr>
+<td>CurrentTrialWithinBlock</td>
+<td>The currently executing trial number, consecutively numbered from the start of the current block (scalar)</td>
+</tr>
+
+<tr>
+<td>CurrentCondition</td>
+<td>The condition number of the current trial (scalar)</td>
+</tr>
+
+<tr>
+<td>CurrentBlock</td>
+<td>The block number of the current trial (scalar)</td>
+</tr>
+
+<tr>
+<td>CurrentBlockCount</td>
+<td>The total number of blocks played thus far, including the current one (scalar)</td>
+</tr>
+
+<tr>
+<td>CurrentConditionInfo</td>
+<td>A struct created from the "info" column of the conditions file</td>
+</tr>
+
+<tr>
+<td>CurrentConditionStimulusInfo</td>
+<td>Information about the stimuli used in the current trial (cell array, one cell per TaskObject)</td>
+</tr>
+
+<tr>
+<td>ConditionsPlayed</td>
+<td>The list of conditions played since the start of the session (a vector of length (CurrentTrialNumber - 1))</td>
+</tr>
+
+<tr>
+<td>ConditionsThisBlock</td>
+<td>The list of conditions which are available for selection from within the current block (vector of variable length)</td>
+</tr>
+
+<tr>
+<td>BlocksPlayed</td>
+<td>The list of blocks played since the start of the session (a vector of length (CurrentTrialNumber - 1))</td>
+</tr>
+
+<tr>
+<td>BlockCount</td>
+<td>The number of blocks played, as of any given trial thus far (a vector of length (CurrentTrialNumber - 1))</td>
+</tr>
+
+<tr>
+<td>BlockOrder</td>
+<td>The order of blocks played thus far, including the current block (vector)</td>
+</tr>
+
+<tr>
+<td>BlocksSelected</td>
+<td>The list of blocks available, as selected from the main menu (vector)</td>
+</tr>
+
+<tr>
+<td>TrialErrors</td>
+<td>The list of behavioral errors for every trial played so far (a vector of length (CurrentTrialNumber - 1)). See also the <b><a href="docs_RuntimeFunctions.html#trialerror">trialerror</a></b> function.</td>
+</tr>
+
+<tr>
+<td>ReactionTimes</td>
+<td>The list of reaction times for every trial played so far (a vector of length (CurrentTrialNumber - 1))</td>
+</tr>
+
+<tr>
+<td>LastTrialAnalogData</td>
+<td>A structure containing the fields EyeSignal and Joystick, with the x- and y-vectors of the last trial's analog signals</td>
+</tr>
+
+<tr>
+<td>LastTrialCodes</td>
+<td>A structure containing the fields CodeNumbers and CodeTimes, containing vectors corresponding to each</td>
+</tr>
+
+<tr>
+<td>Editable</td>
+<td>A struct of "editable" variables defined in the timing script</td>
+</tr>
+
+<tr>
+<td>DataFile</td>
+<td>Name of the current data file</td>
+</tr>
+
+</table>
+
+			<p class="line-spacing2">While the above fields are automatically updated by NIMH ML and not editable, there are a few other user-editable fields for task flow control and screen updates.</p>
+
+<table>
+
+<tr align="center">
+<td width="220"><strong>Fields of TrialRecord</strong></td>
+<td width="150"><strong>Default Value</strong></td>
+<td><strong>Remarks</strong></td>
+</tr>
+
+<tr>
+<td>Pause</td>
+<td>false</td>
+<td>If true, the task pauses after the current trial.</td>
+</tr>
+
+<tr>
+<td>Quit</td>
+<td>false</td>
+<td>If true, the task quits after the current trial.</td>
+</tr>
+
+<tr>
+<td>DrawTimeLine</td>
+<td>true</td>
+<td>If false, the Time Line panel of the control screen is NOT updated after each trial. This option is useful to suppress the output, when there are too many event codes to draw.</td>
+</tr>
+
+<tr>
+<td>MarkSkippedFrames</td>
+<td>false</td>
+<td>If true, eventcode 13 is marked in case of frame skipping.</td>
+</tr>
+
+<tr>
+<td>DiscardSkippedFrames</td>
+<td>true</td>
+<td>If false, skipped frames are presented again. This does not mean that NIMH ML keeps the contents of skipped frames. NIMH ML simply redraws the screen without increasing the frame number.</td>
+</tr>
+
+<tr>
+<td>User</td>
+<td>struct</td>
+<td>Users can create temporary variables in this field that they want to pass to other functions across trials.</td>
+</tr>
+
+</table>
+			<p class="line-spacing2">In the original ML, users could add custom fields to TrialRecord to pass variables around. In NIMH ML, such a trick does not work, because TrialRecord is a class object, not a struct. If you need custom fields, use <b>TrialRecord.User</b> instead.</p>
+<code><strike>TrialRecord.var1 = 200;</strike>       <gr>% fine in the original ML, but not in NIMH ML</gr>
+TrialRecord.User.var1 = 200;  <gr>% good with NIMH ML</gr>
+</code>
+			<p><u>Note that the fields you create under TrialRecord.User are NOT automatically saved to the data file.</u> You should use the <b><a href="docs_RuntimeFunctions.html#bhv_variable">bhv_variable</a></b> function to keep the records of them.</p>
+
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

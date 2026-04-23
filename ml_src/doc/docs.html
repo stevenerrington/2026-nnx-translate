@@ -1,0 +1,162 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_ParallelPortPinout.html">Appx. Parallel Port Pinout</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_GettingStarted.html">Getting Started</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>Table of Contents</h1>
+			<p class="hide-in-print">These documents are available offline. See the doc directory in the NIMH ML installation path or <a href="images/tips_offline_manual.png">click the "?" icon on the main menu</a>.</p>
+			<ol type="I">
+				<li><a href="about.html">About NIMH MonkeyLogic</a></li>
+				<li><a href="index.html#Features">Features</a></li>
+				<li><a href="index.html#SystemRequirements">System Requirements</a></li>
+				
+				<li><a href="docs_GettingStarted.html">Getting Started</a></li>
+				<ol type="A" style="padding-left:4em">
+					<li><a href="docs_GettingStarted.html#ObtainingNIMHMonkeyLogic">Obtaining NIMH MonkeyLogic</a></li>
+					<li><a href="docs_GettingStarted.html#SoftwareInstallation">Software Installation</a></li>
+					<li><a href="docs_GettingStarted.html#StartingNIMHMonkeyLogic">Starting NIMH MonkeyLogic</a></li>
+					<li><a href="docs_GettingStarted.html#FormatsSupported">File Formats Supported by NIMH MonkeyLogic</a></li>
+					<li><a href="docs_GettingStarted.html#AlignTimestampsAndAnalogData">Aligning Timestamps and Analog Data</a></li>
+					<li><a href="docs_GettingStarted.html#MigratingFromOriginalML">Migrating from the Original MonkeyLogic</a></li>
+				</ol>
+				
+				<li><a href="docs_MainMenu.html">Main Menu</a></li>
+				<ol type="A" style="padding-left:4em">
+					<li><a href="docs_MainMenu.html#Logo">Logo & Load/Save Settings</a></li>
+					<li><a href="docs_MainMenu.html#ConditionsFile">Conditions File & Run Button</a></li>
+					<li><a href="docs_MainMenu.html#Video">Video</a></li>
+					<li><a href="docs_MainMenu.html#InputOutput">Input / Output</a></li>
+					<ol style="padding-left:4em">
+						<li><a href="docs_MainMenu.html#DAQSettings">DAQ board settings</a></li>
+						<li><a href="docs_MainMenu.html#OtherDeviceSettings">Other device settings (USB, etc.)</a></li>
+						<ol type="i" style="padding-left:4em">
+							<li><a href="docs_AudioEngine.html">Audio Engine</a></li>
+							<li><a href="docs_MainMenu.html#HighFrequency">High-frequency Sampling</a></li>
+							<li><a href="docs_MainMenu.html#MouseKey">Mouse / Key</a></li>
+							<li><a href="docs_MainMenu.html#Touchscreen">Touchscreen</a></li>
+							<li><a href="docs_MainMenu.html#USBJoystick">USB / Network Joystick</a></li>
+							<li><a href="docs_MainMenu.html#Webcam">Webcam</a></li>
+							<li><a href="docs_TCPIPEyeTracker.html">TCP/IP Eye Tracker</a></li>
+							<li><a href="docs_BluetoothRewardTrigger.html">Arduino for Reward</a></li>
+							<li><a href="docs_MainMenu.html#VoiceRecording">Voice Recording</a></li>
+							<li><a href="docs_MainMenu.html#LSL">Lab Streaming Layer</a></li>
+						</ol>
+						<li><a href="docs_IOTest.html">I/O Test</a></li>
+					</ol>
+					<li><a href="docs_MainMenu.html#Task">Task</a></li>
+					<ol style="padding-left:4em">
+						<li><a href="docs_AlertFunction.html">Alert function</a></li>
+						<li><a href="docs_TaskflowControl.html">Task flow control</a></li>
+					</ol>
+				</ol>
+				
+				<li><a href="docs_CreatingTask.html">Creating a Task</a></li>
+				<ol type="A" style="padding-left:4em">
+					<li><a href="docs_CreatingTask.html#ConditionsFile">Conditions File</a></li>
+					<li><a href="docs_CreatingTask.html#Userloop">Userloop Function</a></li>
+					<li><a href="docs_CreatingTask.html#RuntimeVersion1">Timing Script v1</a></li>
+					<li><a href="docs_CreatingTask.html#RuntimeVersion2">Timing Script v2 (Scene Framework)</a></li>
+					<ol style="padding-left:4em">
+						<li><a href="docs_CreatingTask.html#RuntimeVersion2_Background">Background</a></li>
+						<li><a href="docs_CreatingTask.html#WhatIsTheAdapter">What is the adapter?</a></li>
+						<li><a href="docs_CreatingTask.html#HowToCreateAdapterChains">How to create adapter chains</a></li>
+						<li><a href="docs_CreatingTask.html#SceneAnalysis">Scene analysis</a></li>
+						<li><a href="docs_CreatingTask.html#RunSceneParam">Making your own adapter</a></li>
+					</ol>
+					<li><a href="docs_ScriptingScenes.html">Scripting Scenes</a></li>
+					<ol style="padding-left:4em">
+						<li><a href="docs_ScriptingScenes.html#GraphicAdapters">Graphic adapters</a></li>
+						<li><a href="docs_ScriptingScenes.html#AdapterAggregators">Adapter aggregators</a></li>
+					</ol>
+				</ol>
+				
+				<li><a href="docs_RunningTask.html">Running a Task</a></li>
+				<ol type="A" style="padding-left:4em">
+					<li><a href="docs_RunningTask.html#LoadConditions">Loading a Conditions/Userloop File</a></li>
+					<li><a href="docs_RunningTask.html#PauseMenu">Pause Menu</a></li>
+					<li><a href="docs_RunningTask.html#ControlScreen">Control Screen</a></li>
+					<li><a href="docs_RunningTask.html#BehaviorSummary">Behavioral Summary & mlplayer</a></li>
+				</ol>
+				
+				<li>Hardware Setup</li>
+				<ol type="A" style="padding-left:4em">
+					<li><a href="docs_MonitorSetup.html">Monitor</a></li>
+					<li><a href="docs_NIMultifunctionIODevice.html">NI Multifunction I/O Device</a></li>
+					<li><a href="docs_CalibratingEyeJoy.html">Calibrating Eye/Joystick Signals</a></li>
+					<li><a href="docs_TouchscreenSetup.html">Touchscreen</a></li>
+					<li><a href="docs_BluetoothRewardTrigger.html">Arduino for Reward</a></li>
+					<li><a href="docs_PhotodiodeTuner.html">Photodiode Tuner</a></li>
+				</ol>
+				
+				<li>Appendix</li>
+				<ol type="A" style="padding-left:4em">
+					<li><a href="docs_TaskObjects.html">TaskObjects</a></li>
+					<li><a href="docs_TrialRecordStructure.html">TrialRecord Structure</a></li>
+					<li><a href="docs_RuntimeFunctions.html">Timing script functions & Command window functions</a></li>
+					<li><a href="docs_ScreenObject.html">Screen Object</a></li>
+					<li><a href="docs_KeycodeTable.html">Keycode Table</a></li>
+					<li><a href="docs_BHV2BinaryStructure.html">BHV2 Binary Structure</a></li>
+					<li><a href="docs_HDF5Implementation.html">HDF5 Implementation</a></li>
+					<li><a href="docs_NIMHDAQToolbox.html">NIMH DAQ Toolbox</a></li>
+					<li><a href="docs_MonkeyLogicGraphicsLibrary.html">MonkeyLogic Graphics Library (MGL)</a></li>
+					<li><a href="docs_CoordinateConversion.html">Coordinate Conversion</a></li>
+					<li><a href="docs_BlackrockLEDdriver.html">Blackrock LED driver</a></li>
+					<li><a href="docs_NetworkedEyeJoy.html">Networked Eye Tracker & Joystick</a></li>
+					<li><a href="docs_ParallelPortPinout.html">Parallel Port Pinout</a></li>
+				</ol>
+				
+			</ol>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

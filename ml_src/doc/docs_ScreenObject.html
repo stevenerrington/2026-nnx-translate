@@ -1,0 +1,90 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_RuntimeFunctions.html">Appx., Function Manual</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_KeycodeTable.html">Appx., Keycode Table</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>Screen Object</h1>
+
+	<p>The <b>Screen</b> object has information about the subject screen, such as screen size, refresh rate, etc.</p>
+	<ul>
+<code>Screen.SubjectScreenRect         <gr>% [left top right bottom] in Windows coordinates</gr>
+Screen.Xsize                     <gr>% in pixels</gr>
+Screen.Ysize                     <gr>% in pixels</gr>
+Screen.SubjectScreenAspectRatio  <gr>% Xsize / Ysize</gr>
+Screen.SubjectScreenFullSize     <gr>% [Xsize Ysize]</gr>
+Screen.SubjectScreenHalfSize     <gr>% 0.5 * [Xsize Ysize]</gr>
+Screen.RefreshRate               <gr>% in hertz</gr>
+Screen.FrameLength               <gr>% in milliseconds</gr>
+Screen.BackgroundColor           <gr>% [R G B]</gr>
+Screen.PixelsPerDegree           <gr>% a positive scalar</gr>
+</code>
+	</ul>
+
+	<p>It is accessible in the timing file. Even when it is not directly available, you can retrieve it from <b>MLConfig</b>.</p>
+	<ul>
+<code>Screen = MLConfig.Screen;
+</code>
+	</ul>
+
+	<p>In adapters of the scene framework, access it via the <b>tracker</b> object.</p>
+	<ul>
+<code>Screen = obj.Tracker.Screen;  <gr>% in adapters</gr>
+</code>
+	</ul>
+</li>
+</ol>
+
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

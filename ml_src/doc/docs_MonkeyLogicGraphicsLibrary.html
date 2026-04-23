@@ -1,0 +1,179 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_NIMHDAQToolbox.html">Appx., NIMH DAQ Toolbox</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_CoordinateConversion.html">Appx., Coordinate Conversion</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>MonkeyLogic Graphics Library (MGL)</h1>
+			<p>MGL is a simple but powerful general purpose graphic library. It is developed for NIMH ML, but can be used for other applications.</p>
+
+			<h2 class="line-spacing1">Terms</h2>
+			<ul>
+<code><b>rect:</b> [left top right bottom] in Windows's coordinate system
+<b>pos:</b>  [left bottom width height] in MATLAB's coordinate system
+</code>
+				<p class="indent">In MGL, '<b>rect (or rectangle)</b>' and '<b>pos (or position)</b>' both indicate a rectangular area on the screen. However, they use different coordinates systems and have different formats. In Windows coordinates, the top-left corner of the screen is [0 0] and x & y increase as the position moves towards the bottom-right corder. In MATLAB coordinates, the bottom-left corner is [0 0] and x & y increase as the position moves towards the top-right corner. '<b>pos</b>' can be converted to '<b>rect</b>' with the <b>Pos2Rect</b> function of MGL.</p>
+<code id="Bitmap"><b>bitmap:</b> Y-by-X-by-3 (RGB) or Y-by-X-by-4 (ARGB)
+<b>movie:</b>  Y-by-X-by-3-by-N or Y-by-X-by-4-by-N (N: number of frames)
+</code>
+				<p class="indent">'<b>bitmap</b>' and '<b>movie</b>' are a <i>double</i> or <i>uint8</i> matrix of value in the range of 0 to 255. In case of a <i>double</i> matrix, its value can be 0 to 1 as well. Y-by-X-by-3 is MATLAB's format for RGB data. Y-by-X-by-4 is the format for ARGB data that MGL uses (the first color pane is the alpha channel). You can create an ARGB matrix by combining your own alpha data with RGB. Reading a PNG file with <b>mglimread</b> returns an ARGB matrix as well, if the image file contains transparency information. Also, an ARGB matrix can be saved as a PNG file with <b><a href="#Helper">mglpngwrite</a></b>.</p>
+<code><b>color:</b> [edgecolor; facecolor]                   <gr>% 2-by-3</gr>
+       [NaN NaN NaN; facecolor]                 <gr>% no outline</gr>
+       [edgecolor; NaN NaN NaN] or [edgecolor]  <gr>% open shapes
+</code>
+				<p class="indent">In MGL, the '<b>color</b>' argument is a 2-by-3 matrix. The first row is edgecolor and the second row, facecolor. If facecolor is not necessary, the second row can be omitted. [NaN NaN NaN] indicates a transparent color.</p>
+<code><b>screen:</b> 1 (subject screen) or 2 (control screen)
+</code>
+			</ul>
+
+			<h2 class="line-spacing1">Detect graphic adapters</h2>
+			<ul>
+<code>count = mglgetadaptercount
+[width,height,refresh_rate] = mglgetadapterdisplaymode(adapter_no)  <gr>% adapter_no: 1 to count</gr>
+info = mglgetadapteridentifier(adapter_no)
+rect = mglgetadapterrect(adapter_no)
+</code>
+			</ul>
+
+			<h2 class="line-spacing1">Create/Destroy screens</h2>
+			<ul>
+<code>mglcreatesubjectscreen(adapter_no,color)  <gr>% Do not use the adapter_no of the current screen</gr>
+mglcreatecontrolscreen(rect,bg_color)     <gr>% Need to create the subject screen first</gr>
+
+mgldestroycontrolscreen                   <gr>% Destruction is in the opposite order</gr>
+mgldestroysubjectscreen
+</code>
+				<p class="indent">Do not use the adapter number of your current screen (typically, 1), when creating the subject screen. If you do, the created screen will cover the entire viewing area, including the MATLAB command window. For precise timing control, the subject screen (and the control screen) does not process Windows messages. The only way to close the subject screen is to call the <b>mgldestroysubjectscreen</b> function (or shut down MATLAB).</p>
+				<p class="indent">It is not required to create the control screen, but, to do so, the subject screen should be created first. When destroying them, the order is opposite. Destroy the control screen first and then the subject screen.</p>
+				<p class="indent">While working with the created screens, you may observe that the windows of other applications do not behave well. They may become blurry and not respond to user input. These effects occur because MGL screens do not process Windows messages and therefore interfere with other applications. To fix that, just destroy the created screens and recreate them.</p>
+			</ul>
+
+			<h2 class="line-spacing1">Add objects</h2>
+			<ul>
+<code>id = mgladdbitmap(filename);        <gr>% or mgladdbitmap(bitmap);</gr>
+id = mgladdbox([edgecolor; facecolor],[width height]);
+id = mgladdcircle([edgecolor; facecolor],[width height]);
+id = mgladdline(color,max_vertex);  <gr>% and mglsetproperty(id,'addpoint',[x1 y1; x2 y2; ...]);</gr>
+id = mgladdmovie(filename);         <gr>% or mgladdmovie(movie);</gr>
+id = mgladdpie([edgecolor; facecolor],[width height],start_angle,central_angle);
+id = mgladdpolygon([edgecolor; facecolor],[width height],[x1 y1; x2 y2; ...]);
+id = mgladdtext(string);
+id = mgladdsound(filename);         <gr>% or mgladdsound(y,fs);</gr>
+</code>
+				<p class="indent">These functions add a graphic/sound object and return its object id. The id is necessary to change the properties of the object. If you lose the id, try <b>mglgetallobjects</b>.</p>
+<code>[id,type,status] = mglgetallobjects;  <gr>% type is the object type and status is the active status.</gr>
+</code>
+				<p class="indent"><b>mgladdbitmap</b> accepts a filename (*.bmp) or a bitmap matrix.</p>
+				<p class="indent">In <b>mgladdline</b>, max_vertex is the maximum number of vertices that the line segment can have. The vertex coordinates (in Windows pixel coordinates) must also be set using <b>mglsetproperty</b>.</p>
+				<p class="indent">The file type that <b>mgladdmovie</b> can accept is *.mp4, *.avi or *.mpg.</p>
+				<p class="indent">The vertex coordinates of <b>mgladdpolygon</b> should be normalized to 0 to 1 in both x and y.</p>
+				<p class="indent"><b>mgladdsound</b> can read wave files (*.wav) and mp3 (*.mp3) or take the arguments of y and fs. y can be a column vector (mono sound) or a matrix (multichannel sound). fs is the frequency.</p>
+			</ul>
+
+			<h2 class="line-spacing1">Change object properties</h2>
+			<ul>
+<code>mglsetproperty(id,<mg>'property1'</mg>,value1,<mg>'property2'</mg>,value2,...);
+</code>
+				<p class="indent">'<b>active</b>': All MGL objects have the 'active' property, which determines whether the object will be rendered/played.</p>
+				<p class="indent">'<b>origin</b>': All graphic objects, except LINE, have the 'origin' property. The 'origin' is the coordinates of the object center (in Windows pixel coordinates).</p>
+				<p class="indent">'<b>edgecolor</b>' and '<b>facecolor</b>': GDI objects (BOX, CIRCLE, PIE and POLYGON) have these properties. PIE additionally has 'startdegree' and 'centerangle'.</p>
+				</p>
+				<p class="indent">LINE has '<b>addpoint</b>', '<b>color</b>' and '<b>clear</b>' properties. The '<b>clear</b>' property doesn't require a value.</p>
+				<p class="indent">TEXT has '<b>fontface</b>','<b>fontsize</b>' and '<b>color</b>'. In addition, TEXT has many properties that do not require a value, such as '<b>normal</b>', '<b>bold</b>', '<b>italic</b>', '<b>underline</b>', '<b>strikeout</b>', '<b>left</b>', '<b>center</b>', '<b>right</b>', <b>'top</b>', '<b>middle</b>' and '<b>bottom</b>'</p>
+				<p class="indent"> For the entire list of supported properties, see <b>mglsetproperty.m</b>.
+			</ul>
+
+			<h2 class="line-spacing1">Render stimuli</h2>
+			<ul>
+<code>mglrendergraphic(frame_no)  <gr>% Static images are not affected by frame_no. It is for movies.</gr>
+mglpresent                  <gr>% Show rendered stimuli on the screens</gr>
+
+mglplaysound(id)            <gr>% id is always larger than 0. 0 indicates all objects.</gr>
+mglstopsound(id)
+</code>
+			</ul>
+
+			<h2 class="line-spacing1">Destroy objects</h2>
+			<ul>
+<code>mgldestroygraphic(id)
+mgldestroysound(id)
+</code>
+				<p class="indent">You must destroy the objects that you created, to avoid memory leak. All graphic objects are also destroyed together, when either the subject screen or the control screen is destroyed.</p>
+			</ul>
+
+			<h2 id="Helper" class="line-spacing1">Helper functions</h2>
+			<ul>
+<code>mglgetproperty(id,<mg>'property'</mg>)
+mglgetscreeninfo(screen)
+mglclearscreen(screen,color)
+mglsetscreencolor(screen,color)
+mglsubjectscreenexists
+mglcontrolscreenexists
+[inVB,scanline] = mglgetrasterstatus
+mglwait4vblank(state,screen)  <gr>% state - 0 (return when not in VB), 1 (return when in VB)</gr>
+mglkeepsystemawake(state)     <gr>% state - 1 (stay awake), 2 (normal), [] (return the current state)</gr>
+mglimread
+mglimresize
+mglimage
+mglpngwrite(argb,filename)
+GetMonitorPosition            <gr>% in MATLAB's coordinate system</gr>
+Pos2Rect                      <gr>% from MATLAB coordinates to Windows coordinates</gr>
+</code>
+				<p class="indent">See <b>mglgetproperty.m</b> for available properties of each object type.</p>
+				<p class="indent">The difference between <b>mglclearscreen</b> and <b>mglsetscreencolor</b> is that the latter does not clear the screen. Call <b>mglrendergraphic</b> and <b>mglpresent</b> manually to clear the screen.</p>
+				<p class="indent"><b>mglimread</b>, <b>mglimresize</b> and <b>mglimage</b> are similar to their MATLAB equivalents (imread, imresize and image) but can handle MGL's ARGB matrices. </p>
+				<p class="indent"><b>mglpngwrite</b> saves MGL's ARGB matrix as a PNG file with transparency information. </p>
+			</ul>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

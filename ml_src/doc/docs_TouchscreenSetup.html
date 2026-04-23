@@ -1,0 +1,72 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_CalibratingEyeJoy.html">Hardware, Eye/Joystick</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_BluetoothRewardTrigger.html">Hardware, Arduino</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>Touchscreen</h1>
+			<p class="indent">To check whether your PC has touch capability, go to <b>Settings</b> and open <b>System</b>. Then click <b>About</b> on the left panel in the resulting window. If touch input is supported, you will see "Touch support with XX touch points" or a similar message as below.</p>
+			<p><img src="images/docs_touch_system.png"></p>
+			
+			<p class="indent line-spacing2"><u>There is a pretty good chance that your touchscreen will work without installing any driver.</u> If you are certain that the display is a touchscreen but see "No pen or touch input is available", try (re)installing the display driver. Be certain to choose the right driver. For example, 3M MicroTouch series come with three types of drivers, but only the first one is compatible with Windows' built-in touch functionality.</p>
+			<p><img src="images/docs_touch_3m_microtouch.png"></p>
+			
+			<p class="indent line-spacing2">Test the screen with your finger to see if the cursor moves. The cursor may be moving on the other screen. Then go to "<b>Tablet PC Settings</b>" in the control panel and configure your touch display as shown below.</p>
+			<p><img src="images/docs_touch_control_panel.png"></p>
+			<p><img src="images/docs_touch_tablet_pc_setup.png" style="border-width:1px"></p>
+			
+			<p class="indent line-spacing2">Visual feedback for touches can be disabled in the "Pen and Touch" settings. It is automatically disabled in NIMH ML 2.2.</p>
+			<p><img src="images/docs_touch_pen_and_touch.png"></p>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

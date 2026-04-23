@@ -1,0 +1,120 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_ScriptingScenes.html">Task Build, Scripting scenes</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_MonitorSetup.html">Hardware, Monitor</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>Running a Task</h1>
+			<ol type="A">
+				<h2 id="LoadConditions"><li>Loading a Conditions/Userloop File</li></h2>
+				<p>To start a task, load either a conditions file or a userloop file. A conditions file is a text file (*.txt) that describes what stimuli need to be presented with which timing script. A userloop file (*.m) does the same but it is a MATLAB function rather than a text file.</p>
+				<p>Either file can be loaded by clicking the [Load a conditions file] button. The file-open dialog shows *.txt files, by default, so change the extension type in the dialog to choose a userloop function (*.m). Alternately create a txt file and put the filename of the userloop function in it.</p>
+				<p><img src="images\docs_runtask_blocks_to_run.png"></p>
+				<p>Upon loading a conditions file, some menu options are populated and activated, such as the "Blocks" pane and the "Blocks to run" button. These options are important to control the task flow.</p>
+				<ul type="disc">
+					<li>If you click on a different block number in the "Blocks" pane, "Total # of conditions in this block", "# of trials to run in this block" and "Count only correct trials change" change accordingly. Use these options to customize how many trials to run in each block.</li>
+					<li>"Blocks to run" permits running only a subset of the defined blocks. "First block to run" selects which blocks to run initially.</li>
+					<li>These options remain inactive, in case that a userloop function is selected (see the right panel in the above figure). It is because a userloop function is to bypass NIMH ML's built-in task control and let users decide what stimuli and which conditions file to use.</li>
+				</ul>
+				<p>"Total # of trials to run" and "Total # of blocks to run" control when the task will stop. The task will pause whichever occurs first.</p>
+				<p>Additionally, configure the size and resolution of the subject screen (see <a href="docs_CalibratingEyeJoy.html">Calibrating Eye/Joystick Signals</a>) and the DAQ device (see the <a href="docs_MainMenu.html#InputOutput">Input / Output submenu</a> & the <a href="docs_NIMultifunctionIODevice.html#AIGroundConfiguration">Analog Input Ground Configuration</a> section of NI Multifunction I/O Device), to run the experiment properly.</p>
+
+				<h2 id="PauseMenu" class="line-spacing2"><li>Pause Menu</li></h2>
+				<p><img src="images\docs_runtask_pause_menu.png"></p>
+				<p>This pause menu appears when the RUN button is hit or when the task is paused. In this menu, the following options are available. The user can use either a hotkey or mouse-click to select an option.</p>
+				<ul type="disc">
+					<li><b>[Space] key:</b> Start/resume the task</li>
+					<li><b>[Q] key:</b> Quit the task</li>
+					<li><b>[B] key:</b> Select a new block</li>
+					<li><b>[X] key:</b> Alter behavioral-error handling</li>
+					<li><b>[E] key:</b> <a href="docs_CalibratingEyeJoy.html">Recalibrate Eye #1</a></li>
+					<li><b>[R] key:</b> Recalibrate Eye #2</li>
+					<li><b>[D] key:</b> <a href="docs_MainMenu.html#DriftCorrection">Eye auto drift correction</a></li>
+					<li><b>[J] key:</b> <a href="docs_CalibratingEyeJoy.html">Recalibrate Joystick #1</a></li>
+					<li><b>[K] key:</b> Recalibrate Joystick #2</li>
+					<li><b>[I] key:</b> <a href="docs_IOTest.html">I/O test</a></li>
+					<li><b>[W] key:</b> Webcam setup</li>
+					<li><b>[V] key:</b> Edit timing file variables; see <b><a href="docs_RuntimeFunctions.html#editable">editable</a></b>.</li>
+					<li><b>[S] key:</b> Simulation mode On/Off</li>
+				</ul>
+				<p>You can adjust the size and zoom of the control screen, only while the task is paused.<p>
+				
+				<h2 id="ControlScreen" class="line-spacing2"><li>Control Screen</li></h2>
+				<p><img src="images\docs_runtask_control_screen.png"></p>
+				<ol type="1">
+					<li><b>Replica of the subject screen:</b> This panel displays extra information that is available for the experimenter only, such as the real-time input state, the location and size of fixation windows, reward delivery, etc., in addition to the stimuli presented to the subject. User-defined dynamic texts can be displayed here during trials (see the <b><a href="docs_RuntimeFunctions.html#dashboard">dashboard</a></b> runtime function).</li>
+					<li><b>Time line of events:</b> Too many (~several hundreds) events may make it really slow to update this figure. If that happens, stop updating this figure by setting <b><a href="docs_TrialRecordStructure.html">TrialRecord</a>.DrawTimeLine</b> false.</li>
+					<li><b>Trial counts and results:</b> Trial results are number-coded as specified in the <b><a href="docs_RuntimeFunctions.html#trialerror">trialerror</a></b> runtime function. The zoom level is adjustable only while the task is paused.</li>
+					<li><b>User text/warning panel:</b> Texts sent by <b><a href="docs_RuntimeFunctions.html#user_text">user_text</a></b> and <b><a href="docs_RuntimeFunctions.html#user_text">user_warning</a></b> functions are displayed here. They are updated at the end of each trial, whereas the texts sent by <b><a href="docs_RuntimeFunctions.html#dashboard">dashboard</a></b> are displayed immediately.</li>
+					<li><b>User plot:</b> This figure can be used to show the result of online behavior analysis. Users can register their own functions in the <a href="docs_MainMenu.html#Task">Task submenu</a>. If no function is registered, a default reaction time graph will be drawn. At the end of each trial, the value of the variable 'rt' is used to update this reaction time graph.</li>
+				</ol>
+				<p>During trials, the following hotkeys are available.</p>
+				<ul type="disc">
+					<li><b>[ESC] key:</b> Pauses the task after the current trial.</li>
+					<li><b>[C] key:</b> Brings Eye #1 to the center of the screen.</li>
+					<li><b>[V] key:</b> Brings Eye #2 to the center of the screen.</li>
+					<li><b>[U] key:</b> Cancels the previous ‘C’ key (Eye #1). Undo can be executed multiple times.</li>
+					<li><b>[I] key:</b> Cancels the previous ‘V’ key (Eye #2). Undo can be executed multiple times.</li>
+					<li><b>[R] key:</b> Delivers a manual reward (initial pulse duration: 100 ms, juiceline: as determined in <b>Reward</b> of the main menu).</li>
+					<li><b>[-] key:</b> Decreases the pulse duration of the manual reward by 10 ms.</li>
+					<li><b>[+] key:</b> Increases the pulse duration of the manual reward by 10 ms.</li>
+					<li><b>[F12] key:</b> Lock/unlock hotkeys when not in the simulation mode. Locking prevents hotkeys from being invoked when typing outside NIMH ML.</li>
+				</ul>
+
+				<h2 id="BehaviorSummary" class="line-spacing2"><li>Behavioral Summary & mlplayer</li></h2>
+				<p><img src="images\docs_runtask_behaviorsummary.png"></p>
+				<p>When the task is finished, a figure that summarizes behavioral performance pops up (left figure). Launch a trial replay tool, MonkeyLogic player (right figure), from this behavior summary and export each trial as a video clip. The summary figure and the player can be re-opened afterwards with the <b><a href="docs_RuntimeFunctions.html#behaviorsummary">behaviorsummary</a></b> and <b><a href="docs_RuntimeFunctions.html#mlplayer">mlplayer</a></b> functions.</p>
+			</ol>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

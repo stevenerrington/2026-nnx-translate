@@ -1,0 +1,283 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_CreatingTask.html">Creating a Task</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_RunningTask.html">Running a Task</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>Scripting Scenes</h1>
+
+			<ol>
+				<h2 id="GraphicAdapters" class="line-spacing1"><li>Graphic adapters</li></h2>
+				
+				<ol type="i">
+					<h3 class="line-spacing1"><li>Separating stimuli and behavior</li></h3>
+					<p>Graphic adapters (<a href="docs_RuntimeFunctions.html#BoxGraphic"><b>BoxGraphic</b></a>,
+						<a href="docs_RuntimeFunctions.html#CircleGraphic"><b>CircleGraphic</b></a>,
+						<a href="docs_RuntimeFunctions.html#PieGraphic"><b>PieGraphic</b></a>,
+						<a href="docs_RuntimeFunctions.html#PolygonGraphic"><b>PolygonGraphic</b></a>,
+						<a href="docs_RuntimeFunctions.html#TextGraphic"><b>TextGraphic</b></a>,
+						<a href="docs_RuntimeFunctions.html#ImageGraphic"><b>ImageGraphic</b></a>,
+						<a href="docs_RuntimeFunctions.html#MovieGraphic"><b>MovieGraphic</b></a>,
+						<a href="docs_RuntimeFunctions.html#SineGrating"><b>SineGrating</b></a>,
+						<a href="docs_RuntimeFunctions.html#RandomDotMotion"><b>RandomDotMotion</b></a> and
+						<a href="docs_RuntimeFunctions.html#GraphicContainer"><b>GraphicContainer</b></a>) are special in that they do not have a Success or stop condition. They simply pass the Success or stop status of the child adapter to the parent. (In contrast, other stimulus adapters, such as
+						<a href="docs_RuntimeFunctions.html#AudioSound"><b>AudioSound</b></a> and
+						<a href="docs_RuntimeFunctions.html#Stimulator"><b>Stimulator</b></a>, succeed when the stimulation is completed.)
+						It allows the graphic adapters to be inserted almost anywhere in a chain. See the following codes.
+					</p>
+					<table style="margin-left:2em;border:0;">
+						<tr>
+							<td style="border:0;width:33%">
+<code><span style="color:red">box = BoxGraphic(eye_);
+box.List = { [1 1 1], <bl>...</bl>
+    [1 0 0], 1, [0 0] };</span>
+fix = SingleTarget(box);
+fix.Target = [0 0];
+fix.Threshold = 3;
+wth = WaitThenHold(fix);
+wth.WaitTime = 5000;
+wth.HoldTime = 500;
+scene = create_scene(wth);
+run_scene(scene);
+</code>
+							</td>
+							<td style="border:0;width:33%">
+<code>fix = SingleTarget(eye_);
+fix.Target = [0 0];
+fix.Threshold = 3;
+<span style="color:red">box = BoxGraphic(fix);
+box.List = { [1 1 1], <bl>...</bl>
+    [1 0 0], 1, [0 0] };</span>
+wth = WaitThenHold(box);
+wth.WaitTime = 5000;
+wth.HoldTime = 500;
+scene = create_scene(wth);
+run_scene(scene);
+</code>
+							</td>
+							<td style="border:0">
+<code>fix = SingleTarget(eye_);
+fix.Target = [0 0];
+fix.Threshold = 3;
+wth = WaitThenHold(fix);
+wth.WaitTime = 5000;
+wth.HoldTime = 500;
+<span style="color:red">box = BoxGraphic(wth);
+box.List = { [1 1 1], <bl>...</bl>
+    [1 0 0], 1, [0 0] };</span>
+scene = create_scene(box);
+run_scene(scene);
+</code>
+							</td>
+						</tr>
+					</table>
+					<p>In these three examples, <b>BoxGraphic</b> is inserted in a different part of the chain but they all work. However, inserting graphic adapters in the middle of a chain makes it difficult to reuse the adapters and decreases the code readability. <u>The better practice is to separate the behavior monitoring and the stimulus presentation</u> as below. In that way, the same graphic adapter can be recycled in another chain.</p>
+<code style="margin-left:2em">box = BoxGraphic(<span style="color:red">null_</span>);   <gr>% Use NullTracker to free BoxGraphic from behavior tracking</gr>
+box.List = { [1 1 1], [1 0 0], 1, [0 0] };
+fix = SingleTarget(eye_);  <gr>% Only SingleTarget and WaitThenHold are associated with EyeTracker</gr>
+fix.Target = box;          <gr>% Use the graphic adapter as a target</gr>
+fix.Threshold = 3;
+wth = WaitThenHold(fix);
+wth.WaitTime = 5000;
+wth.HoldTime = 500;
+scene = create_scene(wth);
+run_scene(scene);
+</code>
+					
+					<h3 class="line-spacing2"><li>Controlling multiple graphic objects with one adapter</li></h3>
+					<p>One graphic adapter can contain multiple objects.</p>
+<code style="margin-left:2em">box = BoxGraphic(null_);
+box.List = { [1 1 1], [1 0 0], 1, [5 5]; ...  <gr>% This adapter has 4 squares.</gr>
+    [1 1 1], [0 1 0], 1, [-5 5]; ...
+    [1 1 1], [0 0 1], 1, [-5 -5]; ...
+    [1 1 1], [1 1 0], 1, [5 -5]; ...
+};
+</code>
+
+					<p>In this case, the length of each adapter property is increased, according to the number of objects, and the property of each object can be manipulated independently.</p>
+					<table style="border:0">
+						<tr>
+							<td style="border:0;width:25%;vertical-align:top">
+<code>>> box.Enable
+
+ans =
+
+  4×1 logical array
+
+    1
+    1
+    1
+    1
+</code>
+							</td>
+							<td style="border:0;width:25%;vertical-align:top">
+<code>>> box.Position
+
+ans =
+
+    5    5
+   -5    5
+   -5   -5
+    5   -5
+</code>
+							</td>
+							<td style="border:0;width:25%;vertical-align:top">
+<code>>> box.Scale
+
+ans =
+
+    1    1
+    1    1
+    1    1
+    1    1
+</code>
+							</td>
+							<td style="border:0;vertical-align:top">
+<code>>> box.Zorder
+
+ans =
+
+    0
+    0
+    0
+    0
+</code>
+							</td>
+						</tr>
+					</table><br>
+					
+<code>>> box.Enable([2 4]) = false;  <gr>% Hide the 2nd and 4th squares</gr>
+>> box.Scale(3,:) = [2 1];     <gr>% Increase the width of the 3rd box twice</gr>
+</code>
+					
+					<p class="line-spacing2">A multi-object adapter can be used to indicate multiple targets.</p>
+<code style="margin-left:2em">box = BoxGraphic(null_);  <gr>% 4 squares</gr>
+box.List = { [1 1 1], [1 0 0], 1, [5 5]; [1 1 1], [0 1 0], 1, [-5 5]; ...
+    [1 1 1], [0 0 1], 1, [-5 -5]; [1 1 1], [1 1 0], 1, [5 -5] };
+mul = MultiTarget(eye_);
+mul.Target = box;         <gr>% The same as mul.setTarget(box);</gr>
+mul.Threshold = 3;
+mul.WaitTime = 5000;
+mul.HoldTime = 500;
+scene = create_scene(mul);
+run_scene(scene);
+</code>
+					<p>All adapters that have the <b>Target</b> property also have the <b>setTarget()</b> method. The optional index argument of <b>setTarget()</b> allows choosing a subset of objects in an adapter.</p>
+<code style="margin-left:2em">mul.setTarget(box,[1 3]);  <gr>% Use only the 1st and 3rd boxes</gr>
+</code>
+					
+					<p class="line-spacing2">Use <a href="docs_RuntimeFunctions.html#GraphicContainer"><b>GraphicContainer</b></a> to compose complex graphics from multiple adapters. Note that the <b>add()</b> method of <b>GraphicContainer</b> also has the optional index argument.</p>
+<code style="margin-left:2em">box = BoxGraphic(null_); box.List = { [1 1 1], [1 0 0], 1, [5 5] };
+crc = CircleGraphic(null_); crc.List = { [1 1 1], [0 1 0], 1, [-5 5] };
+pie = PieGraphic(null_); pie.List = { [1 0 0], [1 1 0], 1, [-5 -5], 45, 270 };
+img = ImageGraphic(null_); img.List = { <mg>'A.bmp'</mg>, [0 0]; <mg>'B.bmp'</mg>, [5 -5] };
+gc = GraphicContainer(box);  <gr>% Aggregate all</gr>
+gc.add(crc);
+gc.add(pie);
+gc.add(img,2);               <gr>% Add only B.bmp</code>
+				</ol>
+				
+				<h2 id="AdapterAggregators" class="line-spacing2"><li>Adapter aggregators</li></h3>
+				<p>In the scene framework, adapters are linked as a chain to do complex jobs (for example, acquiring eye positions + checking eye fixation). In addition, multiple chains can be combined into a macro chain with aggregator adapters such as <a href="docs_RuntimeFunctions.html#AndAdapter"><b>AndAdapter</b></a>, <a href="docs_RuntimeFunctions.html#OrAdapter"><b>OrAdapter</b></a>, <a href="docs_RuntimeFunctions.html#AllContinue"><b>AllContinue</b></a> and <a href="docs_RuntimeFunctions.html#AnyContinue"><b>AnyContinue</b></a>. When creating a macro chain, it is even more critical to think through what is the condition that the chain has to meet to finish the scene.</p>
+
+				<p>The code snippet below is an example of a macro chain composed of two child chains: one that checks button press (colored in red) and one that monitors eye positions (in blue). <a href="docs_RuntimeFunctions.html#SingleButton"><b>SingleButton</b></a> and <a href="docs_RuntimeFunctions.html#SingleTarget"><b>SingleTarget</b></a> succeed when the button #1 is pressed and the eye is on (-5, 5), respectively, and <a href="docs_RuntimeFunctions.html#OrAdapter"><b>OrAdapter</b></a> succeeds when any child chain succeeds. Therefore, the scene ends when either button press or eye fixation is acquired.</p>
+<code style="margin-left:2em"><span style="color:red">btn = SingleButton(button_);</span>  <gr>% Child chain 1: ButtonTracker + SingleButton</gr>
+<span style="color:red">btn.Button = 1;</span>
+<span style="color:blue">fix = SingleTarget(eye_);</span>     <gr>% Child chain 2: EyeTracker + SingleTarget</gr>
+<span style="color:blue">fix.Target = [-5 5];</span>
+<span style="color:blue">fix.Threshold = 3;</span>
+or = OrAdapter(btn);          <gr>% Aggregator: Child chain 1 + Child chain 2</gr>
+or.add(fix);
+scene = create_scene(or);
+run_scene(scene);
+</code>
+				
+				<p class="line-spacing2">Since the above scene does not have a timer component, it waits for user input indefinitely. We can add <a href="docs_RuntimeFunctions.html#WaitThenHold"><b>WaitThenHold</b></a> to the second chain, to make the scene finish after a certain period, like the following.</p>
+<code style="margin-left:2em">btn = SingleButton(button_);
+btn.Button = 1;
+fix = SingleTarget(eye_);     <gr>% Child chain 2: EyeTracker + SingleTarget + WaitThenHold</gr>
+fix.Target = [-5 5];
+fix.Threshold = 3;
+<span style="color:blue">wth = WaitThenHold(fix);</span>
+<span style="color:blue">wth.WaitTime = 3000;</span>          <gr>% Wait for eye fixation up to 3 s</gr>
+<span style="color:blue">wth.HoldTime = 0;</span>
+or = OrAdapter(btn);
+or.add(<span style="color:blue">wth</span>);
+scene = create_scene(or);
+run_scene(scene);
+</code>
+
+				<p>It may look perfect now, but this scene will not end even if there is no user input for 3 s. It is because <a href="docs_RuntimeFunctions.html#WaitThenHold"><b>WaitThenHold</b></a> may stop with or without a success (i.e., with or without eye fixation) but stopping without a success does not satisfy <a href="docs_RuntimeFunctions.html#OrAdapter"><b>OrAdapter</b></a>.</p>
+				
+				<p>To make the scene work as we intended, we need to use a different aggregator that watches the stop states of child chains, instead of the success states.</p>
+<code style="margin-left:2em">btn = SingleButton(button_);
+btn.Button = 1;
+fix = SingleTarget(eye_);
+fix.Target = [-5 5];
+fix.Threshold = 3;
+wth = WaitThenHold(fix);
+wth.WaitTime = 3000;
+wth.HoldTime = 0;
+<span style="color:#aa0011">ac = AllContinue</span>(btn);        <gr>% New aggregator</gr>
+<span style="color:#aa0011">ac</span>.add(wth);
+scene = create_scene(<span style="color:#aa0011">ac</span>);
+run_scene(scene);
+</code>
+
+				<p><a href="docs_RuntimeFunctions.html#AllContinue"><b>AllContinue</b></a> stops when any of its child chains stops, regardless of their success states. Therefore the scene will end whether <a href="docs_RuntimeFunctions.html#WaitThenHold"><b>WaitThenHold</b></a> is finished by eye fixation or by time out. <a href="docs_RuntimeFunctions.html#AndAdapter"><b>AndAdapter</b></a> and <a href="docs_RuntimeFunctions.html#OrAdapter"><b>OrAdapter</b></a> monitor the success states of their child chains; <a href="docs_RuntimeFunctions.html#AllContinue"><b>AllContinue</b></a> and <a href="docs_RuntimeFunctions.html#AnyContinue"><b>AnyContinue</b></a>, the stop states.</p>
+				
+				<p>As shown in these examples, it should be considered carefully whether to use the success state or the stop state to finish a scene when designing a complex macro chain. The success and stop conditions of each adapter are explained in <a href="docs_RuntimeFunctions.html">the timing script function manual</a>. Also check out other special aggregators, such as <a href="docs_RuntimeFunctions.html#Concurrent"><b>Concurrent</b></a> and <a href="docs_RuntimeFunctions.html#Sequential"><b>Sequential</b></a>, in the manual.</p>
+			</ol>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,157 @@
+<html>
+<head>
+	<meta charset="UTF-8"> 
+	<title>NIMH ML: Docs</title>
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/mobile.css">
+	<link rel="stylesheet" href="css/print.css">
+	<script src="css/menu.js"></script>
+</head>
+<body onload="scrollToHash()" onresize="menuResizeFunction()">
+
+<nav id="top-menu">
+	<div class="page-margin">
+		<ul class="title-area">
+			<li><a href="index.html" class="site-title">NIMH MonkeyLogic</a></li>
+			<div onclick="menuFunction()" class="menu-icon"><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div><div class="menu-icon-bar"></div></div>
+		</ul>
+		<ul class="menu-area">
+			<li><a href="about.html">About</a></li>
+			<li><a href="download.html">Download</a></li>
+			<li><a href="docs.html">Docs</a></li>
+			<li><a href="https://monkeylogic.nimh.nih.gov/board/">Support</a></li>
+		</ul>
+	</div>
+</nav>
+
+<nav2 id="nav-bar">
+	<div class="page-margin">
+		<div class="link-area">
+			<b><<</b> <a href="docs_CoordinateConversion.html">Appx., Coordinate Conversion</a> &nbsp;&nbsp;&nbsp;
+			<b>>></b> <a href="docs_NetworkedEyeJoy.html">Appx. Networked Eye & Joy</a> &nbsp;&nbsp;&nbsp;
+			<b>^</b> <a href="javascript:scroll(0,0);">Top</a>
+		</div>
+	</div>
+</nav2>
+
+<section>
+	<div class="one-column">
+		<div>
+			<h1>Blackrock LED driver</h1>
+			<ol>
+				<h2 class="line-spacing2"><li>Setup</li></h2>
+				<ul>
+					<h3>Firmware update</h3>
+					<ul>
+						Blackrock's stock firmware must be updated, to make the driver work with NIMH ML. When you receive a new driver, please bring it to Jaewon.
+					</ul>
+					<h3>Install the FTDI driver</h3>
+					<ul>
+						The Blackrock LED driver box requires the FTDI D2XX driver, which can be downloaded from <a href="https://ftdichip.com/drivers/d2xx-drivers/" onClick="return external_link();">the FTDI website<span class="ext"></span></a>. The easiest way to install the driver is to download <a href="https://ftdichip.com/wp-content/uploads/2021/08/CDM212364_Setup.zip" onClick="return external_link();">the setup executable<span class="ext"></span></a>. The installation guide is available <a href="https://ftdichip.com/document/installation-guides/" onClick="return external_link();">here<span class="ext"></span></a>.
+					</ul>
+					<h3>MATLAB setup</h3>
+					<ul>
+						<p>Add the <b>daqtoolbox</b> and <b>mgl</b> directories of NIMH ML to the MATLAB path, to call the command-line functions without running NIMH ML.</p>
+					</ul>
+				</ul>
+				
+				<h2 class="line-spacing2"><li>Command-line functions</load></h2>
+				<ul>
+<code>id = BlackrockLED_init;                      <gr>% This id is required to use the other functions</gr>
+
+BlackrockLED_shot(id, intensity);            <gr>% change intensity immediately</gr>
+
+BlackrockLED_load(id, intensity, duration);  <gr>% load an intensity pattern without changing output yet</gr>
+BlackrockLED_play(id);                       <gr>% apply the pattern all at once</gr>
+
+BlackrockLED_clear(id);                      <gr>% turn off all LEDs</gr>
+
+temperature = BlackrockLED_temp(id);         <gr>% get temperature readings</gr>
+temperature = BlackrockLED_temp(id, ver);    <gr>% ver - 1: pogo pins, 2: Omnetics connectors (default)</gr>
+
+BlackrockLED_setmax(id, max_intensity);      <gr>% change the max settable intensity (0.5, by default)</gr>
+</code>
+				</ul>
+				<ul>			
+					<p class="line-spacing2"><b>intensity</b> must be between 0 (off) and 1 (maximum current) and can be in any of the following formats.</p>
+					<ul type="disc">
+						<li>a scalar (the same value for all channels)</li>
+						<li>a vector of 64 elements (individual value for each channel)</li>
+						<li>an n-by-2 matrix (a subset of the channels. [chanA intensityA; chanB intensityB; ...]). The channels not specified in the matrix are set to zero.</li>
+						<li>an n-by-64 matrix (n &le; 50, patterned output). For <b>BlackrockLED_load</b> only. In this case, <b>duration</b> indicates the period of each row.</li>
+					</ul>
+					<p><b>duration</b> is in milliseconds and must be a multiple of 2.</p>
+				</ul>
+				<ul type="square" class="line-spacing2">
+					<li><b>BlackrockLED_shot</b> sequentially changes the LED state and takes ~11 ms to turn on/off all LEDs, while <b>BlackrockLED_play</b> needs <1 ms. For precisely timed presentations, <b>BlackrockLED_load</b> + <b>BlackrockLED_play</b> should be used.</li>
+					<li><b>BlackrockLED_play</b> turns on LEDs only for a certain duration, but <b>BlackrockLED_shot</b> keeps the new state indefinately.</li>
+					<li><b>BlackrockLED_temp</b> reads temperature in a way compatible with the Omnetics connector cable, by default. Put 1 to 'ver', to make it work with the pogo pin cable.</li>
+				</ul>
+				
+				<h2 class="line-spacing2"><li>Using the LED driver in NIMH ML</li></h2>
+				<ul type="square">
+					<li>Let NIMH ML create the device "id" so that it can control stimulus presentation. The way to retrieve the created id from NIMH ML is shown below.</li>
+					<li>Only one application can be connected to the LED driver at a time, so do not declare more than one LED taskobject (or LED adapter), even when stimulating multiple times in a trial.</li>
+					<li><b>BlackrockLED_load</b> (and perhaps <b>BlackrockLED_setmax</b>) is the only command-line function needed when using the LED driver in NIMH ML. Load a pattern with <b>BlackrockLED_load</b> before calling <i>toggleobject</i> (or <i>run_scene</i>).</li>
+					<li>Loading a new pattern turns off the ongoing stimulation, so wait long enough before loading another pattern to execute multiple stimulations in a trial. Repeating the same pattern does not require reloading.</li>
+					<li>See the "task\runtime v2\27 BlackrockLED" directory for an example of multiple stimulation.</li>
+					
+					<h3 class="line-spacing2">Timing script v1</h3>
+					<ul>
+<style>
+.conditions { border:0; border-spacing:0; font-size:15; }
+.conditions td { border:0; padding:0; }
+</style>
+						<h4 style="margin-bottom:0" class="line-spacing2">LED_taskobj.txt (conditions file)</h4>
+						<table class="code conditions">
+							<tr><td>Condition</td><td>Frequency</td><td>Block</td><td>Timing File</td><td>TaskObject#1</td></tr>
+							<tr><td>1</td><td>1</td><td>1</td><td>LED_taskobj</td><td>gen(BlackrockLED_taskobj)</td></tr>
+						</table>
+						
+						<h4 style="margin-bottom:0" class="line-spacing2">LED_taskobj.m (timing script)</h4>
+<code style="margin-top:0">id = TaskObject(1).ID;              <gr>% TaskObject#1</gr>
+BlackrockLED_setmax(id, 0.005);     <gr>% change the maximum allowed intensity for safety</gr>
+BlackrockLED_load(id, 0.005, 500);
+toggleobject(1);
+idle(500);
+dashboard(1, sprintf(<mg>'LED temperature: %4.1f %4.1f %4.1f %4.1f'</mg>, BlackrockLED_temp(id)));
+idle(500);
+</code>
+					</ul>
+					<h3 class="line-spacing2">Timing script v2 (scene framework)</h3>
+					<ul>
+						<h4 style="margin-bottom:0" class="line-spacing2">LED_adapter.m (timing script)</h4>
+<code style="margin-top:0">led = BlackrockLED(null_);  <gr>% led.ID is the id, but you rarely need it in the scene framework</gr>
+led.MaxIntensity = 0.005;   <gr>% or led.setmax(intensity);</gr>
+led.load(0.005, 500);       <gr>% led.load(intensity, duration);</gr>
+tc = TimeCounter(led);
+tc.Duration = 500;
+scene = create_scene(tc);
+run_scene(scene);
+dashboard(1, sprintf(<mg>'LED temperature: %4.1f %4.1f %4.1f %4.1f'</mg>, led.Temperature));  <gr>% or
+led.temp(2);</gr>
+idle(500);
+</code>
+					</ul>
+				</ul>
+			</ol>
+		</div>
+	</div>
+</section>
+
+<div id="footerNIMH">
+	<p>The National Institute of Mental Health (NIMH) is part of the National Institutes of Health (NIH), a component of the U.S. Department of Health and Human Services.</p>
+	<ul class="logoLinks">
+		<li><a href="https://www.nih.gov/icd/od/foia/">Freedom of Information Act</a></li>
+		<li><a href="https://www.hhs.gov/vulnerability-disclosure-policy/index.html" onClick="return external_link();" class="lastTab">HHS Vulnerability Disclosure<span class="ext"></span></a></li>
+	</ul>
+	<ul class="logoLinks">
+		<li><a href="https://www.nimh.nih.gov/">National Institute of Mental Health</a></li>
+		<li><a href="https://www.nih.gov/">National Institutes of Health</a></li>
+		<li><a href="https://www.hhs.gov/" onClick="return external_link();">U.S. Department of Health and Human Services<span class="ext"></span></a></li>
+		<li><a href="https://www.usa.gov/" onClick="return external_link();" class="lastTab">USA.gov<span class="ext"></span></a></li>
+	</ul>
+</div>
+
+</body>
+</html>
